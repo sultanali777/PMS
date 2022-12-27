@@ -1,0 +1,92 @@
+﻿<!-- jQuery -->
+<script src="~/plugins/jquery/jquery.min.js"></script>
+
+
+
+<!-- Owl Carousel  -->
+<script src="~/js/owl.carousel.js"></script>
+
+
+<!-- Bootstrap 4 -->
+<script src="~/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<!-- Data Table -->
+<script src="~/js/jquery.dataTables.min.js"></script>
+<script src="~/js/dataTables.bootstrap4.min.js"></script>
+<script src="~/js/dataTables.responsive.min.js"></script>
+<script src="~/js/dataTables.fixedHeader.min.js"></script>
+<script src="~/js/responsive.bootstrap4.min.js"></script>
+<script src="~/js/dataTables.buttons.min.js"></script>
+<script src="~/js/buttons.bootstrap4.min.js"></script>
+
+<script src="~/js/jszip.min.js"></script>
+<script src="~/js/pdfmake.min.js"></script>
+<script src="~/js/vfs_fonts.js"></script>
+<script src="~/js/buttons.html5.min.js"></script>
+<script src="~/js/buttons.print.min.js"></script>
+<script src="~/js/buttons.colVis.min.js"></script>
+
+
+<script src="~/js/moment.min.js"></script>
+
+<script src="~/js/jquery.inputmask.bundle.min.js"></script>
+<script src="~/plugins/inputmask/bindings/inputmask.binding.js"></script>
+<!-- Scrollbar -->
+<script src="~/plugins/OverlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- Multi Select -->
+<script src="~/js/jquery.multiselect.js"></script>
+<!-- Date Range Picker -->
+<script src="~/js/daterangepicker.js"></script>
+<!-- Date Range -->
+<script src="~/js/jquery.datetimepicker.js"></script>
+<!-- Charts JS -->
+<script src="~/js/Chart.min.js"></script>
+<!-- AdminLTE App -->
+<script src="~/js/adminlte.min.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="~/js/demo.js"></script>
+<!-- Summernote -->
+<script src="~/plugins/summernote/summernote-bs4.min.js"></script>
+<!-- Validation -->
+<script src="~/js/jquery.validate.min.js"></script>
+<script src="~/js/additional-methods.min.js"></script>
+
+<!-- Counter -->
+<script src="~/js/jquery.numscroll.js"></script>
+
+<!-- Toaster -->
+<script src="~/js/toastr.min.js"></script>
+<!-- Gallery -->
+<script src="~/js/ekko-lightbox.min.js"></script>
+
+
+
+<script type="text/javascript">
+    $(function () {
+
+
+        var params = window.location.pathname;
+        params = params.toLowerCase();
+
+        if (params != "/") {
+            $(".nav-sidebar li a").each(function (i) {
+                var obj = this;
+                var url = $(this).attr("href");
+                if (url == "" || url == "#") {
+                    return true;
+                }
+                url = url.toLowerCase();
+                if (url.indexOf(params) > -1) {
+                    $(this).parent().addClass("active open menu-open");
+                    $(this).parent().parent().addClass("active open menu-open");
+                    $(this).parent().parent().parent().addClass("active open menu-open");
+                    $(this).parent().parent().parent().parent().addClass("active open menu-open");
+                    $(this).parent().parent().parent().parent().parent().addClass("active open menu-open");
+                    return false;
+                }
+            });
+        }
+    });
+</script>
+
+

@@ -1,0 +1,248 @@
+﻿@page
+@model IndexModel
+@using Models
+@inject UserManager<ApplicationUser> UserManager
+@{
+    ViewData["Title"] = "Home page";
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+<style>
+    .num {
+        font-size: 15px;
+        font-weight: 700;
+        display: block;
+        padding: 5px;
+        margin: 15px 0px 0px 0px;
+    }
+
+    .counter {
+        color: #fefffe;
+        background: linear-gradient(225deg, #54a178,#282c29);
+        width: 180px;
+        padding: 9px;
+        margin-top: -20px;
+        border: 5px solid #6d706d;
+        border-radius: 30px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+        .counter .counter-icon {
+            font-size: 26px;
+            margin: 0 0 10px
+        }
+
+        .counter h3 {
+            font-size: 15px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+            text-transform: capitalize;
+            float: right;
+            margin-top: 7px;
+        }
+
+        .counter .counter-value {
+            color: #558552;
+            background-color: #dbdbdb;
+            font-size: 26px;
+            font-weight: 700;
+            text-align: center;
+            border-radius: 20px;
+            display: block;
+        }
+
+        .counter.electronic {
+            background: linear-gradient(225deg,#79bffb,#4f7b97);
+        }
+
+            .counter.electronic .counter-value {
+                color: #4f7b97;
+            }
+
+        .counter.print {
+            background: linear-gradient(225deg,#5FCB71,#03776B);
+        }
+
+            .counter.print .counter-value {
+                color: #03776B;
+            }
+
+        .counter.social {
+            background: linear-gradient(225deg,#76b7d7,#195454);
+        }
+
+            .counter.social .counter-value {
+                color: #195454;
+            }
+
+        .counter.social {
+            background: linear-gradient(225deg,#778cdd,#494b5a);
+        }
+
+            .counter.social .counter-value {
+                color: #494b5a;
+            }
+
+        .counter.gp {
+            background: linear-gradient(225deg,#73b793,#35625a);
+        }
+
+            .counter.gp .counter-value {
+                color: #35625a;
+            }
+
+        .counter.hm {
+            background: linear-gradient(225deg,#a3a19e,#78564b);
+        }
+
+            .counter.hm .counter-value {
+                color: #78564b;
+            }
+
+
+    .info-box .info-box-icon {
+        width: 50px;
+        width: 50px;
+    }
+
+    .info-box {
+        min-height: 60px;
+        min-width: 140px;
+    }
+
+        .info-box .info-box-content {
+            line-height: unset;
+        }
+
+    .bg-info {
+        background-color: white !important;
+    }
+
+    img {
+        border-radius: .25rem;
+        width: 40px !important;
+        height: 40px !important;
+    }
+
+    .info-box {
+        background-color: #585d62 !important
+    }
+
+        .info-box .info-box-content {
+            padding: 0 5px;
+            font-size: 12px;
+        }
+</style>
+
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>Property Management System</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        @* --- Section Total --- *@
+        <div class="row">
+            <div class="col-md-12">
+                <div class="darkmode card">
+                    <div class="card-header bg-gradient-gray border-transparent">
+                        <h5 class="card-title">PROPERTY DETAILS</h5>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="row" style="padding: 10px; margin-bottom: -14px;">
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="small-box bg-gradient-info">
+                                            <div class="inner">
+                                                <h3 class="total"></h3>
+                                                <p>Total</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-database"></i>
+                                            </div>
+                                            <a href="/CMS/View" class="small-box-footer">
+                                                More info <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="small-box bg-gradient-info">
+                                            <div class="inner">
+                                                <h3 class="completed"></h3>
+                                                <p>Occupied</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-file"></i>
+                                            </div>
+                                            <a href="/CMS/View?status=3" class="small-box-footer">
+                                                More info <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="small-box bg-gradient-info">
+                                            <div class="inner">
+                                                <h3 class="inprogress"></h3>
+                                                <p>Vacant</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-bars-progress"></i>
+                                            </div>
+                                            <a href="/CMS/View?status=2" class="small-box-footer">
+                                                More info <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="small-box bg-gradient-info">
+                                            <div class="inner">
+                                                <h3 class="inprogress"></h3>
+                                                <p>Cases</p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="fas fa-bars-progress"></i>
+                                            </div>
+                                            <a href="/CMS/View?status=2" class="small-box-footer">
+                                                More info <i class="fas fa-arrow-circle-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <hr />
+                    </div>
+                </div>
+            </div>
+        </div>
+        @* --- End Section Total --- *@
+       
+
+      
+
+
+
+    </div>
+</section>
+@section Scripts {
+    <script>
+       
+
+
+    </script>
+}

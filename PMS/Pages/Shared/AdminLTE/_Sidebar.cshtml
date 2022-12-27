@@ -1,0 +1,169 @@
+﻿@using Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<aside class="main-sidebar elevation-2 sidebar-light-primary">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-link">
+        <img src="~/img/top_logo.png"
+             alt="PMS Logo"
+             class="brand-image img-circle elevation-0"
+             style="margin-top:3px">
+        <div>
+            <span class="brand-text">Property Management System</span>
+        </div>
+    </a>
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar user (optional) -->
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+                @if (UserManager.GetUserAsync(User).Result.ProfilePicture != null)
+                {
+                    <div class="image">
+                        <img class="img-circle elevation-0" style="width:40px;height:40px; object-fit:cover; border-radius:30px" src="data:image/*;base64,@(Convert.ToBase64String(UserManager.GetUserAsync(User).Result.ProfilePicture))">
+                    </div>
+                }
+                <div class="info">
+                    <a href="#" class="d-block">
+                        @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName @{
+                            if (User.IsInRole("SuperAdmin"))
+                            {
+                                <span class="badge badge-danger">SA</span>
+                            }
+                            else if (User.IsInRole("Basic"))
+                            {
+                                <span class="badge badge-success">BASIC</span>
+                            }
+                            else if (User.IsInRole("Admin"))
+                            {
+                                <span class="badge badge-info">Admin</span>
+                            }
+                            else if (User.IsInRole("Manager"))
+                            {
+                                <span class="badge badge-primary">MANAGER</span>
+                            }
+                        }
+                    </a>
+                </div>
+            </div>
+
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                        <!-- Add icons to the links using the .nav-icon class
+                        with font-awesome or any other icon font library -->
+                        <li class="nav-item menu-is-opening menu-open">
+                            <a is-active-page asp-page="/Index" class="nav-link">
+                                <i class="nav-icon fas fa-tachometer-alt"></i>
+                                <p>
+                                    Dashboard
+                                </p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-copy"></i>
+                                <p>
+                                    Property Management
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">3</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a is-active-page asp-area="PMS" asp-page="/AddBuilding" class="nav-link">
+                                        <i class="nav-icon fas fa-building-columns"></i>
+                                        <p> Add Building</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a is-active-page asp-area="PMS" asp-page="/AddProperty" class="nav-link">
+                                        <i class="nav-icon fas fa-home"></i>
+                                        <p> Add Property</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a is-active-page asp-area="PMS" asp-page="/AddCustomer" class="nav-link">
+                                        <i class="nav-icon fas fa-people-arrows-left-right"></i>
+                                        <p> Add Customer</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a is-active-page asp-area="PMS" asp-page="/AddRent" class="nav-link">
+                                        <i class="nav-icon fas fa-key"></i>
+                                        <p> Add Rent</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="fas fa-share-square nav-icon"></i>
+                                <p>
+                                    Reports
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">1</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a is-active-page asp-area="PMS" asp-page="/View" class="nav-link">
+                                        <i class="nav-icon fas fa-search-plus"></i>
+                                        <p> View All</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        @{
+                            if (User.IsInRole("SuperAdmin"))
+                            {
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="fas fa-cogs nav-icon"></i>
+                                        <p>
+                                            Settings
+                                            <i class="fas fa-angle-left right"></i>
+                                            <span class="badge badge-info right">1</span>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item">
+                                            <a is-active-page asp-area="Identity" asp-page="/Account/Manage/Index" class="nav-link">
+                                                <i class="nav-icon fas fa-cogs"></i>
+                                                <p>
+                                                    Account Settings
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-header">SUPER ADMIN</li>
+                                        <li class="nav-item">
+                                            <a is-active-page asp-area="Identity" asp-page="/Account/Users" class="nav-link">
+                                                <i class="nav-icon fas fa-users-cog"></i>
+                                                <p>
+                                                    Manage User Roles
+                                                </p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a is-active-page asp-area="Identity" asp-page="/Account/Roles" class="nav-link">
+                                                <i class="nav-icon fas fa-user-lock"></i>
+                                                <p>
+                                                    Manage Roles
+                                                </p>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+                            }
+                        }
+                    </ul>
+                </nav>
+            }
+        
+        <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+</aside>

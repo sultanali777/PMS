@@ -1,0 +1,226 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Property Management System";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <link rel="icon" type="image/x-icon" href="~/img/top_logo.ico">
+    <title>Property Management System</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <partial name="AdminLTE/_Styles" />
+    <style type="text/css">
+        /* Override some defaults */
+        html, body {
+            background-image: url(/img/bkg-login.jpg); /* The image used */
+            background-color: #cccccc; /* Used if the image is unavailable */
+            background-position: unset; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Resize the background image to cover the entire container */
+            height: 100%;
+            float: none;
+        }
+
+        .container {
+            width: 300px;
+        }
+
+            /* The white background content wrapper */
+            .container > .content {
+                min-height: 0px !important;
+                background-color: darkolivegreen;
+                margin: 0 -20px;
+                -webkit-border-radius: 0px;
+                -moz-border-radius: 0px;
+                border-radius: 20px;
+                -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+                box-shadow: 0 1px 2px rgba(0,0,0,.15);
+            }
+
+        .login-form {
+            background-color: #FFF;
+            padding-left: 10px;
+            border-radius: 40px;
+            height: 620px;
+            margin-top: 20px;
+        }
+
+        img {
+            margin-top: 10px;
+            height: 80px;
+            float: left;
+        }
+
+        .btn {
+            border-radius: 5px;
+        }
+
+        legend {
+            margin-right: -50px;
+            font-weight: bold;
+            color: #404040;
+        }
+
+        .add-on {
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            border-radius: 0px;
+        }
+
+        .login-logo, .register-logo {
+            font-size: 2.1rem;
+            font-weight: 700;
+            margin-bottom: .5rem;
+            text-align: center;
+        }
+
+        input {
+            -webkit-border-radius: 0px;
+            -moz-border-radius: 0px;
+            border-radius: 0px;
+        }
+
+        .small, small {
+            font-size: 80%;
+            font-weight: 600;
+        }
+
+        .login-card-body, .register-card-body {
+            background: #fff;
+            border-top: 0;
+            color: #666;
+            padding: 10px;
+            width: 370px;
+            margin-left: -10px;
+            border-radius: 40px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="login-form">
+                <div class="login-box">
+                    <div class="login-logo">
+                        <img src="/img/top_logo.png" style="margin-top:-30px">
+                        <div style="margin-top: 40px;font-size:15px">Property Management System</div>
+                    </div>
+                </div>
+                <div class="card-body register-card-body">
+                    <p class="login-box-msg">Register a new User</p>
+
+                    <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                        <small> <span asp-validation-for="Input.FirstName" class="text-danger"></span></small>
+                        <div class="input-group mb-3">
+                            <input asp-for="Input.FirstName" type="text" class="form-control" placeholder="First Name">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-pencil"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <small><span asp-validation-for="Input.LastName" class="text-danger"></span></small>
+                        <div class="input-group mb-3">
+                            <input asp-for="Input.LastName" type="text" class="form-control" placeholder="Last Name">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-pencil"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <small> <span asp-validation-for="Input.UserName" class="text-danger"></span></small>
+                        <div class="input-group mb-3">
+                            <input asp-for="Input.UserName" type="text" class="form-control" placeholder="User Name">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-user"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <small><span asp-validation-for="Input.Email" class="text-danger"></span></small>
+                        <div class="input-group mb-3">
+                            <input asp-for="Input.Email" type="email" class="form-control" placeholder="Email">
+                            <div class="input-group-append">
+                                <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <small><span asp-validation-for="Input.Password" class="text-danger"></span></small>
+                        <div class="input-group mb-3">
+                            <input asp-for="Input.Password" id="passWord" type="password" class="form-control" placeholder="Password">
+                            <div class="input-group-append" onclick="showPass()">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <small><span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span></small>
+                        <div class="input-group mb-3">
+                            <input asp-for="Input.ConfirmPassword" id="re-passWord" type="password" class="form-control" placeholder="Retype password">
+                            <div class="input-group-append" onclick="reshowPass()">
+                                <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <!-- /.col -->
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-block">Register</button>
+                            </div>
+                            <!-- /.col -->
+                        </div>
+                    </form>
+                    <p class="mb-0">
+                        <a asp-page="./Login" asp-route-returnUrl="@Model.ReturnUrl">Already Registered?</a>
+                    </p>
+                    <br />
+                    <small style="font-size:12px">
+                        <strong>Property Management System</strong>
+                    </small>
+
+                </div>
+                <!-- /.form-box -->
+
+
+
+                <partial name="AdminLTE/_Scripts" />
+            </div><!-- /.card -->
+
+        </div>
+    </div>
+
+</body>
+</html>
+<script type="text/javascript">
+    function showPass() {
+        var x = document.getElementById("passWord");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+    function reshowPass() {
+        var x = document.getElementById("re-passWord");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,423 @@
+﻿@page
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PMS.Areas.PMS.AddRentModel
+@{
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5>Property Management System</h5>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/">Property Management</a></li>
+                    <li class="breadcrumb-item active">Add Rent</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-success">
+                    <div class="card-header bg-gradient-gray border-transparent">
+                        <h3 class="card-title">ADD RENT</h3>
+                        <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                <i class="fas fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <!-- general form elements -->
+                        <div style="margin: -21px;margin-bottom: -30px;">
+                            <div class="box-table">
+                                <form method="post" id="inputForm" asp-page="AddRent" enctype="multipart/form-data">
+                                    <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.propertyId">
+                                    <div class="box-body">
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Select Building</label>
+                                                    <select class="form-control" onchange="loadProperties();" required name="buildingId" id="buildingId" asp-items="@Model.Building">
+                                                        <option value="">--Select Building--</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Select Floor</label>
+                                                    <select class="form-control" onchange="loadProperties();" required name="floor" id="floor">
+                                                        <option value="">--Select Floor--</option>
+                                                        @if (Model.Common.floor != null)
+                                                        {
+                                                            <option selected value="@Model.Common.floor">@Model.Common.floor</option>
+                                                            } 
+                                                        <option value="15">15</option>
+                                                        <option value="14">14</option>
+                                                        <option value="13">13</option>
+                                                        <option value="12">12</option>
+                                                        <option value="11">11</option>
+                                                        <option value="10">10</option>
+                                                        <option value="9">9</option>
+                                                        <option value="8">8</option>
+                                                        <option value="7">7</option>
+                                                        <option value="6">6</option>
+                                                        <option value="5">5</option>
+                                                        <option value="4">4</option>
+                                                        <option value="3">3</option>
+                                                        <option value="2">2</option>
+                                                        <option value="1">1</option>
+                                                        <option value="Ground Floor">Ground Floor</option>
+                                                        <option value="Basement">Basement</option>
+                                                        <option value="M1">M1</option>
+                                                        <option value="M2">M2</option>
+                                                        <option value="M3">M3</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Property Type</label>
+                                                    <select class="form-control" onchange="loadProperties();" required name="typeId" id="typeId" asp-items="@Model.ProType">
+                                                        <option value="">--Select Type--</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Property No<small style="color:red;font-size:12px;margin-left:6px"> * Only Vacant</small></label>
+                                                    <select class="form-control" required name="propertyNo" id="propertyNo">
+                                                        <option value="">--Select Property--</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Select Customer</label>
+                                                    <select class="form-control" required name="customerId" id="customerId" asp-items="@Model.Customer">
+                                                        <option value="">--Select Customer--</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label>Property Rent</label>
+                                                    @if (Model.Common.propertyRent != 0)
+                                                    {
+                                                        <input type="number" value="@Model.Common.propertyRent" class="form-control" required id="rent" name="rent" placeholder="Enter monthly rent..">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="number" class="form-control" required id="rent" name="rent" placeholder="Enter monthly rent..">
+                                                    }
+                                                </div>
+                                            </div>
+
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Start/End Dates</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text">
+                                                                <i class="far fa-calendar-alt"></i>
+                                                            </span>
+                                                        </div>
+                                                        @if (Model.Common.dateRange != "")
+                                                        {
+                                                            <input type="text" value="@Model.Common.dateRange" onfocus="this.value=''" autocomplete="off" required class="form-control pull-right formSearch" id="datrange" name="datrange">
+                                                         }
+                                                        else
+                                                        {
+                                                            <input type="text" required onfocus="this.value=''" autocomplete="off" class="form-control pull-right formSearch" id="datrange" name="datrange">
+
+                                                        }
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Description</label>
+                                                    <textarea class="form-control" name="desc" id="desc" rows="3" placeholder="Enter ..."> @Model.Common.Description</textarea>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label>Upload Contract</label>
+                                                    <div class="input-group">
+                                                        <div class="custom-file">
+                                                            <input type="file" id="docContract" name="docContract" accept=".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" id="submit" class="btn btn-success formSearch">@(Model.Common.floor != null ? "Update" : "Add")</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box-table">
+                            <div class="ajax-loader">
+                                <img src="/img/loader.gif" class="img-responsive" />
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body" style="margin:-1px">
+                                <table class="table table-striped display" style="width:100%" id="rentalList">
+                                    <thead>
+                                        <tr>
+
+                                            <th>ID</th>
+                                            <th>Action</th>
+                                            <th>Building</th>
+                                            <th>Customer</th>
+                                            <th>Floor</th>
+                                            <th>Type</th>
+                                            <th>Property</th>
+                                            <th>Rent</th>
+                                            <th>Start</th>
+                                            <th>End</th>
+                                            <th>Description</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section Scripts {
+    <script type="text/javascript">
+        var updat = 0;
+        if (@Model.Common.propertyTypeId) {
+            $("#typeId ").val(@Model.Common.propertyTypeId);
+            $("#buildingId ").val(@Model.Common.buildingId);
+            $("#floor ").val(@Model.Common.floor);
+            updat = 1; loadProperties();
+        } 
+           function loadProperties() {
+               var selectedType = $('#typeId :selected').val();
+               var selectedBuilding = $('#buildingId :selected').val();
+               var selectedFloor = $('#floor :selected').val();
+            var proSelect = $('#propertyNo');
+            proSelect.empty();
+            if (selectedType != null && selectedType != 0 && selectedBuilding != null && selectedBuilding != 0 && selectedFloor != null && selectedFloor != 0) {
+                $.ajax({
+                    type: "GET",
+                    data: { typeId: selectedType,BuidId:selectedBuilding,floor:selectedFloor,updat:updat },
+                    url: "?handler=BuildingNo",
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("XSRF-TOKEN",
+                            $('input:hidden[name="__RequestVerificationToken"]').val());
+                    },
+                    contentType: "json; charset=utf-8",
+                    success: function (BuildingNos) {
+                        if (BuildingNos != null && !jQuery.isEmptyObject(BuildingNos)) {
+                            proSelect.append($('<option/>', {
+                                value: '',
+                                text: "--Select Building No--"
+                            }));
+                            $.each(BuildingNos, function (index, build) {
+                                 if (build.value == @Model.Common.propertyNo) {
+                                    proSelect.append("<option selected value='" + build.value + "'>" + build.text + "</option>");
+                                } else { proSelect.append("<option value='" + build.value + "'>" + build.text + "</option>"); }
+                            });
+                        };
+                    },
+                    failure: function (response) {
+                        alert(response);
+                    }
+                });
+            }
+        }
+        // ----- Validation -----
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    $("#submit").attr("disabled", true);
+                    $("#submit").html("Submitting... please wait.");
+                    $("#inputForm").submit();
+
+                }
+            });
+            $('#inputForm').validate({
+                rules: {
+
+                    buildingId: {
+                        required: true
+                    },
+                },
+                messages: {
+
+                    buildingId: "Please select Building"
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+
+            loadDataTable();
+            // _________  DATE RANGE PICKER _____________
+            $('#datrange').daterangepicker();
+            if (@Model.Common.propertyRent== 0)
+               $('#datrange').val('');
+            //Date range picker with time picker
+            //Date range as a button
+            $("#datrange").daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
+            });
+
+            $("#datrange").on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+            $("#datrange").on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+            $('#daterange-btn').daterangepicker(
+                {
+                    ranges: {
+                        'Today': [moment(), moment()],
+                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+                        'This Month': [moment().startOf('month'), moment().endOf('month')],
+                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+                    },
+                    startDate: moment().subtract(29, 'days'),
+                    endDate: moment()
+                },
+                function (start, end) {
+                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+                }
+            )
+        });
+        $.fn.DataTable.ext.pager.numbers_length = 4;
+        
+        // _________  LOAD DATA TABLE BUILDING_____________
+        function loadDataTable() {
+
+            $('#rentalList').DataTable({
+                destroy: true,
+                dom: 'Bfrtip',
+                "bSort": true, "responsive": true, "lengthChange": true, "autoWidth": false,
+                "language": {
+                    "paginate": {
+                        "previous": "<< ",
+                        "next": " >>"
+                    }
+                },
+                fixedHeader: {
+                    header: true
+                },
+                 order: [[0, 'desc']],
+                "ajax": {
+                    type: "GET",
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
+                    url: "?handler=LoadData",
+                    dataType: "json",
+                    data: {  },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
+                    },
+                    dataSrc: ''
+                },
+                "columns": [
+                
+                    {
+                        "data": "rentalId",
+                        "mRender": function (data, type, full) {
+                            return '<a class="btn btn-success btn-sm" href=/PMS/ViewRent?rentalId=' + data + '>' + data + '</a>';
+                        }
+                    },
+                    {
+                        "data": "rentalId",
+                        "mRender": function (data, type, full) {
+                            return '<a class="btn btn-info btn-sm" href=/PMS/AddRent?rentalId=' + data + '>' + 'Edit' + '</a>';
+                        }
+                    },
+                    { "data": "building" },
+                    { "data": "customer" },
+                    { "data": "floor" },
+                    { "data": "type" },
+                    { "data": "propertyNo" },
+                    { "data": "rent" },
+                    {
+                        "data": "startDate",
+                        'render': function (jsonDate) {
+                            var mydate = new Date(jsonDate);
+                            var dd = String(mydate.getDate()).padStart(2, '0');
+                            var mm = String(mydate.getMonth() + 1).padStart(2, '0'); //January is 0!
+                            var yyyy = mydate.getFullYear();
+                            var res = dd + '/' + mm + '/' + yyyy;
+                            return res;
+                        }
+                    },
+                    {
+                        "data": "endDate",
+                        'render': function (jsonDate) {
+                            var mydate = new Date(jsonDate);
+                            var dd = String(mydate.getDate()).padStart(2, '0');
+                            var mm = String(mydate.getMonth() + 1).padStart(2, '0'); //January is 0!
+                            var yyyy = mydate.getFullYear();
+                            var res = dd + '/' + mm + '/' + yyyy;
+                            return res;
+                        }
+                    },
+                    {
+                        "data": "desc",
+                        "render": function (data, type, row) {
+                            return "<textarea  disabled class='form-control' style='text-align:justify;padding: 0.4rem;'>" + data + "</textarea>";
+                        }
+                    }
+                ]
+            });
+        }
+    </script>
+}

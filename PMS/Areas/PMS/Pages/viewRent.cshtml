@@ -1,0 +1,346 @@
+﻿@page
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@model PMS.Areas.PMS.viewRentModel
+@{
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+<style>
+
+
+    .card-body {
+        padding: 0px;
+        margin-top: 0px;
+        margin-bottom: 0px;
+    }
+
+    .box-table {
+        margin: 2px 0px 7px 1px;
+        padding: 0px;
+    }
+
+.embossed {
+    color: #5b829e;
+    font-size: 16px;
+    background-color: #081939;
+    text-shadow: 1px 4px 4px #555;
+    text-align: center;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+}
+</style>
+<div class="content-header">
+<div class="container-fluid">
+    <div class="row mb-2">
+        <div class="col-sm-6">
+            <h5>Property Management System</h5>
+        </div>
+        <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="/">Property Management</a></li>
+                <li class="breadcrumb-item active">View Rent</li>
+            </ol>
+        </div>
+    </div>
+</div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-tabs">
+                    <div class="card-header bg-gradient-gray border-transparent p-0 pt-1">
+                        <ul class="nav nav-tabs" id="compTabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="rentalDetails-tab" data-toggle="pill" href="#rentalDetails" role="tab" aria-controls="rentalDetails" aria-selected="true">RENTAL DETAILS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="tabContent">
+                            <div class="tab-pane fade show active" id="rentalDetails" role="tabpanel" aria-labelledby="rentalDetails-tab">
+                                <div class="box-body">
+                                    <div class="row">
+
+                                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                                            <div class="card bg-light d-flex flex-fill">
+                                                <div class="card-header text-muted border-bottom-0">
+                                                    <span class="embossed">PROPERTY DETAILS</span>
+                                                </div>
+                                                <div class="card-body">
+                                                    <dl class="row" style="margin-left: 7.5px; margin-right: 7.5px">
+                                                        <dt class="col-sm-5">Governorate: </dt>
+                                                        <dd class="col-sm-7">@Model.Common.Govern</dd>
+                                                        <dt class="col-sm-5">Area:</dt>
+                                                        <dd class="col-sm-7">@Model.Common.area </dd>
+                                                        <dt class="col-sm-5">Property No:</dt>
+                                                        <dd class="col-sm-7">@Model.Common.propertyNo</dd>
+                                                        <dd class="col-sm-12">
+                                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Floor: @Model.Common.floor</li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-home"></i></span> Type: @Model.Common.type</li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-arrow-circle-right"></i></span> Rent: @Model.Common.rent</li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar"></i></span> Contract Period: @Model.Common.dateRange </li>
+                                                            </ul>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                                            <div class="card bg-light d-flex flex-fill">
+                                                <div class="card-header text-muted border-bottom-0">
+                                                    <span class="embossed">CUSTOMER DETAILS</span>
+                                                </div>
+
+                                                <div class="card-body">
+                                                    <dl class="row" style="margin-left: 7.5px; margin-right: 7.5px">
+                                                        <dt class="col-sm-5">Full Name: </dt>
+                                                        <dd class="col-sm-7">@Model.Common.fullName</dd>
+                                                        <dt class="col-sm-5">Civil ID:</dt>
+                                                        <dd class="col-sm-7"> @Model.Common.civilId</dd>
+                                                        <dt class="col-sm-5">Passport No:</dt>
+                                                        <dd class="col-sm-7"> @Model.Common.passportNo</dd>
+                                                        <dd class="col-sm-12">
+                                                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Mobile: @Model.Common.mobile </li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Email: @Model.Common.email </li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-flag"></i></span> Nationality: @Model.Common.nationality </li>
+                                                            </ul>
+                                                        </dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                                            <div class="card bg-light d-flex flex-fill">
+                                                <div class="card-header text-muted border-bottom-0">
+                                                    <span class="embossed">ATTACHMENTS</span>
+                                                </div>
+                                                <div class="card-body pt-0">
+                                                    <div class="col-12">
+                                                        <div class="row" style="margin-top:20px">
+                                                            <div class="col-md-3">
+                                                                <p><a href="/Uploaded_Documents/@Model.Common.rentAttach"><i class="fas fa-file-word fa-3x"></i></a></p>
+                                                            </div>
+                                                            @foreach (var img in Model.Common.custAttachments)
+                                                            {
+
+                                                                <div class="col-md-3">
+                                                                    <a href="/Uploaded_Documents/@img" data-toggle="lightbox" data-gallery="gallery">
+                                                                        <img src="/Uploaded_Documents/@img" class="img-fluid mb-2" />
+                                                                    </a>
+                                                                </div>
+
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script type="text/javascript">
+
+        function resendSMS(guid) {
+            $.ajax({
+                url: "?handler=resendSMS",
+                data: { guid: guid },
+                datatype: "json",
+                type: "GET",
+                contenttype: 'application/json; charset=utf-8',
+                async: true,
+                success: function (data) {
+                    // $("#succModal").modal('show');
+                    //alert(data);
+                    toastr.success(data, { fadeAway: 2500 });
+                },
+                complete: function () {
+                    setTimeout(function () {// wait for 5 secs(2)
+                        location.reload(); // then reload the page.(3)
+                    }, 3500);
+                },
+                error: function (xhr) {
+                    //alert('error occured');
+                    toastr.success('error occured', { fadeAway: 2500 });
+                }
+            });
+        }
+        // _________  LOAD SMS TABLE _____________
+        function loadSMSDataTable() {
+            var compId = 0;
+
+            if ($("#compId").val() != "") { compId = $("#compId").val(); }
+
+            $('#smsList').DataTable({
+                destroy: true, "responsive": true, "lengthChange": false, "searching": false, "autoWidth": true, "paging": false, "info": false,
+                order: [[3, 'desc']],
+                "ajax": {
+                    type: "GET",
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
+                    url: "?handler=loadDataSMS",
+                    dataType: "json",
+                    data: { compId: compId },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
+                    },
+                    dataSrc: ''
+                },
+                "columns": [
+                    { "data": "tagTo" },
+                    {
+                        "data": "status",
+                        render: function (data, type, row) {
+                            if (data == "Message Sent Successfully!") {
+                                return "Sent";
+                            }
+                            else if (data == "Your account is expired please contact Admin") {
+                                return "Account Expired";
+                            }
+                            else if (data == "Invalid Phone # . You cannot send this message.<br>") {
+                                return "Invalid Phone #";
+                            }
+                            else {
+                                return data;
+                            }
+                        }
+                    },
+                    { "data": "isRespond" },
+                    {
+                        "data": "dateSent",
+                        'render': function (jsonDate) {
+                            return (moment(jsonDate).format('DD/MM/YYYY HH:mm A'));
+                        }
+                    },
+                    {
+                        "data": "guid",
+                        "mRender": function (data, type, full) {
+                            return '<div class="btn btn-info btn-sm" onclick="resendSMS( \'' + data + '\' )">Resend</div>';
+                        }
+                    }
+                ]
+            });
+        }
+
+        // _________  LOAD DATA TABLE _____________
+        function loadDataTable() {
+            var compId = 0;
+
+            if ($("#compId").val() != "") { compId = $("#compId").val(); }
+
+            $('#historyList').DataTable({
+                destroy: true, "bSort": true, "responsive": true, "lengthChange": false, "searching": false, "autoWidth": true, "paging": false, "info": false,
+                order: [[3, 'desc']],
+                "ajax": {
+                    type: "GET",
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
+                    url: "?handler=loadData",
+                    dataType: "json",
+                    data: { compId: compId },
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
+                    },
+                    dataSrc: ''
+                },
+                "columns": [
+                    { "data": "status" },
+                    { "data": "addedBy" },
+                    {
+                        "data": "description",
+                        "render": function (data, type, row) {
+                            return "<textarea  disabled class='form-control' style='text-align:justify;padding: 0.8rem;'>" + data + "</textarea>";
+                        }
+                    },
+                    {
+                        "data": "dateCreated",
+                        'render': function (jsonDate) {
+                            return (moment(jsonDate).format('DD/MM/YYYY HH:mm A'));
+                        }
+                    }
+                ]
+            });
+        }
+
+        $(document).on('click', '#submit', function (event) {
+            if ($("#inputForm").valid()) {
+                $("#submit").attr("disabled", true);
+                $("#submit").html("Submitting... please wait.");
+                var _id = 0, _status = 0, _desc = "";
+
+                if ($("#compId").val() != "") { _id = $("#compId").val(); }
+                if ($("#status").val() != "") { _status = $("#status").val(); }
+                if ($("#desc").val() != "") { _desc = $("#desc").val(); }
+
+                $.ajax({
+                    url: "?handler=UpdateStatus",
+                    data: { _desc: _desc, _status: _status, _id: _id },
+                    datatype: "json",
+                    type: "GET",
+                    contenttype: 'application/json; charset=utf-8',
+                    async: true,
+                    success: function (data) {
+                        toastr.success(data, { fadeAway: 2500 });
+                    },
+                    complete: function () {
+                        setTimeout(function () {// wait for 2 secs(2)
+                            location.reload(); // then reload the page.(3)
+                        }, 3500);
+                    },
+                    error: function (xhr) {
+                        //alert('error occured');
+                        toastr.success('error occured', { fadeAway: 2500 });
+                    }
+                });
+            }
+        });
+
+        $(document).ready(function () {
+            loadDataTable();
+            loadSMSDataTable();
+
+            $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+                $($.fn.dataTable.tables(true)).css('width', '100%');
+                $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+            });
+
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            });
+        })
+
+        $(function () {
+
+            $('#inputForm').validate({
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+    </script>
+}

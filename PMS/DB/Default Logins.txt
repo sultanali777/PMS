@@ -1,0 +1,2 @@
+Default SuperAdmin Credentials – superadmin@gmail.com / 123Pa$$word. 
+Default Basic User Credentials – basic@gmail.com / 123Pa$$word.
