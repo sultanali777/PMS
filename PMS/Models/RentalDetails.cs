@@ -19,6 +19,7 @@ namespace PMS.Models
         public int customerId { get; set; }
         public string Description { get; set; }
         public string attachments { get; set; }
+        public string guid { get; set; }
         public DateTime date_Created
         {
             get

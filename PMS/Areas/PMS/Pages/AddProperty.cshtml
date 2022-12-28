@@ -37,6 +37,7 @@
                         <div style="margin: -21px;margin-bottom: -30px;">
                             <div class="box-table">
                                 <form method="post" id="inputForm" asp-page="AddProperty" enctype="multipart/form-data">
+                                    <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-sm-4">
@@ -52,6 +53,10 @@
                                                     <label>Select Floor</label>
                                                     <select class="form-control" required name="floor" id="floor">
                                                         <option value="">--Select Floor--</option>
+                                                        @if (Model.Common.floor != null)
+                                                        {
+                                                            <option selected value="@Model.Common.floor">@Model.Common.floor</option>
+                                                        }
                                                         <option value="15">15</option>
                                                         <option value="14">14</option>
                                                         <option value="13">13</option>
@@ -88,7 +93,7 @@
                                             <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label>Property Status</label>
-                                                    <select class="form-control" required name="proStatus" disabled id="proStatus" asp-items="@Model.ProStatus">
+                                                    <select class="form-control" required name="proStatus" id="proStatus" asp-items="@Model.ProStatus">
                                                         <option value="">--Select Status--</option>
                                                     </select>
                                                 </div>
@@ -96,15 +101,12 @@
                                             <div class="col-sm-2">
                                                 <div class="form-group">
                                                     <label>Property No</label>
-                                                    <input type="text" required class="form-control" id="propertyNo" name="propertyNo" placeholder="Enter Property No">
+                                                    <input type="text" value="@Model.Common.propertyNo" required class="form-control" id="propertyNo" name="propertyNo" placeholder="Enter Property No">
                                                 </div>
                                             </div>
                                         </div>
-
-
-
                                         <div class="card-footer">
-                                            <button type="submit" id="submit" class="btn btn-success formSearch">Add</button>
+                                            <button type="submit" id="submit" class="btn btn-success formSearch">@(Model.Common.floor != null ? "Update" : "Add")</button>
                                         </div>
                                     </div>
                                 </form>
@@ -112,9 +114,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="box-table">
@@ -126,8 +125,8 @@
                                 <table class="table table-striped display" style="width:100%" id="propertyList">
                                     <thead>
                                         <tr>
-
                                             <th>ID</th>
+                                            <th>ACTION</th>
                                             <th>Building</th>
                                             <th>Floor</th>
                                             <th>Type</th>
@@ -222,6 +221,12 @@
                 "columns": [
                 
                     { "data": "propertyId" },
+                    {
+                        "data": "propertyId",
+                        "mRender": function (data, type, full) {
+                            return '<a class="btn btn-info btn-sm" href=/PMS/AddProperty?propertyId=' + data + '>' + 'Edit' + '</a>';
+                        }
+                    },
                     { "data": "building" },
                     { "data": "floor" },
                     { "data": "type" },

@@ -44,8 +44,22 @@ namespace PMS.Areas.PMS
             this.Context = _context;
             _hostingEnvironment = hostingEnvironment;
             _toastNotification = toastNotification;
+            this.Common = new commonModel();
         }
-        
+        [BindProperty]
+        public commonModel Common { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int? propertyId { get; set; }
+        public class commonModel
+        {
+            public int Id { get; set; }
+            public int buildingId { get; set; }
+            public int propertyTypeId { get; set; }
+            public int proStatus { get; set; }
+            public string propertyNo { get; set; }
+            public string floor { get; set; }
+        }
+
         public List<SelectListItem> Building { get; set; }
         public List<SelectListItem> ProType { get; set; }
         public List<SelectListItem> ProStatus { get; set; }
@@ -73,7 +87,36 @@ namespace PMS.Areas.PMS
                                     Value = a.Id.ToString(),
                                     Text = a.Description
                                 }).ToList();
-            ProStatus.Find(c => c.Value == "2").Selected = true;
+           
+            if (propertyId != null)
+            {
+
+                //------- Loading Common Fields -----
+                var common = (from cust in Context.tbl_Property
+                              where cust.Id == propertyId
+                              select new
+                              {
+                                  Id = cust.Id,
+                                  buildingId = cust.buildingId,
+                                  floor = cust.floor,
+                                  propertyTypeId = cust.propertyTypeId,
+                                  propertyNo = cust.propertyNo,
+                                  proStatus = cust.statusId,
+                              }).ToList();
+
+                if (common != null)
+                {
+                    Common.Id = common[0].Id;
+                    Common.buildingId = common[0].buildingId;
+                    Common.floor = common[0].floor;
+                    Common.propertyTypeId = common[0].propertyTypeId;
+                    Common.propertyNo = common[0].propertyNo;
+                    Common.proStatus = common[0].proStatus;
+                }
+                Building.Find(c => c.Value == Common.buildingId.ToString()).Selected = true;
+                ProType.Find(c => c.Value == Common.propertyTypeId.ToString()).Selected = true;
+                ProStatus.Find(c => c.Value == Common.proStatus.ToString()).Selected = true;
+            }
         }
         public IActionResult OnPost()
         {
@@ -81,6 +124,7 @@ namespace PMS.Areas.PMS
             {
                 try
                 {
+                    string _inputCheck = Request.Form["inputCheck"];
                     var userid = _userManager.GetUserAsync(User).Result.Id;
                     var userName = _userManager.GetUserAsync(User).Result.FirstName + " " + _userManager.GetUserAsync(User).Result.LastName;
                                       
@@ -93,30 +137,49 @@ namespace PMS.Areas.PMS
                                          where b.propertyNo.ToUpper() == _propertyNo.ToUpper()
                                       && b.buildingId == _buildingId && b.floor == floor
                                          select new { b.propertyNo }).FirstOrDefault();
-
-                    if (propertyCheck != null)
+                    if (_inputCheck == "0")//Insert
                     {
-                        _toastNotification.AddSuccessToastMessage($"Property is already exist.");
+                        if (propertyCheck != null)
+                        {
+                            _toastNotification.AddSuccessToastMessage($"Property is already exist.");
+                        }
+                        else
+                        {
+                            var property = new Property();
+                            {
+                                property.buildingId = _buildingId;
+                                property.floor = floor;
+                                property.statusId = _proStatus;
+                                property.propertyTypeId = _typeId;
+                                property.propertyNo = _propertyNo;
+                                property.userId = userid;
+                            };
+                            Context.tbl_Property.Add(property);
+                            Context.SaveChanges();
+
+                            //------ Committing Database ------
+                            dbContextTransaction.Commit();
+                            _toastNotification.AddSuccessToastMessage($"Property has been added successfully.");
+                        } 
                     }
                     else
                     {
-                 var property = new Property();
-                    {
+                        foreach (var property in Context.tbl_Property.Where(x => x.Id == int.Parse(_inputCheck)).ToList())
+                        {
                             property.buildingId = _buildingId;
                             property.floor = floor;
                             property.statusId = _proStatus;
                             property.propertyTypeId = _typeId;
                             property.propertyNo = _propertyNo;
                             property.userId = userid;
-                    };
-                    Context.tbl_Property.Add(property);
-                    Context.SaveChanges();
+                        };
+                        Context.SaveChanges();
 
-                    //------ Committing Database ------
-                    dbContextTransaction.Commit();
-                    _toastNotification.AddSuccessToastMessage($"Property has been added successfully.");
+                        //------ Committing Database ------
+                        dbContextTransaction.Commit();
+                        _toastNotification.AddSuccessToastMessage($"Property has been updated successfully.");
                     }
-                }
+                }                
                 catch (Exception ex) { _logger.LogError(ex.Message); dbContextTransaction.Rollback(); }
             }
             return new RedirectToPageResult("/AddProperty", new { area = "PMS" });

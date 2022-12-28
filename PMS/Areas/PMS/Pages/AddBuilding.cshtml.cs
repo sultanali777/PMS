@@ -40,8 +40,21 @@ namespace PMS.Areas.PMS
             this.Context = _context;
             _hostingEnvironment = hostingEnvironment;
             _toastNotification = toastNotification;
+            this.Common = new commonModel();
         }
+        [BindProperty]
+        public commonModel Common { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public int? buildingId { get; set; }
+        public class commonModel
+        {
+            public int Id { get; set; }
+            public int govId { get; set; }
+            public int areaId { get; set; }
+            public string buildingNo { get; set; }
+            public string address { get; set; }
 
+        }
         public List<SelectListItem> Governorate { get; set; }
         public void OnGet()
         {
@@ -51,6 +64,30 @@ namespace PMS.Areas.PMS
                                       Value = a.Id.ToString(),
                                       Text = a.Description
                                   }).ToList();
+            if (buildingId != null)
+            {
+
+                //------- Loading Common Fields -----
+                var common = (from cust in Context.tbl_Building
+                              where cust.Id == buildingId
+                              select new
+                              {
+                                  Id=cust.Id,
+                                  govId = cust.governorateId,
+                                  areaId = cust.areaId,
+                                  buildingNo = cust.buildingno,
+                                  address = cust.address,
+                              }).ToList();
+
+                if (common != null)
+                {
+                    Common.Id = common[0].Id;
+                    Common.govId = common[0].govId;
+                    Common.areaId = common[0].areaId;
+                    Common.buildingNo = common[0].buildingNo;
+                    Common.address = common[0].address;
+                }
+            }
         }
         public IActionResult OnGetAddressAreas(int governorateId)
         {
@@ -75,6 +112,7 @@ namespace PMS.Areas.PMS
             {
                 try
                 {
+                    string _inputCheck = Request.Form["inputCheck"];
                     var userid = _userManager.GetUserAsync(User).Result.Id;
                     var userName = _userManager.GetUserAsync(User).Result.FirstName + " " + _userManager.GetUserAsync(User).Result.LastName;
                                       
@@ -85,28 +123,46 @@ namespace PMS.Areas.PMS
                     var buildingCheck = (from b in this.Context.tbl_Building
                                          where b.buildingno.ToUpper() == _buildingNo.ToUpper()
                                       select new { b.buildingno }).FirstOrDefault();
+                    if (_inputCheck == "0")//Insert
+                    {
+                        if (buildingCheck != null)
+                        {
+                            _toastNotification.AddSuccessToastMessage($"Buidling is already exist.");
+                        }
+                        else
+                        {
+                            var building = new Building();
+                            {
+                                building.governorateId = _governorateId;
+                                building.areaId = _areaId;
+                                building.buildingno = _buildingNo;
+                                building.address = _address;
+                                building.userId = userid;
+                            };
+                            Context.tbl_Building.Add(building);
+                            Context.SaveChanges();
 
-                    if (buildingCheck != null)
-                    {
-                        _toastNotification.AddSuccessToastMessage($"Buidling is already exist.");
+                            //------ Committing Database ------
+                            dbContextTransaction.Commit();
+                            _toastNotification.AddSuccessToastMessage($"Buidling has been added successfully.");
+                        }
                     }
-                    else
-                    {
-                 var building = new Building();
-                    {
-                        building.governorateId = _governorateId;
-                        building.areaId = _areaId;
-                        building.buildingno = _buildingNo;
-                        building.address = _address;
-                        building.userId = userid;
-                    };
-                    Context.tbl_Building.Add(building);
-                    Context.SaveChanges();
+                    else {
+                        foreach (var building in Context.tbl_Building.Where(x => x.Id == int.Parse(_inputCheck)).ToList())
+                        {
+                            building.governorateId = _governorateId;
+                            building.areaId = _areaId;
+                            building.buildingno = _buildingNo;
+                            building.address = _address;
+                            building.userId = userid;
+                        }
+                        Context.SaveChanges();
 
-                    //------ Committing Database ------
-                    dbContextTransaction.Commit();
-                    _toastNotification.AddSuccessToastMessage($"Buidling has been added successfully.");
+                        //------ Committing Database ------
+                        dbContextTransaction.Commit();
+                        _toastNotification.AddSuccessToastMessage($"Buidling has been updated successfully.");
                     }
+
                 }
                 catch (Exception ex) { _logger.LogError(ex.Message); dbContextTransaction.Rollback(); }
             }

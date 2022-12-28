@@ -1,1 +1,0 @@
-Scaffold-DbContext "Server=172.16.15.5;User Id=sultan;Password=asd@123;Database=PMS;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Data -Tables tbl_Districts,tbl_HealthFacilities,tbl_ContactCategory,tbl_Contacts -f

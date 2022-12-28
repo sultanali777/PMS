@@ -371,9 +371,9 @@
                 "columns": [
                 
                     {
-                        "data": "rentalId",
+                        "data": "viewString",
                         "mRender": function (data, type, full) {
-                            return '<a class="btn btn-success btn-sm" href=/PMS/ViewRent?rentalId=' + data + '>' + data + '</a>';
+                            return '<a class="btn btn-success btn-sm" href=/PMS/ViewRent?rentalId=' + data + '>' + data.split("&")[0] + '</a>';
                         }
                     },
                     {

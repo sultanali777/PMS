@@ -47,6 +47,9 @@ namespace PMS.Areas.PMS
         public commonModel Common { get; set; }
         [BindProperty(SupportsGet = true)]
         public int? rentalId { get; set; }
+        [BindProperty(SupportsGet = true)]
+        public string? guid { get; set; }
+
         public List<SelectListItem> Building { get; set; }
         public List<SelectListItem> Customer { get; set; }
         public List<SelectListItem> ProType { get; set; }
@@ -102,7 +105,7 @@ namespace PMS.Areas.PMS
 
                 //------- Loading Common Fields -----
                 var common = (from cust in Context.tbl_RentalsDetails
-                              where cust.Id == rentalId
+                              where cust.Id == rentalId && cust.guid == guid
                               select new
                               {
                                   propertyId=cust.Id,
@@ -172,6 +175,7 @@ namespace PMS.Areas.PMS
             {
                 try
                 {
+                    string guid = Guid.NewGuid().ToString("N").Substring(0, 5);
                     string _inputCheck = Request.Form["inputCheck"];
                     var userid = _userManager.GetUserAsync(User).Result.Id;
                     var userName = _userManager.GetUserAsync(User).Result.FirstName + " " + _userManager.GetUserAsync(User).Result.LastName;
@@ -224,6 +228,7 @@ namespace PMS.Areas.PMS
                             rental.endDate = endDate;
                             rental.Description = _desc;
                             rental.attachments = files;
+                            rental.guid = guid;
                             rental.userId = userid;
                         };
                         Context.tbl_RentalsDetails.Add(rental);
@@ -291,7 +296,8 @@ namespace PMS.Areas.PMS
                                  startDate=ren.startDate,
                                  endDate=ren.endDate,
                                  customer=cust.fullName,
-                                 desc=ren.Description
+                                 desc=ren.Description,
+                                 viewString=ren.Id+"&guid="+ren.guid
                              });
                 
                 data = query.OrderBy(x => x.rentalId).ToList();

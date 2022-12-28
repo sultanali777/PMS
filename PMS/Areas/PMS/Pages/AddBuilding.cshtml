@@ -37,12 +37,14 @@
                         <div  style="margin: -21px;margin-bottom: -30px;">
                             <div class="box-table">
                                 <form method="post" id="inputForm" asp-page="AddBuilding" enctype="multipart/form-data">
+                                    <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
+
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Select Governorate</label>
-                                                    <select class="form-control" required name="governorateId" id="governorateId" asp-items="@Model.Governorate">
+                                                    <select class="form-control" onchange="loadAreas();" required name="governorateId" id="governorateId" asp-items="@Model.Governorate">
                                                         <option value="">--Select Governorate--</option>
                                                     </select>
                                                 </div>
@@ -58,19 +60,19 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Building No</label>
-                                                    <input type="text" required class="form-control" id="buildingNo" name="buildingNo" placeholder="Enter Building No">
+                                                    <input type="text" required class="form-control" value="@Model.Common.buildingNo" id="buildingNo" name="buildingNo" placeholder="Enter Building No">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Address</label>
-                                                    <Text class="form-control" required name="address" id="address" placeholder="Enter Address..."></Text>
+                                                     <input type="text" class="form-control" required name="address" value="@Model.Common.address" id="address" placeholder="Enter Address...">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="card-footer">
-                                            <button type="submit" id="submit" class="btn btn-success formSearch">Add</button>
+                                            <button type="submit" id="submit" class="btn btn-success formSearch">@(Model.Common.address != null ? "Update" : "Add")</button>
                                         </div>
                                     </div>
                                 </form>
@@ -93,6 +95,7 @@
                                 <tr>
 
                                     <th>ID</th>
+                                    <th>ACTION</th>
                                     <th>Governorate</th>
                                     <th>Area</th>
                                     <th>Building No</th>
@@ -112,8 +115,8 @@
 </section>
 @section Scripts {
     <script type="text/javascript">
-
-        $('#governorateId').change(function () {
+          if (@Model.Common.areaId) { $("#governorateId ").val(@Model.Common.govId); loadAreas(); }
+        function loadAreas() {
             var selectedGovernorate = $('#governorateId :selected').val();
             var areaSelect = $('#areaId');
             areaSelect.empty();
@@ -134,7 +137,10 @@
                                 text: "--Select Area--"
                             }));
                             $.each(addressAreas, function (index, area) {
-                                areaSelect.append("<option value='" + area.value + "'>" + area.text + "</option>");
+                                 if (area.value == @Model.Common.areaId) {
+                                    areaSelect.append("<option selected value='" + area.value + "'>" + area.text + "</option>");
+                                } else { areaSelect.append("<option value='" + area.value + "'>" + area.text + "</option>"); }
+                               
                             });
                         };
                     },
@@ -143,7 +149,7 @@
                     }
                 });
             }
-        });
+        }
         // ----- Validation -----
         $(function () {
             $.validator.setDefaults({
@@ -216,6 +222,12 @@
                 "columns": [
                 
                     { "data": "buildingId" },
+                    {
+                        "data": "buildingId",
+                        "mRender": function (data, type, full) {
+                            return '<a class="btn btn-info btn-sm" href=/PMS/AddBuilding?buildingId=' + data + '>' + 'Edit' + '</a>';
+                        }
+                    },
                     { "data": "governorate" },
                     { "data": "area" },
                     { "data": "buildingno" },
