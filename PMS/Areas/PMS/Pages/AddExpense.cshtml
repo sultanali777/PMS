@@ -56,7 +56,7 @@
                                                         @if (Model.Common.floor != null)
                                                         {
                                                             <option selected value="@Model.Common.floor">@Model.Common.floor</option>
-                                                            } 
+                                                        }
                                                         <option value="15">15</option>
                                                         <option value="14">14</option>
                                                         <option value="13">13</option>
@@ -142,7 +142,7 @@
                                                     <label>Upload Invoice</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
-                                                            <input type="file" id="imgInvoice" required multiple name="imgInvoice" accept="image/*" />
+                                                            <input type="file" id="imgInvoice" multiple name="imgInvoice" accept="image/*" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -199,9 +199,50 @@
             </div>
         </div>
     </div>
+    <div id="partialModal" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Expense Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="margin-bottom:-20px">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
 @section Scripts {
     <script type="text/javascript">
+
+        function loadModal(id) {
+            $.ajax({
+                type: "GET",
+                url: "?handler=GetDetails",
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("XSRF-TOKEN",
+                        $('input:hidden[name="__RequestVerificationToken"]').val());
+                },
+                data: { "expenseId": id },
+                success: function (response) {
+                    $("#partialModal").find(".modal-body").html(response);
+                    $("#partialModal").modal('show');
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+        }
+
+        //.....................
       
         if (@Model.Common.propertyTypeId) {
             $("#typeId ").val(@Model.Common.propertyTypeId);
@@ -318,7 +359,7 @@
                     {
                         "data": "viewString",
                         "mRender": function (data, type, full) {
-                            return '<a class="btn btn-success btn-sm" href=/PMS/ViewExpense?expenseId=' + data + '>' + data.split("&")[0] + '</a>';
+                            return '<button class="btn btn-success btn-sm" onclick="loadModal(' + data.split("&")[0] + ')">View</button>';
                         }
                     },
                     {

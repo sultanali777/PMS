@@ -1,0 +1,151 @@
+﻿
+@model PMS.Models.viewExpense
+
+<style>
+
+    .content-wrapper {
+        background-color: #454d55 !important;
+        color: #96cbe0 !important;
+    }
+    .modal-header {
+        padding: .5rem !important;
+    }
+
+    .embossed {
+        color: #5b829e;
+        font-size: 16px;
+        background-color: #081939;
+        text-shadow: 1px 4px 4px #555;
+        text-align: center;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+    }
+</style>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-primary card-tabs">
+                    <div class="card-header bg-gradient-gray border-transparent p-0 pt-1">
+                        <ul class="nav nav-tabs" id="compTabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="expenseDetails-tab" data-toggle="pill" href="#expenseDetails" role="tab" aria-controls="expenseDetails" aria-selected="true">EXPENSE DETAILS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="vendor-tab" data-toggle="pill" href="#vendor" role="tab" aria-controls="vendor" aria-selected="false">VENDOR DETAILS</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="attachment-tab" data-toggle="pill" href="#attachment" role="tab" aria-controls="attachment" aria-selected="false">ATTACHMENTS</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="card-body">
+                        <div class="tab-content" id="tabContent">
+                            <div class="tab-pane fade show active" id="expenseDetails" role="tabpanel" aria-labelledby="expenseDetails-tab">
+                                <div class="col-12 d-flex align-items-stretch flex-column">
+                                    <div class="card bg-light d-flex flex-fill">
+                                        <div class="card-header text-muted border-bottom-0">
+                                            <span class="embossed">PROPERTY DETAILS</span>
+                                        </div>
+                                        <div class="card-body">
+                                            <dl class="row" style="margin-left: 7.5px; margin-right: 7.5px">
+                                                <dt class="col-sm-5">Governorate: </dt>
+                                                <dd class="col-sm-7">@Model.Govern</dd>
+                                                <dt class="col-sm-5">Area:</dt>
+                                                <dd class="col-sm-7">@Model.area </dd>
+                                                <dt class="col-sm-5">Property No:</dt>
+                                                <dd class="col-sm-7">@Model.propertyNo</dd>
+                                                <dt class="col-sm-5">Invoice No:</dt>
+                                                <dd class="col-sm-7">@Model.invoiceNo</dd>
+                                                <dd class="col-sm-12">
+                                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Floor: @Model.floor</li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-home"></i></span> Type: @Model.type</li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-arrow-circle-right"></i></span> Expense: @Model.expenseAmount</li>
+                                                        <li class="small"><span class="fa-li"><i class="fa fa-lg fa-file-text"></i></span> Description: @Model.expenseDesc </li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="vendor" role="tabpanel" aria-labelledby="vendor-tab">
+                                <div class="col-12 d-flex align-items-stretch flex-column">
+                                    <div class="card bg-light d-flex flex-fill">
+                                        <div class="card-header text-muted border-bottom-0">
+                                            <span class="embossed">VENDOR DETAILS</span>
+                                        </div>
+
+                                        <div class="card-body">
+                                            <dl class="row" style="margin-left: 7.5px; margin-right: 7.5px">
+                                                <dt class="col-sm-5">Full Name: </dt>
+                                                <dd class="col-sm-7">@Model.fullName</dd>
+                                                <dt class="col-sm-5">Civil ID:</dt>
+                                                <dd class="col-sm-7"> @Model.civilId</dd>
+                                                <dt class="col-sm-5">Type:</dt>
+                                                <dd class="col-sm-7"> @Model.venType</dd>
+                                                <dt class="col-sm-5">Company:</dt>
+                                                <dd class="col-sm-7"> @Model.companyName</dd>
+                                                <dd class="col-sm-12">
+                                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Mobile:  @Model.mobile </li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Email: @Model.email </li>
+                                                        <li class="small"><span class="fa-li"><i class="fas fa-lg fa-home"></i></span> Address:  @Model.vendAddress </li>
+                                                    </ul>
+                                                </dd>
+                                            </dl>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="attachment" role="tabpanel" aria-labelledby="attachment-tab">
+                                <div class="col-12 d-flex align-items-stretch flex-column">
+                                    <div class="card bg-light d-flex flex-fill">
+                                        <div class="card-header text-muted border-bottom-0">
+                                            <span class="embossed">ATTACHMENTS</span>
+                                        </div>
+                                        <div class="card-body pt-0">
+                                            <div class="col-12">
+                                                <div class="row" style="margin-top:20px">
+                                                    @foreach (var img in Model.expenseAttachments)
+                                                    {
+                                                        <div class="col-md-4">
+                                                            <a href="/Uploaded_Documents/@img" data-toggle="lightbox" data-gallery="gallery">
+                                                                <img src="/Uploaded_Documents/@img" class="img-fluid mb-2" />
+                                                            </a>
+                                                        </div>
+
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
+                $($.fn.dataTable.tables(true)).css('width', '100%');
+                $($.fn.dataTable.tables(true)).DataTable().columns.adjust().draw();
+            });
+
+            $(document).on('click', '[data-toggle="lightbox"]', function (event) {
+                event.preventDefault();
+                $(this).ekkoLightbox({
+                    alwaysShowClose: true
+                });
+            });
+        })
+    </script>
+}
+

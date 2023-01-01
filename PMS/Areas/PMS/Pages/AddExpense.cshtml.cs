@@ -20,6 +20,7 @@ using System.Text;
 using System.Xml;
 using NToastNotify;
 using System.Collections;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
 namespace PMS.Areas.PMS
 {
@@ -42,11 +43,13 @@ namespace PMS.Areas.PMS
             _hostingEnvironment = hostingEnvironment;
             _toastNotification = toastNotification;
             this.Common = new commonModel();
+            this.viewCommon = new viewExpense();
         }
         [BindProperty]
         public commonModel Common { get; set; }
         [BindProperty(SupportsGet = true)]
         public int? expenseId { get; set; }
+        public viewExpense viewCommon { get; set; }
         [BindProperty(SupportsGet = true)]
         public string? guid { get; set; }
 
@@ -238,7 +241,75 @@ namespace PMS.Areas.PMS
             }
             return new RedirectToPageResult("/AddExpense", new { area = "PMS" });
         }
-  
+        public PartialViewResult OnGetGetDetails(int expenseId)
+        {
+            if (expenseId != 0)
+            {
+
+                //------- Loading Common Fields -----
+                var common = (from exp in Context.tbl_ExpenseDetails
+                              join ven in Context.tbl_Vendor on exp.vendorId equals ven.Id
+                              join venTy in Context.tbl_VendorType on ven.vendorTypeId equals venTy.Id
+                              join pro in Context.tbl_Property on exp.propertyNo equals pro.Id
+                              join bul in Context.tbl_Building on exp.buildingId equals bul.Id
+                              join gov in Context.tbl_Governorates on bul.governorateId equals gov.Id
+                              join ar in Context.tbl_Areas on bul.areaId equals ar.Id
+                              join ty in Context.tbl_PropertyType on pro.propertyTypeId equals ty.Id
+                              where exp.Id == expenseId
+
+                              select new
+                              {
+                                  expenseId = exp.Id,
+                                  Govern = gov.Description,
+                                  area = ar.EnglishName,
+                                  floor = pro.floor,
+                                  proType = ty.Description,
+                                  propertyNo = pro.propertyNo,
+                                  expenseAmount = exp.expenseAmount,
+                                  vendorName = ven.fullName,
+                                  vendorCompany = ven.companyName,
+                                  expDesc = exp.Description,
+                                  expAttach = exp.attachments,
+                                  invoiceNo = exp.invoiceNo,
+                                  venType = venTy.Description,
+                                  email = ven.email,
+                                  mobile = ven.mobileNo,
+                                  civilId = ven.CivilIdNo,
+                                  venAddress = ven.address.ToUpper(),
+                              }).ToList();
+
+                if (common != null)
+                {
+                    viewCommon.expenseId = common[0].expenseId;
+                    viewCommon.Govern = common[0].Govern;
+                    viewCommon.area = common[0].area;
+                    viewCommon.floor = common[0].floor;
+                    viewCommon.type = common[0].proType;
+                    viewCommon.propertyNo = common[0].propertyNo;
+                    viewCommon.invoiceNo = common[0].invoiceNo;
+                    viewCommon.expenseAmount = common[0].expenseAmount;
+                    viewCommon.expenseDesc = common[0].expDesc;
+                    viewCommon.fullName = common[0].vendorName;
+                    viewCommon.email = common[0].email;
+                    viewCommon.companyName = common[0].vendorCompany;
+                    viewCommon.mobile = common[0].mobile;
+                    viewCommon.venType = common[0].venType;
+                    viewCommon.civilId = common[0].civilId;
+                    viewCommon.vendAddress = common[0].venAddress;
+                    char[] spearator = { ',' };
+                    if (!(string.IsNullOrEmpty(common[0].expAttach)))
+                        viewCommon.expenseAttachments = common[0].expAttach.Split(spearator);
+                    else
+                        viewCommon.expenseAttachments = null;
+
+                }
+            }
+            return new PartialViewResult
+            {
+                ViewName = "viewExpense",
+                ViewData = new ViewDataDictionary<viewExpense> (ViewData, this.viewCommon)
+            };
+        }
         public JsonResult OnGetLoadData()
         {
             object data = "";

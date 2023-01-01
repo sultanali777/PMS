@@ -17,16 +17,17 @@
         margin: 2px 0px 7px 1px;
         padding: 0px;
     }
+ 
 
-.embossed {
-    color: #5b829e;
-    font-size: 16px;
-    background-color: #081939;
-    text-shadow: 1px 4px 4px #555;
-    text-align: center;
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-}
+    .embossed {
+        color: #5b829e;
+        font-size: 16px;
+        background-color: #081939;
+        text-shadow: 1px 4px 4px #555;
+        text-align: center;
+        -webkit-background-clip: text;
+        -moz-background-clip: text;
+    }
 </style>
 <div class="content-header">
 <div class="container-fluid">
@@ -152,166 +153,7 @@
 
 @section Scripts {
     <script type="text/javascript">
-
-        function resendSMS(guid) {
-            $.ajax({
-                url: "?handler=resendSMS",
-                data: { guid: guid },
-                datatype: "json",
-                type: "GET",
-                contenttype: 'application/json; charset=utf-8',
-                async: true,
-                success: function (data) {
-                    // $("#succModal").modal('show');
-                    //alert(data);
-                    toastr.success(data, { fadeAway: 2500 });
-                },
-                complete: function () {
-                    setTimeout(function () {// wait for 5 secs(2)
-                        location.reload(); // then reload the page.(3)
-                    }, 3500);
-                },
-                error: function (xhr) {
-                    //alert('error occured');
-                    toastr.success('error occured', { fadeAway: 2500 });
-                }
-            });
-        }
-        // _________  LOAD SMS TABLE _____________
-        function loadSMSDataTable() {
-            var compId = 0;
-
-            if ($("#compId").val() != "") { compId = $("#compId").val(); }
-
-            $('#smsList').DataTable({
-                destroy: true, "responsive": true, "lengthChange": false, "searching": false, "autoWidth": true, "paging": false, "info": false,
-                order: [[3, 'desc']],
-                "ajax": {
-                    type: "GET",
-                    beforeSend: function () {
-                        $('.ajax-loader').css("visibility", "visible");
-                    },
-                    url: "?handler=loadDataSMS",
-                    dataType: "json",
-                    data: { compId: compId },
-                    complete: function () {
-                        $('.ajax-loader').css("visibility", "hidden");
-                    },
-                    dataSrc: ''
-                },
-                "columns": [
-                    { "data": "tagTo" },
-                    {
-                        "data": "status",
-                        render: function (data, type, row) {
-                            if (data == "Message Sent Successfully!") {
-                                return "Sent";
-                            }
-                            else if (data == "Your account is expired please contact Admin") {
-                                return "Account Expired";
-                            }
-                            else if (data == "Invalid Phone # . You cannot send this message.<br>") {
-                                return "Invalid Phone #";
-                            }
-                            else {
-                                return data;
-                            }
-                        }
-                    },
-                    { "data": "isRespond" },
-                    {
-                        "data": "dateSent",
-                        'render': function (jsonDate) {
-                            return (moment(jsonDate).format('DD/MM/YYYY HH:mm A'));
-                        }
-                    },
-                    {
-                        "data": "guid",
-                        "mRender": function (data, type, full) {
-                            return '<div class="btn btn-info btn-sm" onclick="resendSMS( \'' + data + '\' )">Resend</div>';
-                        }
-                    }
-                ]
-            });
-        }
-
-        // _________  LOAD DATA TABLE _____________
-        function loadDataTable() {
-            var compId = 0;
-
-            if ($("#compId").val() != "") { compId = $("#compId").val(); }
-
-            $('#historyList').DataTable({
-                destroy: true, "bSort": true, "responsive": true, "lengthChange": false, "searching": false, "autoWidth": true, "paging": false, "info": false,
-                order: [[3, 'desc']],
-                "ajax": {
-                    type: "GET",
-                    beforeSend: function () {
-                        $('.ajax-loader').css("visibility", "visible");
-                    },
-                    url: "?handler=loadData",
-                    dataType: "json",
-                    data: { compId: compId },
-                    complete: function () {
-                        $('.ajax-loader').css("visibility", "hidden");
-                    },
-                    dataSrc: ''
-                },
-                "columns": [
-                    { "data": "status" },
-                    { "data": "addedBy" },
-                    {
-                        "data": "description",
-                        "render": function (data, type, row) {
-                            return "<textarea  disabled class='form-control' style='text-align:justify;padding: 0.8rem;'>" + data + "</textarea>";
-                        }
-                    },
-                    {
-                        "data": "dateCreated",
-                        'render': function (jsonDate) {
-                            return (moment(jsonDate).format('DD/MM/YYYY HH:mm A'));
-                        }
-                    }
-                ]
-            });
-        }
-
-        $(document).on('click', '#submit', function (event) {
-            if ($("#inputForm").valid()) {
-                $("#submit").attr("disabled", true);
-                $("#submit").html("Submitting... please wait.");
-                var _id = 0, _status = 0, _desc = "";
-
-                if ($("#compId").val() != "") { _id = $("#compId").val(); }
-                if ($("#status").val() != "") { _status = $("#status").val(); }
-                if ($("#desc").val() != "") { _desc = $("#desc").val(); }
-
-                $.ajax({
-                    url: "?handler=UpdateStatus",
-                    data: { _desc: _desc, _status: _status, _id: _id },
-                    datatype: "json",
-                    type: "GET",
-                    contenttype: 'application/json; charset=utf-8',
-                    async: true,
-                    success: function (data) {
-                        toastr.success(data, { fadeAway: 2500 });
-                    },
-                    complete: function () {
-                        setTimeout(function () {// wait for 2 secs(2)
-                            location.reload(); // then reload the page.(3)
-                        }, 3500);
-                    },
-                    error: function (xhr) {
-                        //alert('error occured');
-                        toastr.success('error occured', { fadeAway: 2500 });
-                    }
-                });
-            }
-        });
-
-        $(document).ready(function () {
-            loadDataTable();
-            loadSMSDataTable();
+ $(document).ready(function () {
 
             $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
                 $($.fn.dataTable.tables(true)).css('width', '100%');
@@ -325,22 +167,5 @@
                 });
             });
         })
-
-        $(function () {
-
-            $('#inputForm').validate({
-                errorElement: 'span',
-                errorPlacement: function (error, element) {
-                    error.addClass('invalid-feedback');
-                    element.closest('.form-group').append(error);
-                },
-                highlight: function (element, errorClass, validClass) {
-                    $(element).addClass('is-invalid');
-                },
-                unhighlight: function (element, errorClass, validClass) {
-                    $(element).removeClass('is-invalid');
-                }
-            });
-        });
     </script>
 }
