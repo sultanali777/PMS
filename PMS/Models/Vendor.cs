@@ -15,7 +15,7 @@ namespace PMS.Models
         public string email { get; set; }
         public int governorateId { get; set; }
         public int areaId { get; set; }
-        public int CivilIdNo { get; set; }
+        public long CivilIdNo { get; set; }
         public string address { get; set; }
         public int vendorTypeId { get; set; }
         public DateTime date_Created

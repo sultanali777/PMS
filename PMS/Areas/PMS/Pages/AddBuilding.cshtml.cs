@@ -53,7 +53,10 @@ namespace PMS.Areas.PMS
             public int areaId { get; set; }
             public string buildingNo { get; set; }
             public string address { get; set; }
-
+            public string buildingName { get; set; }
+            public string ownerName { get; set; }
+            public string ownerMobile { get; set; }
+            public string ownerAddress { get; set; }
         }
         public List<SelectListItem> Governorate { get; set; }
         public void OnGet()
@@ -77,6 +80,10 @@ namespace PMS.Areas.PMS
                                   areaId = cust.areaId,
                                   buildingNo = cust.buildingno,
                                   address = cust.address,
+                                  buildingName = cust.buildingName,
+                                  ownerName = cust.ownerName,
+                                  ownerMobile = cust.ownerMobile,
+                                  ownerAddress = cust.ownerAddress,
                               }).ToList();
 
                 if (common != null)
@@ -86,6 +93,10 @@ namespace PMS.Areas.PMS
                     Common.areaId = common[0].areaId;
                     Common.buildingNo = common[0].buildingNo;
                     Common.address = common[0].address;
+                    Common.buildingName = common[0].buildingName;
+                    Common.ownerName = common[0].ownerName;
+                    Common.ownerMobile = common[0].ownerMobile;
+                    Common.ownerAddress = common[0].ownerAddress;
                 }
             }
         }
@@ -120,6 +131,10 @@ namespace PMS.Areas.PMS
                     int _areaId = int.Parse(Request.Form["areaId"]);
                     string _buildingNo = Request.Form["buildingNo"];
                     string _address = Request.Form["address"];
+                   string _buildingName= Request.Form["buildingName"];
+                    string _ownerName = Request.Form["ownerName"];
+                   string _ownerMobile = Request.Form["ownerMobile"];
+                    string _ownerAddress = Request.Form["ownerAddress"];
                     var buildingCheck = (from b in this.Context.tbl_Building
                                          where b.buildingno.ToUpper() == _buildingNo.ToUpper()
                                       select new { b.buildingno }).FirstOrDefault();
@@ -137,6 +152,10 @@ namespace PMS.Areas.PMS
                                 building.areaId = _areaId;
                                 building.buildingno = _buildingNo;
                                 building.address = _address;
+                                building.buildingName = _buildingName;
+                                building.ownerName = _ownerName;
+                                building.ownerMobile = _ownerMobile;
+                                building.ownerAddress = _ownerAddress;
                                 building.userId = userid;
                             };
                             Context.tbl_Building.Add(building);
@@ -154,6 +173,10 @@ namespace PMS.Areas.PMS
                             building.areaId = _areaId;
                             building.buildingno = _buildingNo;
                             building.address = _address;
+                            building.buildingName = _buildingName;
+                            building.ownerName = _ownerName;
+                            building.ownerMobile = _ownerMobile;
+                            building.ownerAddress = _ownerAddress;
                             building.userId = userid;
                         }
                         Context.SaveChanges();
@@ -183,7 +206,11 @@ namespace PMS.Areas.PMS
                                  area = ar.EnglishName,
                                  buildingno = bu.buildingno,
                                  address = bu.address,
-                             });
+                                 buildingName = bu.buildingName,
+                                ownerName = bu.ownerName,
+                                ownerMobile = bu.ownerMobile,
+                                ownerAddress = bu.ownerAddress,
+                            });
                 
                 data = query.OrderByDescending(x => x.buildingId).ToList();
             }

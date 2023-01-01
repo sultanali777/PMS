@@ -1,6 +1,6 @@
 ﻿@page
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
-@model PMS.Areas.PMS.AddRentModel
+@model PMS.Areas.PMS.AddExpenseModel
 @{
     Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
 }
@@ -12,8 +12,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/">Property Management</a></li>
-                    <li class="breadcrumb-item active">Add Rent</li>
+                    <li class="breadcrumb-item"><a href="/">Expense Management</a></li>
+                    <li class="breadcrumb-item active">Add Expense</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="col-md-12">
                 <div class="card card-success">
                     <div class="card-header bg-gradient-gray border-transparent">
-                        <h3 class="card-title">ADD RENT</h3>
+                        <h3 class="card-title">ADD EXPENSE</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -36,8 +36,8 @@
                         <!-- general form elements -->
                         <div style="margin: -21px;margin-bottom: -30px;">
                             <div class="box-table">
-                                <form method="post" id="inputForm" asp-page="AddRent" enctype="multipart/form-data">
-                                    <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.rentalId">
+                                <form method="post" id="inputForm" asp-page="AddExpense" enctype="multipart/form-data">
+                                    <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-sm-3">
@@ -92,7 +92,7 @@
 
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Property No<small style="color:red;font-size:12px;margin-left:6px"> * Only Vacant</small></label>
+                                                    <label>Property No</label>
                                                     <select class="form-control" required name="propertyNo" id="propertyNo">
                                                         <option value="">--Select Property--</option>
                                                     </select>
@@ -102,47 +102,31 @@
                                         </div>
 
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Select Customer</label>
-                                                    <select class="form-control" required name="customerId" id="customerId" asp-items="@Model.Customer">
-                                                        <option value="">--Select Customer--</option>
+                                                    <label>Select Vendor</label>
+                                                    <select class="form-control" required name="vendorId" id="vendorId" asp-items="@Model.Vendor">
+                                                        <option value="">--Select Vendor--</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Property Rent</label>
-                                                    @if (Model.Common.propertyRent != 0)
+                                                    <label>Expense Amount</label>
+                                                    @if (Model.Common.expenseAmount != 0)
                                                     {
-                                                        <input type="number" value="@Model.Common.propertyRent" class="form-control" required id="rent" name="rent" placeholder="Enter monthly rent..">
+                                                        <input type="number" value="@Model.Common.expenseAmount" class="form-control" required id="expenseAmount" name="expenseAmount" placeholder="Enter expense..">
                                                     }
                                                     else
                                                     {
-                                                        <input type="number" class="form-control" required id="rent" name="rent" placeholder="Enter monthly rent..">
+                                                        <input type="number" class="form-control" required id="expenseAmount" name="expenseAmount" placeholder="Enter Expense..">
                                                     }
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Start/End Dates</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text">
-                                                                <i class="far fa-calendar-alt"></i>
-                                                            </span>
-                                                        </div>
-                                                        @if (Model.Common.dateRange != "")
-                                                        {
-                                                            <input type="text" value="@Model.Common.dateRange" onfocus="this.value=''" autocomplete="off" required class="form-control pull-right formSearch" id="datrange" name="datrange">
-                                                         }
-                                                        else
-                                                        {
-                                                            <input type="text" required onfocus="this.value=''" autocomplete="off" class="form-control pull-right formSearch" id="datrange" name="datrange">
-
-                                                        }
-                                                    </div>
+                                                    <label>Invoice No</label>
+                                                    <input type="text" value="@Model.Common.invoiceNo" class="form-control" required id="invoiceNo" name="invoiceNo" placeholder="Enter invoiceNo...">
                                                 </div>
                                             </div>
                                         </div>
@@ -155,10 +139,10 @@
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label>Upload Contract</label>
+                                                    <label>Upload Invoice</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
-                                                            <input type="file" id="docContract" name="docContract" accept=".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                                                            <input type="file" id="imgInvoice" required multiple name="imgInvoice" accept="image/*" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -186,20 +170,19 @@
                             </div>
                             <!-- /.box-header -->
                             <div class="box-body" style="margin:-1px">
-                                <table class="table table-striped display" style="width:100%" id="rentalList">
+                                <table class="table table-striped display" style="width:100%" id="expenseList">
                                     <thead>
                                         <tr>
 
                                             <th>ID</th>
                                             <th>Action</th>
                                             <th>Building</th>
-                                            <th>Customer</th>
+                                            <th>Vendor</th>
                                             <th>Floor</th>
-                                            <th>Type</th>
                                             <th>Property</th>
-                                            <th>Rent</th>
-                                            <th>Start</th>
-                                            <th>End</th>
+                                            <th>Expense</th>
+                                            <th>Vendor Type</th>
+                                            <th>Invoice No</th>
                                             <th>Description</th>
 
                                         </tr>
@@ -219,12 +202,11 @@
 </section>
 @section Scripts {
     <script type="text/javascript">
-        var updat = 0;
+      
         if (@Model.Common.propertyTypeId) {
             $("#typeId ").val(@Model.Common.propertyTypeId);
             $("#buildingId ").val(@Model.Common.buildingId);
-            $("#floor ").val(@Model.Common.floor);
-            updat = 1; loadProperties();
+            $("#floor ").val(@Model.Common.floor); loadProperties();
         } 
            function loadProperties() {
                var selectedType = $('#typeId :selected').val();
@@ -235,7 +217,7 @@
             if (selectedType != null && selectedType != 0 && selectedBuilding != null && selectedBuilding != 0 && selectedFloor != null && selectedFloor != 0) {
                 $.ajax({
                     type: "GET",
-                    data: { typeId: selectedType,BuidId:selectedBuilding,floor:selectedFloor,updat:updat },
+                    data: { typeId: selectedType,BuidId:selectedBuilding,floor:selectedFloor },
                     url: "?handler=BuildingNo",
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("XSRF-TOKEN",
@@ -299,49 +281,12 @@
         $(document).ready(function () {
 
             loadDataTable();
-            // _________  DATE RANGE PICKER _____________
-            $('#datrange').daterangepicker();
-            if (@Model.Common.propertyRent== 0)
-               $('#datrange').val('');
-            //Date range picker with time picker
-            //Date range as a button
-            $("#datrange").daterangepicker({
-                autoUpdateInput: false,
-                locale: {
-                    cancelLabel: 'Clear'
-                }
-            });
-
-            $("#datrange").on('apply.daterangepicker', function (ev, picker) {
-                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-            });
-            $("#datrange").on('cancel.daterangepicker', function (ev, picker) {
-                $(this).val('');
-            });
-            $('#daterange-btn').daterangepicker(
-                {
-                    ranges: {
-                        'Today': [moment(), moment()],
-                        'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                        'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                        'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                        'This Month': [moment().startOf('month'), moment().endOf('month')],
-                        'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
-                    },
-                    startDate: moment().subtract(29, 'days'),
-                    endDate: moment()
-                },
-                function (start, end) {
-                    $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-                }
-            )
+            $.fn.DataTable.ext.pager.numbers_length = 4;
         });
-        $.fn.DataTable.ext.pager.numbers_length = 4;
-        
         // _________  LOAD DATA TABLE BUILDING_____________
         function loadDataTable() {
 
-            $('#rentalList').DataTable({
+            $('#expenseList').DataTable({
                 destroy: true,
                 dom: 'Bfrtip',
                 "bSort": true, "responsive": true, "lengthChange": true, "autoWidth": false,
@@ -373,43 +318,22 @@
                     {
                         "data": "viewString",
                         "mRender": function (data, type, full) {
-                            return '<a class="btn btn-success btn-sm" href=/PMS/ViewRent?rentalId=' + data + '>' + data.split("&")[0] + '</a>';
+                            return '<a class="btn btn-success btn-sm" href=/PMS/ViewExpense?expenseId=' + data + '>' + data.split("&")[0] + '</a>';
                         }
                     },
                     {
-                        "data": "rentalId",
+                        "data": "expenseId",
                         "mRender": function (data, type, full) {
-                            return '<a class="btn btn-info btn-sm" href=/PMS/AddRent?rentalId=' + data + '>' + 'Edit' + '</a>';
+                            return '<a class="btn btn-info btn-sm" href=/PMS/AddExpense?expenseId=' + data + '>' + 'Edit' + '</a>';
                         }
                     },
                     { "data": "building" },
-                    { "data": "customer" },
+                    { "data": "vendor" },
                     { "data": "floor" },
-                    { "data": "type" },
                     { "data": "propertyNo" },
-                    { "data": "rent" },
-                    {
-                        "data": "startDate",
-                        'render': function (jsonDate) {
-                            var mydate = new Date(jsonDate);
-                            var dd = String(mydate.getDate()).padStart(2, '0');
-                            var mm = String(mydate.getMonth() + 1).padStart(2, '0'); //January is 0!
-                            var yyyy = mydate.getFullYear();
-                            var res = dd + '/' + mm + '/' + yyyy;
-                            return res;
-                        }
-                    },
-                    {
-                        "data": "endDate",
-                        'render': function (jsonDate) {
-                            var mydate = new Date(jsonDate);
-                            var dd = String(mydate.getDate()).padStart(2, '0');
-                            var mm = String(mydate.getMonth() + 1).padStart(2, '0'); //January is 0!
-                            var yyyy = mydate.getFullYear();
-                            var res = dd + '/' + mm + '/' + yyyy;
-                            return res;
-                        }
-                    },
+                    { "data": "expenseAmount" },
+                    { "data": "type" },
+                    { "data": "invoiceNo" },
                     {
                         "data": "desc",
                         "render": function (data, type, row) {

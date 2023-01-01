@@ -10,13 +10,15 @@ namespace PMS.Models
         public int Id { get; set; }
         public string userId { get; set; }
         public int buildingId { get; set; }
-        public int floorId { get; set; }
+        public string floor { get; set; }
         public int propertyTypeId { get; set; }
         public int propertyNo { get; set; }
         public int expenseAmount { get; set; }
         public string invoiceNo { get; set; }
         public int vendorId { get; set; }
         public string Description { get; set; }
+        public string attachments { get; set; }
+        public string guid { get; set; }
         public DateTime date_Created
         {
             get

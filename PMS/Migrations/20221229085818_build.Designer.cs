@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PMS.Data;
 
 namespace PMS.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221229085818_build")]
+    partial class build
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -364,9 +366,6 @@ namespace PMS.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("attachments")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("buildingId")
                         .HasColumnType("int");
 
@@ -376,11 +375,8 @@ namespace PMS.Migrations
                     b.Property<int>("expenseAmount")
                         .HasColumnType("int");
 
-                    b.Property<string>("floor")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("guid")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("floorId")
+                        .HasColumnType("int");
 
                     b.Property<string>("invoiceNo")
                         .HasColumnType("nvarchar(max)");
@@ -538,8 +534,8 @@ namespace PMS.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<long>("CivilIdNo")
-                        .HasColumnType("bigint");
+                    b.Property<int>("CivilIdNo")
+                        .HasColumnType("int");
 
                     b.Property<string>("address")
                         .HasColumnType("nvarchar(max)");

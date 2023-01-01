@@ -1,6 +1,6 @@
 ﻿@page
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
-@model PMS.Areas.PMS.AddBuildingModel
+@model PMS.Areas.PMS.AddVendorModel
 @{
     Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
 }
@@ -12,8 +12,8 @@
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/">Property Management</a></li>
-                    <li class="breadcrumb-item active">Add Building</li>
+                    <li class="breadcrumb-item"><a href="/">Expense Management</a></li>
+                    <li class="breadcrumb-item active">Add Vendor</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +25,7 @@
             <div class="col-md-12">
                 <div class="card card-success">
                     <div class="card-header bg-gradient-gray border-transparent">
-                        <h3 class="card-title">ADD BUILDING</h3>
+                        <h3 class="card-title">ADD VENDOR</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -36,15 +36,14 @@
                         <!-- general form elements -->
                         <div  style="margin: -21px;margin-bottom: -30px;">
                             <div class="box-table">
-                                <form method="post" id="inputForm" asp-page="AddBuilding" enctype="multipart/form-data">
+                                <form method="post" id="inputForm" asp-page="AddVendor" enctype="multipart/form-data">
                                     <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
-
                                     <div class="box-body">
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Select Governorate</label>
-                                                    <select class="form-control" onchange="loadAreas();" required name="governorateId" id="governorateId" asp-items="@Model.Governorate">
+                                                    <select class="form-control" onchange="loadArea();" required name="governorateId" id="governorateId" asp-items="@Model.Governorate">
                                                         <option value="">--Select Governorate--</option>
                                                     </select>
                                                 </div>
@@ -52,52 +51,75 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Select Area</label>
-                                                    <select class="form-control" required name="areaId" id="areaId">
+                                                    <select class="form-control  select2" required name="areaId" id="areaId">
                                                         <option value="">--Select Area--</option>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Building No</label>
-                                                    <input type="text" required class="form-control" value="@Model.Common.buildingNo" id="buildingNo" name="buildingNo" placeholder="Enter Building No">
+                                                    <label>Company Name</label>
+                                                    <input type="text" value="@Model.Common.companyName" class="form-control"  id="companyName" name="companyName" placeholder="Enter companyName...">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Building Address</label>
-                                                    <input type="text" class="form-control" required name="address" value="@Model.Common.address" id="address" placeholder="Enter Address...">
+                                                    <label>Address</label>
+                                                    <input type="text" value="@Model.Common.address" class="form-control" required id="address" name="address" placeholder="Enter Address...">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Building Name</label>
-                                                    <input type="text" class="form-control" value="@Model.Common.buildingName" required name="buildingName" id="buildingName" placeholder="Enter Building Name...">
+                                                    <label>Vendor Type</label>
+                                                    <select class="form-control"  required name="vendorTypeId" id="vendorTypeId" asp-items="@Model.VendorType">
+                                                        <option value="">--Select Type--</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Owner Name</label>
-                                                    <input type="text" class="form-control" value="@Model.Common.ownerName" required name="ownerName" id="ownerName" placeholder="Enter Owner Name...">
+                                                    <label>Full Name</label>
+                                                    <input type="text" value="@Model.Common.fullName" class="form-control" required id="fullName" name="fullName" placeholder="Full Name">
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
-                                                    <label>Mobile No</label>
-                                                    <input type="number"  value="@Model.Common.ownerMobile" class="form-control" required id="ownerMobile" name="ownerMobile" placeholder="Mobile Number">
+                                                    <label>Email</label>
+                                                    <div class="input-group mb-3">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                                        </div>
+                                                        <input type="email" value="@Model.Common.email" id="email" required name="email" class="form-control" placeholder="Email">
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-2">
                                                 <div class="form-group">
-                                                    <label>Owner Address</label>
-                                                    <input type="text" class="form-control" value="@Model.Common.ownerAddress" required name="ownerAddress" id="ownerAddress" placeholder="Enter Owner Address...">
+                                                    <label>Mobile</label>
+                                                    <input type="number" value="@Model.Common.mobileNo" class="form-control" required id="mobileNo" name="mobileNo" placeholder="Mobile Number">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2">
+                                                <div class="form-group">
+                                                    <label>Civil Id</label>
+                                                    @if (Model.Common.CivilIdNo != 0)
+                                                    {
+                                                        <input type="number" value="@Model.Common.CivilIdNo" class="form-control" required id="CivilIdNo" name="CivilIdNo" placeholder="Civil Id Number...">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="number" class="form-control" required id="CivilIdNo" name="CivilIdNo" placeholder="Civil Id Number...">
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div class="card-footer">
                                             <button type="submit" id="submit" class="btn btn-success formSearch">@(Model.Common.address != null ? "Update" : "Add")</button>
+
                                         </div>
                                     </div>
                                 </form>
@@ -115,19 +137,19 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body" style="margin:-1px">
-                        <table class="table table-striped display" style="width:100%" id="buildingList">
+                        <table class="table table-striped display" style="width:100%" id="vendorList">
                             <thead>
                                 <tr>
-
                                     <th>ID</th>
                                     <th>ACTION</th>
                                     <th>Governorate</th>
                                     <th>Area</th>
-                                    <th>No</th>
-                                    <th>Name</th>
-                                    <th>Address</th>
-                                    <th>Owner</th>
+                                    <th>Type</th>
+                                    <th>Company</th>
+                                    <th>Full Name</th>
+                                    <th>Email</th>
                                     <th>Mobile</th>
+                                    <th>Civil ID</th>
                                     <th>Address</th>
                                 </tr>
                             </thead>
@@ -143,8 +165,10 @@
 </section>
 @section Scripts {
     <script type="text/javascript">
-          if (@Model.Common.areaId) { $("#governorateId ").val(@Model.Common.govId); loadAreas(); }
-        function loadAreas() {
+      
+        if (@Model.Common.areaId) { $("#governorateId ").val(@Model.Common.governorateId); loadArea(); }
+      
+        function loadArea() { 
             var selectedGovernorate = $('#governorateId :selected').val();
             var areaSelect = $('#areaId');
             areaSelect.empty();
@@ -165,7 +189,7 @@
                                 text: "--Select Area--"
                             }));
                             $.each(addressAreas, function (index, area) {
-                                 if (area.value == @Model.Common.areaId) {
+                                if (area.value == @Model.Common.areaId) {
                                     areaSelect.append("<option selected value='" + area.value + "'>" + area.text + "</option>");
                                 } else { areaSelect.append("<option value='" + area.value + "'>" + area.text + "</option>"); }
                                
@@ -214,13 +238,14 @@
         });
 
         $(document).ready(function () {
+             $('.select2').select2();
             loadDataTable();
         });
-        
+         
         // _________  LOAD DATA TABLE BUILDING_____________
         function loadDataTable() {
 
-            $('#buildingList').DataTable({
+            $('#vendorList').DataTable({
                 destroy: true,
                 dom: 'Bfrtip',
                 "bSort": true, "responsive": true, "lengthChange": true, "autoWidth": false,
@@ -249,21 +274,27 @@
                 },
                 "columns": [
                 
-                    { "data": "buildingId" },
+                    { "data": "vendorId" },
                     {
-                        "data": "buildingId",
+                        "data": "vendorId",
                         "mRender": function (data, type, full) {
-                            return '<a class="btn btn-info btn-sm" href=/PMS/AddBuilding?buildingId=' + data + '>' + 'Edit' + '</a>';
+                            return '<a class="btn btn-info btn-sm" href=/PMS/AddVendor?vendorId=' + data + '>' + 'Edit' + '</a>';
                         }
                     },
                     { "data": "governorate" },
                     { "data": "area" },
-                    { "data": "buildingno" },
-                    { "data": "buildingName" },
-                    { "data": "address" },
-                    { "data": "ownerName" },
-                    { "data": "ownerMobile" },
-                    { "data": "ownerAddress" },
+                    { "data": "type" },
+                     { "data": "companyName" },
+                    { "data": "fullName" },
+                    { "data": "email" },
+                    { "data": "mobile" },
+                    { "data": "civilId" },
+                    {
+                        "data": "address",
+                        "render": function (data, type, row) {
+                            return "<textarea  disabled class='form-control' style='text-align:justify;padding: 0.4rem;'>" + data + "</textarea>";
+                        }
+                    }
                 ]
             });
         }

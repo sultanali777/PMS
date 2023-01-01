@@ -53,7 +53,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
+    with font-awesome or any other icon font library -->
                         <li class="nav-item menu-is-opening menu-open">
                             <a is-active-page asp-page="/Index" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -68,7 +68,7 @@
                                 <p>
                                     Property Management
                                     <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">3</span>
+                                    <span class="badge badge-info right">4</span>
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
@@ -94,6 +94,30 @@
                                     <a is-active-page asp-area="PMS" asp-page="/AddRent" class="nav-link">
                                         <i class="nav-icon fas fa-key"></i>
                                         <p> Add Rent</p>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <i class="nav-icon fas fa-address-book"></i>
+                                <p>
+                                    Expense Management
+                                    <i class="fas fa-angle-left right"></i>
+                                    <span class="badge badge-info right">2</span>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a is-active-page asp-area="PMS" asp-page="/AddVendor" class="nav-link">
+                                        <i class="nav-icon fas fa-person"></i>
+                                        <p> Add Vendor</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a is-active-page asp-area="PMS" asp-page="/AddExpense" class="nav-link">
+                                        <i class="nav-icon fas fa-page4"></i>
+                                        <p> Add Expense</p>
                                     </a>
                                 </li>
                             </ul>

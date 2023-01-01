@@ -14,6 +14,10 @@ namespace PMS.Models
         public int governorateId { get; set; }
         public int areaId { get; set; }
         public string address { get; set; }
+        public string buildingName { get; set; }
+        public string ownerName { get; set; }
+        public string ownerMobile { get; set; }
+        public string ownerAddress { get; set; }
         public DateTime date_Created
         {
             get
