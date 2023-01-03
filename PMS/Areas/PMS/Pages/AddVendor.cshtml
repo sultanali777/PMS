@@ -1,5 +1,6 @@
 ﻿@page
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, LazZiya.ExpressLocalization
 @model PMS.Areas.PMS.AddVendorModel
 @{
     Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
@@ -8,12 +9,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h5>Property Management System</h5>
+                <h5 localize-content>Property Management System</h5>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/">Expense Management</a></li>
-                    <li class="breadcrumb-item active">Add Vendor</li>
+                    <li class="breadcrumb-item"><a href="/" localize-content>Expense Management</a></li>
+                    <li class="breadcrumb-item active" localize-content>Add Vendor</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +26,7 @@
             <div class="col-md-12">
                 <div class="card card-success">
                     <div class="card-header bg-gradient-gray border-transparent">
-                        <h3 class="card-title">ADD VENDOR</h3>
+                        <h3 class="card-title" localize-content>Add Vendor</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -34,11 +35,11 @@
                     </div>
                     <div class="card-body">
                         <!-- general form elements -->
-                        <div  style="margin: -21px;margin-bottom: -30px;">
+                        <div style="margin: -21px;margin-bottom: -30px;">
                             <div class="box-table">
                                 <form method="post" id="inputForm" asp-page="AddVendor" enctype="multipart/form-data">
                                     <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
-                                    <div class="box-body">
+                                    <div class="box-body" style="margin-bottom:-2px">
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
@@ -59,7 +60,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Company Name</label>
-                                                    <input type="text" value="@Model.Common.companyName" class="form-control"  id="companyName" name="companyName" placeholder="Enter companyName...">
+                                                    <input type="text" value="@Model.Common.companyName" class="form-control" id="companyName" name="companyName" placeholder="Enter companyName...">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
@@ -73,7 +74,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Vendor Type</label>
-                                                    <select class="form-control"  required name="vendorTypeId" id="vendorTypeId" asp-items="@Model.VendorType">
+                                                    <select class="form-control" required name="vendorTypeId" id="vendorTypeId" asp-items="@Model.VendorType">
                                                         <option value="">--Select Type--</option>
                                                     </select>
                                                 </div>
@@ -165,10 +166,10 @@
 </section>
 @section Scripts {
     <script type="text/javascript">
-      
+
         if (@Model.Common.areaId) { $("#governorateId ").val(@Model.Common.governorateId); loadArea(); }
-      
-        function loadArea() { 
+
+        function loadArea() {
             var selectedGovernorate = $('#governorateId :selected').val();
             var areaSelect = $('#areaId');
             areaSelect.empty();
@@ -192,7 +193,7 @@
                                 if (area.value == @Model.Common.areaId) {
                                     areaSelect.append("<option selected value='" + area.value + "'>" + area.text + "</option>");
                                 } else { areaSelect.append("<option value='" + area.value + "'>" + area.text + "</option>"); }
-                               
+
                             });
                         };
                     },
@@ -241,7 +242,7 @@
              $('.select2').select2();
             loadDataTable();
         });
-         
+
         // _________  LOAD DATA TABLE BUILDING_____________
         function loadDataTable() {
 
@@ -273,7 +274,7 @@
                     dataSrc: ''
                 },
                 "columns": [
-                
+
                     { "data": "vendorId" },
                     {
                         "data": "vendorId",

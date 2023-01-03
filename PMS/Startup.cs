@@ -13,6 +13,10 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 using NToastNotify;
+using LazZiya.ExpressLocalization;
+using System.Globalization;
+using PMS.LocalizationResources;
+using Microsoft.AspNetCore.Localization;
 
 namespace PMS
 {
@@ -51,7 +55,24 @@ namespace PMS
                 Timeout = 5000,
                 Theme = "metroui"
             }); ;
-            services.AddRazorPages();
+            var cultures = new[]
+                            {
+                                new CultureInfo("ar"),
+                                new CultureInfo("en"),
+                            };
+
+            services.AddRazorPages()
+                .AddExpressLocalization<ExpressLocalizationResource, ViewLocalizationResource>(
+                ops =>
+                {
+                    ops.ResourcesPath = "LocalizationResources";
+                    ops.RequestLocalizationOptions = o =>
+                    {
+                        o.SupportedCultures = cultures;
+                        o.SupportedUICultures = cultures;
+                        o.DefaultRequestCulture = new RequestCulture("en");
+                    };
+                });
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.Configure<SMTPSettings>(Configuration.GetSection("SMTPSettings"));
@@ -82,7 +103,13 @@ namespace PMS
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseRequestLocalization();
+            //app.UseEndpoints(endpoints =>
+            //{
+            //    endpoints.MapControllerRoute(
+            //        name: "default",
+            //        pattern: "{culture=ar}/{controller=Home}/{action=Index}/{id?}");
+            //});
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

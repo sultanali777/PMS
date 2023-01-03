@@ -9,7 +9,7 @@
              class="brand-image img-circle elevation-0"
              style="margin-top:3px">
         <div>
-            <span class="brand-text">Property Management System</span>
+            <span class="brand-text" localize-content>Property Management System</span>
         </div>
     </a>
     <!-- Sidebar -->
@@ -57,7 +57,7 @@
                         <li class="nav-item menu-is-opening menu-open">
                             <a is-active-page asp-page="/Index" class="nav-link">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
-                                <p>
+                                <p  localize-content>
                                     Dashboard
                                 </p>
                             </a>
@@ -66,34 +66,35 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-copy"></i>
                                 <p>
-                                    Property Management
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">4</span>
-                                </p>
+                                    <localize>
+                                        Property Management</localize>
+    <i class="fas fa-angle-left right"></i>
+    <span class="badge badge-info right">4</span>
+</p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a is-active-page asp-area="PMS" asp-page="/AddBuilding" class="nav-link">
                                         <i class="nav-icon fas fa-building-columns"></i>
-                                        <p> Add Building</p>
+                                        <p  localize-content> Add Building</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a is-active-page asp-area="PMS" asp-page="/AddProperty" class="nav-link">
                                         <i class="nav-icon fas fa-home"></i>
-                                        <p> Add Property</p>
+                                        <p  localize-content> Add Property</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a is-active-page asp-area="PMS" asp-page="/AddCustomer" class="nav-link">
                                         <i class="nav-icon fas fa-people-arrows-left-right"></i>
-                                        <p> Add Customer</p>
+                                        <p  localize-content> Add Customer</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a is-active-page asp-area="PMS" asp-page="/AddRent" class="nav-link">
                                         <i class="nav-icon fas fa-key"></i>
-                                        <p> Add Rent</p>
+                                        <p  localize-content> Add Rent</p>
                                     </a>
                                 </li>
                             </ul>
@@ -102,22 +103,23 @@
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-address-book"></i>
                                 <p>
-                                    Expense Management
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">2</span>
-                                </p>
+                                    <localize>
+                                        Expense Management</localize>
+                                        <i class="fas fa-angle-left right"></i>
+                                        <span class="badge badge-info right">2</span>
+</p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a is-active-page asp-area="PMS" asp-page="/AddVendor" class="nav-link">
                                         <i class="nav-icon fas fa-person"></i>
-                                        <p> Add Vendor</p>
+                                        <p localize-content> Add Vendor</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a is-active-page asp-area="PMS" asp-page="/AddExpense" class="nav-link">
                                         <i class="nav-icon fas fa-page4"></i>
-                                        <p> Add Expense</p>
+                                        <p localize-content> Add Expense</p>
                                     </a>
                                 </li>
                             </ul>
@@ -126,16 +128,17 @@
                             <a href="#" class="nav-link">
                                 <i class="fas fa-share-square nav-icon"></i>
                                 <p>
-                                    Reports
-                                    <i class="fas fa-angle-left right"></i>
-                                    <span class="badge badge-info right">1</span>
-                                </p>
+                                    <localize>
+                                        Reports</localize>
+                                        <i class="fas fa-angle-left right"></i>
+                                        <span class="badge badge-info right">1</span>
+</p>
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
                                     <a is-active-page asp-area="PMS" asp-page="/View" class="nav-link">
-                                        <i class="nav-icon fas fa-search-plus"></i>
-                                        <p> View All</p>
+                                        <i class="nav-icon fas fa-building-columns"></i>
+                                        <p localize-content> View All Properties</p>
                                     </a>
                                 </li>
                             </ul>

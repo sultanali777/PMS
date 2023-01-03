@@ -1,5 +1,6 @@
 ﻿@page
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, LazZiya.ExpressLocalization
 @model PMS.Areas.PMS.AddExpenseModel
 @{
     Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
@@ -8,12 +9,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h5>Property Management System</h5>
+                <h5 localize-content>Property Management System</h5>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/">Expense Management</a></li>
-                    <li class="breadcrumb-item active">Add Expense</li>
+                    <li class="breadcrumb-item"><a href="/" localize-content>Expense Management</a></li>
+                    <li class="breadcrumb-item active" localize-content>Add Expense</li>
                 </ol>
             </div>
         </div>
@@ -25,7 +26,7 @@
             <div class="col-md-12">
                 <div class="card card-success">
                     <div class="card-header bg-gradient-gray border-transparent">
-                        <h3 class="card-title">ADD EXPENSE</h3>
+                        <h3 class="card-title" localize-content>Add Expense</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -38,7 +39,7 @@
                             <div class="box-table">
                                 <form method="post" id="inputForm" asp-page="AddExpense" enctype="multipart/form-data">
                                     <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
-                                    <div class="box-body">
+                                    <div class="box-body" style="margin-bottom:-2px">
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
@@ -243,12 +244,12 @@
         }
 
         //.....................
-      
+
         if (@Model.Common.propertyTypeId) {
             $("#typeId ").val(@Model.Common.propertyTypeId);
             $("#buildingId ").val(@Model.Common.buildingId);
             $("#floor ").val(@Model.Common.floor); loadProperties();
-        } 
+        }
            function loadProperties() {
                var selectedType = $('#typeId :selected').val();
                var selectedBuilding = $('#buildingId :selected').val();
@@ -355,7 +356,7 @@
                     dataSrc: ''
                 },
                 "columns": [
-                
+
                     {
                         "data": "viewString",
                         "mRender": function (data, type, full) {

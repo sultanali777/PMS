@@ -1,0 +1,34 @@
+﻿html {
+    direction: rtl;
+}
+
+body {
+    text-align: right !important;
+}
+.sidebar {
+    direction:rtl !important;
+}
+.table {
+    direction: rtl !important;
+}
+div.dataTables_paginate {
+    float: unset !important;
+}
+.nav-sidebar .nav-link > .right, .nav-sidebar .nav-link > p > .right {
+    position: relative;
+    right: 1rem;
+    top:.1rem;
+}
+.float-right {
+    float: left !important;
+}
+.float-sm-right {
+    float: left !important;
+}
+div.dataTables_filter {
+    float: left;
+}
+/*body:not(.sidebar-mini-md) .content-wrapper, body:not(.sidebar-mini-md) .main-footer, body:not(.sidebar-mini-md) .main-header {
+    transition: margin-left .3s ease-in-out;
+    margin-right: 250px;
+}*/

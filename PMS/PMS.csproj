@@ -2,11 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <UserSecretsId>aspnet-AdminLTE.StarterKit-655C7BC5-BA92-48A1-B166-BC3C12D19927</UserSecretsId>
+    <UserSecretsId>PMS</UserSecretsId>
     <Authors>Sultan Ali</Authors>
-    <Company>HISDU</Company>
-    <RepositoryUrl>https://pshealthpunjab.gov.pk/Home/HISDU</RepositoryUrl>
+    <Company></Company>
+    <RepositoryUrl></RepositoryUrl>
     <NoWarn>1701;1702;1591;1998</NoWarn>
+    <Description>Property Management System</Description>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,6 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="LazZiya.ExpressLocalization" Version="4.0.4" />
+    <PackageReference Include="LazZiya.TagHelpers" Version="6.0.2" />
     <PackageReference Include="MailKit" Version="2.8.0" />
     <PackageReference Include="Microsoft.ApplicationInsights.AspNetCore" Version="2.15.0" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
@@ -33,6 +36,21 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\Uploaded_Documents\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Analyzers">
+      <HintPath>C:\Program Files\dotnet\sdk\3.1.100\Sdks\Microsoft.NET.Sdk.Web\analyzers\cs\Microsoft.AspNetCore.Analyzers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Components.Analyzers">
+      <HintPath>C:\Program Files\dotnet\sdk\3.1.100\Sdks\Microsoft.NET.Sdk.Web\analyzers\cs\Microsoft.AspNetCore.Components.Analyzers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Analyzers">
+      <HintPath>C:\Program Files\dotnet\sdk\3.1.100\Sdks\Microsoft.NET.Sdk.Web\analyzers\cs\Microsoft.AspNetCore.Mvc.Analyzers.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNetCore.Mvc.Api.Analyzers">
+      <HintPath>C:\Program Files\dotnet\sdk\3.1.100\Sdks\Microsoft.NET.Sdk.Web\analyzers\cs\Microsoft.AspNetCore.Mvc.Api.Analyzers.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

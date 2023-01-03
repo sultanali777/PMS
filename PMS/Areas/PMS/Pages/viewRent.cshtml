@@ -1,5 +1,6 @@
 ﻿@page
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, LazZiya.ExpressLocalization
 @model PMS.Areas.PMS.viewRentModel
 @{
     Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
@@ -17,7 +18,7 @@
         margin: 2px 0px 7px 1px;
         padding: 0px;
     }
- 
+
 
     .embossed {
         color: #5b829e;
@@ -30,19 +31,19 @@
     }
 </style>
 <div class="content-header">
-<div class="container-fluid">
-    <div class="row mb-2">
-        <div class="col-sm-6">
-            <h5>Property Management System</h5>
-        </div>
-        <div class="col-sm-6">
-            <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="/">Property Management</a></li>
-                <li class="breadcrumb-item active">View Rent</li>
-            </ol>
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 localize-content>Property Management System</h5>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/" localize-content>Property Management</a></li>
+                    <li class="breadcrumb-item active" localize-content>View Rent</li>
+                </ol>
+            </div>
         </div>
     </div>
-</div>
 </div>
 <section class="content">
     <div class="container-fluid">
@@ -153,7 +154,7 @@
 
 @section Scripts {
     <script type="text/javascript">
- $(document).ready(function () {
+        $(document).ready(function () {
 
             $('a[data-toggle="pill"]').on('shown.bs.tab', function (e) {
                 $($.fn.dataTable.tables(true)).css('width', '100%');

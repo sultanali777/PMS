@@ -1,6 +1,8 @@
 ﻿@page
 @addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, LazZiya.ExpressLocalization
 @model PMS.Areas.PMS.AddBuildingModel
+@inject LazZiya.ExpressLocalization.ISharedCultureLocalizer _loc
 @{
     Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
 }
@@ -8,13 +10,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h5>Property Management System</h5>
+                <h5 localize-content>Property Management System</h5>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="/">Property Management</a></li>
-                    <li class="breadcrumb-item active">Add Building</li>
-                </ol>
+                    <li class="breadcrumb-item"><a href="/" localize-content>Property Management</a></li>
+                    <li class="breadcrumb-item active">@_loc.GetLocalizedString("Add Building")</li>
+</ol>
             </div>
         </div>
     </div>
@@ -25,7 +27,7 @@
             <div class="col-md-12">
                 <div class="card card-success">
                     <div class="card-header bg-gradient-gray border-transparent">
-                        <h3 class="card-title">ADD BUILDING</h3>
+                        <h3 class="card-title text-capitalize">@_loc.GetLocalizedString("Add Building")</h3>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                 <i class="fas fa-minus"></i>
@@ -34,12 +36,12 @@
                     </div>
                     <div class="card-body">
                         <!-- general form elements -->
-                        <div  style="margin: -21px;margin-bottom: -30px;">
+                        <div style="margin: -21px;margin-bottom: -30px;">
                             <div class="box-table">
                                 <form method="post" id="inputForm" asp-page="AddBuilding" enctype="multipart/form-data">
                                     <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
 
-                                    <div class="box-body">
+                                    <div class="box-body" style="margin-bottom:-2px">
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
@@ -86,7 +88,7 @@
                                             <div class="col-sm-3">
                                                 <div class="form-group">
                                                     <label>Mobile No</label>
-                                                    <input type="number"  value="@Model.Common.ownerMobile" class="form-control" required id="ownerMobile" name="ownerMobile" placeholder="Mobile Number">
+                                                    <input type="number" value="@Model.Common.ownerMobile" class="form-control" required id="ownerMobile" name="ownerMobile" placeholder="Mobile Number">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
@@ -115,7 +117,7 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body" style="margin:-1px">
-                        <table class="table table-striped display" style="width:100%" id="buildingList">
+                        <table class="table table-striped display" style="width:100%;" id="buildingList">
                             <thead>
                                 <tr>
 
@@ -168,7 +170,7 @@
                                  if (area.value == @Model.Common.areaId) {
                                     areaSelect.append("<option selected value='" + area.value + "'>" + area.text + "</option>");
                                 } else { areaSelect.append("<option value='" + area.value + "'>" + area.text + "</option>"); }
-                               
+
                             });
                         };
                     },
@@ -216,7 +218,7 @@
         $(document).ready(function () {
             loadDataTable();
         });
-        
+
         // _________  LOAD DATA TABLE BUILDING_____________
         function loadDataTable() {
 
@@ -248,7 +250,7 @@
                     dataSrc: ''
                 },
                 "columns": [
-                
+
                     { "data": "buildingId" },
                     {
                         "data": "buildingId",

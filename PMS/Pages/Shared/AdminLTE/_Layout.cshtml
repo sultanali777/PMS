@@ -1,12 +1,18 @@
-﻿<!DOCTYPE html>
+﻿@using System.Globalization
+@{
+    var culture = CultureInfo.CurrentCulture.Name;
+    var dirCss = CultureInfo.CurrentCulture.TextInfo.IsRightToLeft ? "rtl" : "ltr";
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Property Management System</title>
+    <title localize-content>Property Management System</title>
     <link rel="icon" type="image/x-icon" href="~/img/top_logo.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
+
         .panel-fullscreen {
             display: block;
             z-index: 9999;
@@ -21,11 +27,13 @@
         }
     </style>
     <partial name="AdminLTE/_Styles" />
+    <link rel="stylesheet" href="@($"/css/{dirCss}.css")" />
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
     <div class="wrapper">
         <partial name="AdminLTE/_TopNavigation" />
+       
         <partial name="AdminLTE/_Sidebar" />
         <div class="content-wrapper" style="padding: 20px;min-height: 530.031px;">
             @RenderBody()
@@ -39,16 +47,16 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <h5 class="modal-title" id="exampleModalLabel" localize-content>Ready to Leave?</h5>
                         <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                    <div class="modal-body" localize-content>Select "Logout" below if you are ready to end your current session.</div>
                     <div class="modal-footer">
-                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal" localize-content>Cancel</button>
                         <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
-                            <button type="submit" class="btn btn-primary">Logout</button>
+                            <button type="submit" class="btn btn-primary" localize-content>Logout</button>
                         </form>
                     </div>
                 </div>  <!-- End of Content Wrapper -->
