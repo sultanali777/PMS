@@ -622,7 +622,7 @@
     <value>أضف المصاريف</value>
   </data>
   <data name="Add Property" xml:space="preserve">
-    <value>أضف خاصية</value>
+    <value>أضف العمارة</value>
   </data>
   <data name="Add Rent" xml:space="preserve">
     <value>أضف إيجار</value>
@@ -677,5 +677,8 @@
   </data>
   <data name="View All Properties" xml:space="preserve">
     <value>عرض جميع العقارات</value>
+  </data>
+  <data name="Ahmadi Tower" xml:space="preserve">
+    <value>برج الأحمدي</value>
   </data>
 </root>

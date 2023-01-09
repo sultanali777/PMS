@@ -24,6 +24,7 @@ namespace PMS.Data
         public DbSet<Vendor> tbl_Vendor { get; set; }
         public DbSet<VendorType> tbl_VendorType { get; set; }
         public DbSet<Country> tbl_Country { get; set; }
+        public DbSet<rentCollection> tbl_rentCollection { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

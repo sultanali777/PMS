@@ -1,0 +1,247 @@
+﻿@page
+@addTagHelper*, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, LazZiya.ExpressLocalization
+@model PMS.Areas.PMS.rentCollectionModel
+@{
+    Layout = "~/Pages/Shared/AdminLTE/_Layout.cshtml";
+}
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h5 localize-content>Property Management System</h5>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a href="/" localize-content>Property Management</a></li>
+                    <li class="breadcrumb-item active" localize-content>Rent Collection</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+<section class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="box-table">
+                            <div class="ajax-loader">
+                                <img src="/img/loader.gif" class="img-responsive" />
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body" style="margin:-1px">
+                                <table class="table table-striped display" style="width:100%" id="collectionList">
+                                    <thead>
+                                        <tr>
+
+                                            <th>ID</th>
+                                            <th style="width:15%">Action</th>
+                                            <th>Rent</th>
+                                            <th>Month</th>
+                                            <th>Received Type</th>
+                                            <th>Received Date</th>
+                                            <th>Description</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                            </div>
+                            <!-- /.box-body -->
+                        </div>
+                        <!-- /.box -->
+                    </div>
+                    @*</div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="MyPopup" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="background-color: #656d76;">
+            <div class="modal-header">
+                <h5 class="modal-title">Collect Rent</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form method="post" id="inputForm" asp-page="rentCollection">
+                                <input type="hidden" class="form-control" id="planId" name="planId">
+                                <input type="hidden" class="form-control" id="rentalId" name="rentalId" value="@Model.Common.rentalId">
+                                <div class="row">
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Received Type</label>
+                                            <select class="form-control" required name="type" id="type">
+                                                <option value="">--Select Type--</option>
+                                                <option value="Cash" selected>Cash</option>
+                                                <option value="Bank Transfer">Bank Transfer</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea class="form-control" name="desc" id="desc" rows="3" placeholder="Enter ..."></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <label>&nbsp;</label>
+                                            <input type="submit" value="Update" class="btn btn-success btn-sm" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="btnClosePopup" value="Close" data-dismiss="modal" class="btn btn-danger" />
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script type="text/javascript">
+
+        function loadModal(id) {
+              $("#MyPopup").modal("hide");
+                        $('#planId').val(id);
+                        $("#MyPopup").modal("show");
+            
+        }
+        // ----- Validation -----
+        $(function () {
+            $.validator.setDefaults({
+                submitHandler: function () {
+                    $("#submit").attr("disabled", true);
+                    $("#submit").html("Submitting... please wait.");
+                    $("#inputForm").submit();
+
+                }
+            });
+            $('#inputForm').validate({
+                rules: {
+
+                    type: {
+                        required: true
+                    },
+                },
+                messages: {
+
+                    buildingId: "Please select Type"
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            var rentId =@Model.Common.rentalId;
+            loadDataTable(rentId);
+           
+        });
+        $.fn.DataTable.ext.pager.numbers_length = 4;
+
+        // _________  LOAD DATA TABLE BUILDING_____________
+        function loadDataTable(rentId) {
+
+            $('#collectionList').DataTable({
+                destroy: true,
+                dom: 'Bfrtip',
+                "bSort": true, "responsive": true, "lengthChange": true, "autoWidth": false,
+                "language": {
+                    "paginate": {
+                        "previous": "<< ",
+                        "next": " >>"
+                    }
+                },
+                fixedHeader: {
+                    header: true
+                },
+                "ajax": {
+                    type: "GET",
+                      data: { rentalId: rentId },
+                    beforeSend: function () {
+                        $('.ajax-loader').css("visibility", "visible");
+                    },
+                    url: "?handler=LoadData",
+                    dataType: "json",
+                    complete: function () {
+                        $('.ajax-loader').css("visibility", "hidden");
+                    },
+                    dataSrc: ''
+                },
+                "columns": [
+
+                    { "data": "planId" },
+                    {
+                        "data": "checkReceived",
+                        "mRender": function (data, type, full) {
+                            if (data.split("&")[0] == 'True') 
+                                 return '<button disabled class="btn btn-info btn-sm">' + 'Received' + '</button>';
+                            else
+                            return '<button class="btn btn-info btn-sm" onclick="loadModal(' + data.split("&")[1] + ')">' + 'Collect' + '</button>';
+                        }
+                    },
+                    { "data": "monthlyRent" },
+                    {
+                        "data": "month",
+                        'render': function (jsonDate) {
+                            var mydate = new Date(jsonDate);
+                            var dd = String(mydate.getDate()).padStart(2, '0');
+                            var mm = String(mydate.getMonth() + 1).padStart(2, '0'); //January is 0!
+                            var yyyy = mydate.getFullYear();
+                            var res = dd + '/' + mm + '/' + yyyy;
+                            return res;
+                        }
+                    },
+                      { "data": "type" },
+                    {
+                        "data": "receivedDate",
+                        'render': function (jsonDate) {
+                            if (jsonDate != null) {
+                                var mydate = new Date(jsonDate);
+                                var dd = String(mydate.getDate()).padStart(2, '0');
+                                var mm = String(mydate.getMonth() + 1).padStart(2, '0'); //January is 0!
+                                var yyyy = mydate.getFullYear();
+                                var res = dd + '/' + mm + '/' + yyyy;
+                                return res;
+                            }
+                            else
+                                return jsonDate;
+                        }
+                    },
+                  
+                    {
+                        "data": "desc",
+                        "render": function (data, type, row) {
+                            if (data == null)
+                                return "<textarea  disabled class='form-control' style='text-align:justify;padding: 0.4rem;'></textarea>";
+                                else
+                            return "<textarea  disabled class='form-control' style='text-align:justify;padding: 0.4rem;'>" + data + "</textarea>";
+                        }
+                    }
+                ]
+            });
+        }
+    </script>
+}

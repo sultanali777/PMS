@@ -38,15 +38,17 @@
 
         body {
             font-size: 18px;
-            font-weight: 500;
+            font-weight: 600;
         }
     </style>
     <script src="~/plugins/jquery/jquery.min.js"></script>
+    <script src="~/js/number-to-arabic-words.js"></script>
+
 </head>
 
 <body>
 
-    <div style="margin-right: 200px !important;margin-top: 376px;">@Model.Common.buildName</div>
+    <div style="margin-right: 200px !important;margin-top: 376px;" localize-content>@Model.Common.buildName</div>
     <div style="margin-right: 257px !important;margin-top: 403px;">@Model.Common.ownName</div>
     <div style="margin-right: 193px !important;margin-top: 453px;">@Model.Common.customerName</div>
     <div style="margin-right: 444px !important;margin-top: 476px;">@Model.Common.customerName</div>
@@ -67,13 +69,13 @@
     <div style="margin-right: 603px !important;margin-top: 824px;">@Model.Common.propertyNo</div>
     <div style="margin-right: 309px !important;margin-top: 848px;">(@Model.Common.rentDesc)</div>
 
-    <div style="margin-right: 355px !important;margin-top: 925px;">@Model.Common.startDate</div>
-    <div style="margin-right: 588px !important;margin-top: 925px;">@Model.Common.endDate</div>
+    <div style="margin-right: 355px !important;margin-top: 925px;" id="startDate"></div>
+    <div style="margin-right: 588px !important;margin-top: 925px;" id="endDate"></div>
 
-    <div style="margin-right: 351px !important;margin-top: 1003px;">@((@Model.Common.rent * 12).ToString())</div>
+    <div style="margin-right: 351px !important;margin-top: 1003px;"  id="wordsYD"></div>
     <div style="margin-right: 480px !important;margin-top: 1003px;" id="wordsY"></div>
-    <div style="margin-right: 472px !important;margin-top: 1026px;">@Model.Common.rent</div>
-    <div style="margin-right: 583px !important;margin-top: 1026px;"  id="wordsM"></div>
+    <div style="margin-right: 472px !important;margin-top: 1028px;" id="wordsMD"></div>
+    <div style="margin-right: 583px !important;margin-top: 1028px;"  id="wordsM"></div>
 
     <img class="page" src="~/img/Contract/4_5852548936924924942-1.jpg" />
     <img class="page" src="~/img/Contract/4_5852548936924924942-2.jpg" />
@@ -91,12 +93,27 @@
                 number = number.toString(); number = number.replace(/[\, ]/g, ''); if (number != parseFloat(number)) return 'not a number'; var x = number.indexOf('.'); if (x == -1) x = number.length; if (x > 15) return 'too big'; var n = number.split(''); var str = ''; var sk = 0; for (var i = 0; i < x; i++) { if ((x - i) % 3 == 2) { if (n[i] == '1') { str += elevenSeries[Number(n[i + 1])] + ' '; i++; sk = 1; } else if (n[i] != 0) { str += countingByTens[n[i] - 2] + ' '; sk = 1; } } else if (n[i] != 0) { str += digit[n[i]] + ' '; if ((x - i) % 3 == 0) str += 'hundred '; sk = 1; } if ((x - i) % 3 == 1) { if (sk) str += shortScale[(x - i - 1) / 3] + ' '; sk = 0; } } if (x != number.length) { var y = number.length; str += 'point '; for (var i = x + 1; i < y; i++) str += digit[n[i]] + ' '; } str = str.replace(/\number+/g, ' '); return str.trim() + ".";  
   
             }
-            
+             //English to Arabic digits.
+            String.prototype.EntoAr= function() {
+              return this.replace(/\d/g, d =>  '٠١٢٣٤٥٦٧٨٩'[d])
+            }
             $(document).ready(function () {
       
-                document.getElementById("wordsY").innerHTML = numberToWords(@Model.Common.rent* 12);
-                document.getElementById("wordsM").innerHTML= numberToWords(@Model.Common.rent);
-                // window.print();
+               // document.getElementById("wordsY").innerHTML = numberToWords(@Model.Common.rent* 12);
+                //document.getElementById("wordsM").innerHTML= numberToWords(@Model.Common.rent);
+
+                 document.getElementById("wordsY").innerHTML = toArabicWord(@Model.Common.rent* 12);
+                document.getElementById("wordsM").innerHTML= toArabicWord(@Model.Common.rent);
+                var mul =@Model.Common.rent* 12;
+                    document.getElementById("wordsYD").innerHTML = mul.toString().EntoAr();
+                document.getElementById("wordsMD").innerHTML = '@Model.Common.rent'.EntoAr();
+
+                 document.getElementById("startDate").innerHTML = '@Model.Common.startDate'.EntoAr();
+                document.getElementById("endDate").innerHTML= '@Model.Common.endDate'.EntoAr();
+
+              // alert('@Model.Common.startDate'.EntoAr());
+
+                 window.print();
             });
 
 </script>

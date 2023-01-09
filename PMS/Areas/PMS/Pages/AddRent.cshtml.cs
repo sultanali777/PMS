@@ -198,6 +198,10 @@ namespace PMS.Areas.PMS
                          startDate = DateTime.ParseExact(dats[0], "MM/dd/yyyy", null);
                          endDate = DateTime.ParseExact(dats[1], "MM/dd/yyyy", null);
                     }
+
+                        
+
+
                     //----load Document if exist -----
                     if (docContract != null && docContract.Length > 0)
                     {
@@ -233,6 +237,21 @@ namespace PMS.Areas.PMS
                         };
                         Context.tbl_RentalsDetails.Add(rental);
                         Context.SaveChanges();
+                        int rentalId = rental.Id;
+                        //generating rent collection plan
+                        while (startDate < endDate)
+                        {                          
+                            var rentPlan = new rentCollection();
+                            {
+                                rentPlan.rentalId = rentalId;
+                                rentPlan.monthRent = startDate;
+                                rentPlan.propertyRent = _rent;
+                            };
+                            Context.tbl_rentCollection.Add(rentPlan);
+                            Context.SaveChanges();
+                            startDate = startDate.AddMonths(1);
+                        }
+                        
                         //Updating status
                         foreach (var pro in Context.tbl_Property.Where(x => x.Id == _propertyNo).ToList())
                         {
