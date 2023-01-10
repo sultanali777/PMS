@@ -32,3 +32,6 @@ div.dataTables_filter {
     transition: margin-left .3s ease-in-out;
     margin-right: 250px;
 }*/
+.fa-li {
+    right: calc(var(--fa-li-width, 2em)*-1);
+}

@@ -14,6 +14,7 @@ namespace PMS.Models
         public int propertyTypeId { get; set; }
         public int propertyNo { get; set; }
         public int propertyRent { get; set; }
+        public int advanceAmount { get; set; }
         public DateTime startDate { get; set; }
         public DateTime endDate { get; set; }
         public int customerId { get; set; }

@@ -18,6 +18,7 @@ namespace PMS.Models
         public long CivilIdNo { get; set; }
         public string address { get; set; }
         public int vendorTypeId { get; set; }
+        public string attachments { get; set; }
         public DateTime date_Created
         {
             get

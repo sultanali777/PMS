@@ -41,71 +41,42 @@
                                     <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
                                     <div class="box-body" style="margin-bottom:-2px">
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Select Building</label>
+                                                    <label localize-content>Select Building</label>
                                                     <select class="form-control" onchange="loadProperties();" required name="buildingId" id="buildingId" asp-items="@Model.Building">
                                                         <option value="">--Select Building--</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Select Floor</label>
-                                                    <select class="form-control" onchange="loadProperties();" required name="floor" id="floor">
-                                                        <option value="">--Select Floor--</option>
-                                                        @if (Model.Common.floor != null)
-                                                        {
-                                                            <option selected value="@Model.Common.floor">@Model.Common.floor</option>
-                                                        }
-                                                        <option value="15">15</option>
-                                                        <option value="14">14</option>
-                                                        <option value="13">13</option>
-                                                        <option value="12">12</option>
-                                                        <option value="11">11</option>
-                                                        <option value="10">10</option>
-                                                        <option value="9">9</option>
-                                                        <option value="8">8</option>
-                                                        <option value="7">7</option>
-                                                        <option value="6">6</option>
-                                                        <option value="5">5</option>
-                                                        <option value="4">4</option>
-                                                        <option value="3">3</option>
-                                                        <option value="2">2</option>
-                                                        <option value="1">1</option>
-                                                        <option value="Ground Floor">Ground Floor</option>
-                                                        <option value="Basement">Basement</option>
-                                                        <option value="M1">M1</option>
-                                                        <option value="M2">M2</option>
-                                                        <option value="M3">M3</option>
-                                                    </select>
+                                                    <label localize-content>Enter Floor</label>
+                                                    <input type="text" value="@Model.Common.floor"  class="form-control" id="floor" name="floor" placeholder="Floor No ..">
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-3">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Property Type</label>
-                                                    <select class="form-control" onchange="loadProperties();" required name="typeId" id="typeId" asp-items="@Model.ProType">
+                                                    <label localize-content>Property Type</label>
+                                                    <select class="form-control" onchange="loadProperties();"  name="typeId" id="typeId" asp-items="@Model.ProType">
                                                         <option value="">--Select Type--</option>
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-3">
+                                            
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Property No</label>
-                                                    <select class="form-control" required name="propertyNo" id="propertyNo">
+                                                    <label localize-content>Property No</label>
+                                                    <select class="form-control" name="propertyNo" id="propertyNo">
                                                         <option value="">--Select Property--</option>
                                                     </select>
                                                 </div>
                                             </div>
-
-                                        </div>
-
-                                        <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Select Vendor</label>
+                                                    <label localize-content>Select Vendor</label>
                                                     <select class="form-control" required name="vendorId" id="vendorId" asp-items="@Model.Vendor">
                                                         <option value="">--Select Vendor--</option>
                                                     </select>
@@ -113,7 +84,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Expense Amount</label>
+                                                    <label localize-content>Expense Amount</label>
                                                     @if (Model.Common.expenseAmount != 0)
                                                     {
                                                         <input type="number" value="@Model.Common.expenseAmount" class="form-control" required id="expenseAmount" name="expenseAmount" placeholder="Enter expense..">
@@ -124,23 +95,23 @@
                                                     }
                                                 </div>
                                             </div>
+                                        </div>
+                                        <div class="row">
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Invoice No</label>
+                                                    <label localize-content>Invoice No</label>
                                                     <input type="text" value="@Model.Common.invoiceNo" class="form-control" required id="invoiceNo" name="invoiceNo" placeholder="Enter invoiceNo...">
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Description</label>
+                                                    <label localize-content>Description</label>
                                                     <textarea class="form-control" name="desc" id="desc" rows="3" placeholder="Enter ..."> @Model.Common.Description</textarea>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-6">
+                                            <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label>Upload Invoice</label>
+                                                    <label localize-content>Upload Files</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
                                                             <input type="file" id="imgInvoice" multiple name="imgInvoice" accept="image/*" />
@@ -151,7 +122,7 @@
 
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" id="submit" class="btn btn-success formSearch">@(Model.Common.floor != null ? "Update" : "Add")</button>
+                                            <button type="submit" id="submit" class="btn btn-success formSearch" localize-content>@(Model.Common.floor != null ? "Update" : "Add")</button>
                                         </div>
                                     </div>
                                 </form>
@@ -204,7 +175,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Expense Details</h5>
+                    <h5 class="modal-title" localize-content>Expense Details</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -212,7 +183,7 @@
                 <div class="modal-body" style="margin-bottom:-20px">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" localize-content>Close</button>
                 </div>
             </div>
         </div>
@@ -253,7 +224,7 @@
            function loadProperties() {
                var selectedType = $('#typeId :selected').val();
                var selectedBuilding = $('#buildingId :selected').val();
-               var selectedFloor = $('#floor :selected').val();
+               var selectedFloor = $('#floor').val();
             var proSelect = $('#propertyNo');
             proSelect.empty();
             if (selectedType != null && selectedType != 0 && selectedBuilding != null && selectedBuilding != 0 && selectedFloor != null && selectedFloor != 0) {
@@ -321,7 +292,7 @@
         });
 
         $(document).ready(function () {
-
+             $('input[name=floor]').on('change', function() { loadProperties(); });
             loadDataTable();
             $.fn.DataTable.ext.pager.numbers_length = 4;
         });

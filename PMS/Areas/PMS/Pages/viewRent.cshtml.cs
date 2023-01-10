@@ -54,7 +54,7 @@ namespace PMS.Areas.PMS
             public string email { get; set; }
             public string mobile { get; set; }
             public long civilId { get; set; }
-            public string passportNo { get; set; }
+            public string companyName { get; set; }
             public string custAddress { get; set; }
             public string bulAddress { get; set; }
             public string[] custAttachments { get; set; }
@@ -101,7 +101,7 @@ namespace PMS.Areas.PMS
                                       email = cust.email,
                                       mobile = cust.mobileNo,
                                       civilId = cust.CivilIdNo,
-                                      passportNo = cust.passportNo.ToUpper(),
+                                      companyName = cust.companyName.ToUpper(),
                                       custAddress = cust.address,
                                       bulAddress = bul.address,
                                   }).ToList();
@@ -125,7 +125,7 @@ namespace PMS.Areas.PMS
                         Common.email = common[0].email;
                         Common.mobile = common[0].mobile;
                         Common.civilId = common[0].civilId;
-                        Common.passportNo = common[0].passportNo;
+                        Common.companyName = common[0].companyName;
                         Common.custAddress = common[0].custAddress;
                         Common.bulAddress = common[0].bulAddress;
                         char[] spearator = { ',' };

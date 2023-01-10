@@ -41,73 +41,60 @@
                                     <input type="hidden" class="form-control" id="inputCheck" name="inputCheck" value="@Model.Common.Id">
                                     <div class="box-body">
                                         <div class="row">
-                                            <div class="col-sm-4">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Select Building</label>
+                                                    <label localize-content>Select Building</label>
                                                     <select class="form-control" required name="buildingId" id="buildingId" asp-items="@Model.Building">
                                                         <option value="">--Select Building--</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Select Floor</label>
-                                                    <select class="form-control" required name="floor" id="floor">
-                                                        <option value="">--Select Floor--</option>
-                                                        @if (Model.Common.floor != null)
-                                                        {
-                                                            <option selected value="@Model.Common.floor">@Model.Common.floor</option>
-                                                        }
-                                                        <option value="15">15</option>
-                                                        <option value="14">14</option>
-                                                        <option value="13">13</option>
-                                                        <option value="12">12</option>
-                                                        <option value="11">11</option>
-                                                        <option value="10">10</option>
-                                                        <option value="9">9</option>
-                                                        <option value="8">8</option>
-                                                        <option value="7">7</option>
-                                                        <option value="6">6</option>
-                                                        <option value="5">5</option>
-                                                        <option value="4">4</option>
-                                                        <option value="3">3</option>
-                                                        <option value="2">2</option>
-                                                        <option value="1">1</option>
-                                                        <option value="Ground Floor">Ground Floor</option>
-                                                        <option value="Basement">Basement</option>
-                                                        <option value="M1">M1</option>
-                                                        <option value="M2">M2</option>
-                                                        <option value="M3">M3</option>
-                                                    </select>
+                                                    <label localize-content>Enter Floor</label>
+                                                    <input type="text" value="@Model.Common.floor" required class="form-control" id="floor" name="floor" placeholder="Floor No ..">
                                                 </div>
                                             </div>
 
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Property Type</label>
+                                                    <label localize-content>Property Type</label>
                                                     <select class="form-control" required name="typeId" id="typeId" asp-items="@Model.ProType">
                                                         <option value="">--Select Type--</option>
                                                     </select>
                                                 </div>
                                             </div>
-
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Property Status</label>
+                                                    <label localize-content>Property No</label>
+                                                    <input type="text" value="@Model.Common.propertyNo" required class="form-control" id="propertyNo" name="propertyNo" placeholder="Enter Property No ..">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label localize-content>Aali No</label>
+                                                    <input type="text" value="@Model.Common.aaliNo" required class="form-control" id="aaliNo" name="aaliNo" placeholder="Enter Aali No ..">
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label localize-content>Property Status</label>
                                                     <select class="form-control" required name="proStatus" id="proStatus" asp-items="@Model.ProStatus">
                                                         <option value="">--Select Status--</option>
                                                     </select>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2">
+                                            <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Property No</label>
-                                                    <input type="text" value="@Model.Common.propertyNo" required class="form-control" id="propertyNo" name="propertyNo" placeholder="Enter Property No">
+                                                    <label localize-content>Legal Cost</label>
+                                                    <input type="text" value="@Model.Common.legalCost" class="form-control" id="legalCost" name="legalCost" placeholder="Enter Legal Cost ..">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" id="submit" class="btn btn-success formSearch">@(Model.Common.floor != null ? "Update" : "Add")</button>
+                                            <button type="submit" id="submit" class="btn btn-success formSearch" localize-content>@(Model.Common.floor != null ? "Update" : "Add")</button>
                                         </div>
                                     </div>
                                 </form>
@@ -133,7 +120,8 @@
                                             <th>Type</th>
                                             <th>Status</th>
                                             <th>Property No</th>
-
+                                            <th>Aali No</th>
+                                            <th>Legal Cost</th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
@@ -232,7 +220,9 @@
                     { "data": "floor" },
                     { "data": "type" },
                     { "data": "status" },
-                    { "data": "propertyNo" }
+                    { "data": "propertyNo" },
+                    { "data": "aaliNo" },
+                    { "data": "legalCost" }
                 ]
             });
         }

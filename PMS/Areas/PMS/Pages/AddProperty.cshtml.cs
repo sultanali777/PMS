@@ -58,6 +58,8 @@ namespace PMS.Areas.PMS
             public int proStatus { get; set; }
             public string propertyNo { get; set; }
             public string floor { get; set; }
+            public string aaliNo { get; set; }
+            public string legalCost { get; set; }
         }
 
         public List<SelectListItem> Building { get; set; }
@@ -102,7 +104,9 @@ namespace PMS.Areas.PMS
                                   propertyTypeId = cust.propertyTypeId,
                                   propertyNo = cust.propertyNo,
                                   proStatus = cust.statusId,
-                              }).ToList();
+                                  aaliNo = cust.aaliNo,
+                                  legalCost = cust.legalCost,
+                                }).ToList();
 
                 if (common != null)
                 {
@@ -112,6 +116,8 @@ namespace PMS.Areas.PMS
                     Common.propertyTypeId = common[0].propertyTypeId;
                     Common.propertyNo = common[0].propertyNo;
                     Common.proStatus = common[0].proStatus;
+                    Common.aaliNo = common[0].aaliNo;
+                    Common.legalCost = common[0].legalCost;
                 }
                 Building.Find(c => c.Value == Common.buildingId.ToString()).Selected = true;
                 ProType.Find(c => c.Value == Common.propertyTypeId.ToString()).Selected = true;
@@ -133,6 +139,8 @@ namespace PMS.Areas.PMS
                     int _typeId = int.Parse(Request.Form["typeId"]);
                     int _proStatus = int.Parse(Request.Form["proStatus"]);
                     string _propertyNo = Request.Form["propertyNo"];
+                    string _aaliNo = Request.Form["aaliNo"];
+                    string _legalCost = Request.Form["legalCost"];
                     var propertyCheck = (from b in this.Context.tbl_Property
                                          where b.propertyNo.ToUpper() == _propertyNo.ToUpper()
                                       && b.buildingId == _buildingId && b.floor == floor
@@ -152,6 +160,8 @@ namespace PMS.Areas.PMS
                                 property.statusId = _proStatus;
                                 property.propertyTypeId = _typeId;
                                 property.propertyNo = _propertyNo;
+                                property.aaliNo = _aaliNo;
+                                property.legalCost = _legalCost;
                                 property.userId = userid;
                             };
                             Context.tbl_Property.Add(property);
@@ -171,6 +181,8 @@ namespace PMS.Areas.PMS
                             property.statusId = _proStatus;
                             property.propertyTypeId = _typeId;
                             property.propertyNo = _propertyNo;
+                            property.aaliNo = _aaliNo;
+                            property.legalCost = _legalCost;
                             property.userId = userid;
                         };
                         Context.SaveChanges();
@@ -204,7 +216,9 @@ namespace PMS.Areas.PMS
                                  type = ty.Description,
                                  status = st.Description,
                                  propertyNo = pro.propertyNo,
-                             });
+                                 aaliNo = pro.aaliNo,
+                                 legalCost = pro.legalCost,
+            });
                 
                 data = query.OrderBy(x => x.propertyId).ToList();
             }

@@ -13,6 +13,8 @@ namespace PMS.Models
         public string floor { get; set; }
         public int propertyTypeId { get; set; }
         public string propertyNo { get; set; }
+        public string aaliNo { get; set; }
+        public string legalCost { get; set; }
         public int statusId { get; set; }
         public DateTime date_Created
         {

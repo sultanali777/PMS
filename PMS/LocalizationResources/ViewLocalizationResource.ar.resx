@@ -624,8 +624,8 @@
   <data name="Add Property" xml:space="preserve">
     <value>أضف العمارة</value>
   </data>
-  <data name="Add Rent" xml:space="preserve">
-    <value>أضف إيجار</value>
+  <data name="New Contract" xml:space="preserve">
+    <value>عقد جديد</value>
   </data>
   <data name="Add Vendor" xml:space="preserve">
     <value>إضافة بائع</value>
@@ -680,5 +680,188 @@
   </data>
   <data name="Ahmadi Tower" xml:space="preserve">
     <value>برج الأحمدي</value>
+  </data>
+  <data name="Aali No" xml:space="preserve">
+    <value>رقم الالى</value>
+  </data>
+  <data name="Add" xml:space="preserve">
+    <value>أض</value>
+  </data>
+  <data name="Address" xml:space="preserve">
+    <value>عنوان</value>
+  </data>
+  <data name="Address:" xml:space="preserve">
+    <value>تبوك:</value>
+  </data>
+  <data name="Advance Amount" xml:space="preserve">
+    <value>المبلغ المقدم</value>
+  </data>
+  <data name="Area:" xml:space="preserve">
+    <value>مساحة:</value>
+  </data>
+  <data name="ATTACHMENTS" xml:space="preserve">
+    <value>المرفقات</value>
+  </data>
+  <data name="Building Address" xml:space="preserve">
+    <value>عنوان المبنى</value>
+  </data>
+  <data name="Building Name" xml:space="preserve">
+    <value>اسم المبنى</value>
+  </data>
+  <data name="Building No" xml:space="preserve">
+    <value>رقم المبنى</value>
+  </data>
+  <data name="Civil Id" xml:space="preserve">
+    <value>رقم المدني</value>
+  </data>
+  <data name="Civil ID:" xml:space="preserve">
+    <value>رقم المدني</value>
+  </data>
+  <data name="Close" xml:space="preserve">
+    <value>يغلق</value>
+  </data>
+  <data name="Company Name" xml:space="preserve">
+    <value>اسم الشركة</value>
+  </data>
+  <data name="Company Name:" xml:space="preserve">
+    <value>اسم الشركة:</value>
+  </data>
+  <data name="Contract Period:" xml:space="preserve">
+    <value>مدة العقد:</value>
+  </data>
+  <data name="CUSTOMER DETAILS" xml:space="preserve">
+    <value>تفاصيل العميل</value>
+  </data>
+  <data name="Description" xml:space="preserve">
+    <value>وصف</value>
+  </data>
+  <data name="Description:" xml:space="preserve">
+    <value>وصف:</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>بريد إلكتروني</value>
+  </data>
+  <data name="Email:" xml:space="preserve">
+    <value>بريد إلكتروني:</value>
+  </data>
+  <data name="Enter Floor" xml:space="preserve">
+    <value>أدخل الطابق</value>
+  </data>
+  <data name="EXPENSE" xml:space="preserve">
+    <value>مصروف</value>
+  </data>
+  <data name="Expense Amount" xml:space="preserve">
+    <value>مبلغ المصاريف</value>
+  </data>
+  <data name="Expense Details" xml:space="preserve">
+    <value>تفاصيل المصاريف</value>
+  </data>
+  <data name="Expense:" xml:space="preserve">
+    <value>مصروف:</value>
+  </data>
+  <data name="Floor:" xml:space="preserve">
+    <value>أرضية:</value>
+  </data>
+  <data name="Full Name" xml:space="preserve">
+    <value>الاسم بالكامل</value>
+  </data>
+  <data name="Full Name:" xml:space="preserve">
+    <value>الاسم بالكامل:</value>
+  </data>
+  <data name="Governorate:" xml:space="preserve">
+    <value>محافظة:</value>
+  </data>
+  <data name="Guarantor Details" xml:space="preserve">
+    <value>تفاصيل الكفيل</value>
+  </data>
+  <data name="Invoice No" xml:space="preserve">
+    <value>رقم الفاتورة</value>
+  </data>
+  <data name="Invoice No:" xml:space="preserve">
+    <value>رقم الفاتورة:</value>
+  </data>
+  <data name="Legal Cost" xml:space="preserve">
+    <value>التكلفة القانونية</value>
+  </data>
+  <data name="Mobile No" xml:space="preserve">
+    <value>رقم الموبايل</value>
+  </data>
+  <data name="Mobile:" xml:space="preserve">
+    <value>متحرك:</value>
+  </data>
+  <data name="Nationality" xml:space="preserve">
+    <value>جنسية</value>
+  </data>
+  <data name="Nationality:" xml:space="preserve">
+    <value>جنسية:</value>
+  </data>
+  <data name="Nature of Business" xml:space="preserve">
+    <value>طبيعة العمل</value>
+  </data>
+  <data name="Owner Address" xml:space="preserve">
+    <value>عنوان المالك</value>
+  </data>
+  <data name="Owner Name" xml:space="preserve">
+    <value>اسم المالك</value>
+  </data>
+  <data name="Property No" xml:space="preserve">
+    <value>رقم الملكية</value>
+  </data>
+  <data name="Property No:" xml:space="preserve">
+    <value>رقم الخاصية:</value>
+  </data>
+  <data name="Property Rent" xml:space="preserve">
+    <value>إيجار العقارات</value>
+  </data>
+  <data name="Property Status" xml:space="preserve">
+    <value>حالة الملكية</value>
+  </data>
+  <data name="Property Type" xml:space="preserve">
+    <value>نوع الملكية</value>
+  </data>
+  <data name="Rent:" xml:space="preserve">
+    <value>إيجار:</value>
+  </data>
+  <data name="RENTAL DETAILS" xml:space="preserve">
+    <value>تفاصيل الإيجار</value>
+  </data>
+  <data name="Select Area" xml:space="preserve">
+    <value>إختر المنطقة</value>
+  </data>
+  <data name="Select Building" xml:space="preserve">
+    <value>اختر المبنى</value>
+  </data>
+  <data name="Select Customer" xml:space="preserve">
+    <value>حدد العميل</value>
+  </data>
+  <data name="Select Governorate" xml:space="preserve">
+    <value>إختر المحافظة</value>
+  </data>
+  <data name="Select Vendor" xml:space="preserve">
+    <value>حدد البائع</value>
+  </data>
+  <data name="Start/End Dates" xml:space="preserve">
+    <value>تواريخ البدء / الانتهاء</value>
+  </data>
+  <data name="Type:" xml:space="preserve">
+    <value>يكتب:</value>
+  </data>
+  <data name="Update" xml:space="preserve">
+    <value>تحديث</value>
+  </data>
+  <data name="Upload Files" xml:space="preserve">
+    <value>تحميل الملفات</value>
+  </data>
+  <data name="VENDOR" xml:space="preserve">
+    <value>بائع</value>
+  </data>
+  <data name="Vendor Details" xml:space="preserve">
+    <value>تفاصيل البائع</value>
+  </data>
+  <data name="Vendor Type" xml:space="preserve">
+    <value>نوع البائع</value>
+  </data>
+  <data name="Vendor Type:" xml:space="preserve">
+    <value>نوع البائع:</value>
   </data>
 </root>

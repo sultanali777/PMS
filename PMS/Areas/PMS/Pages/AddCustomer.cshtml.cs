@@ -59,9 +59,15 @@ namespace PMS.Areas.PMS
             public string email { get; set; }
             public long CivilId { get; set; }
             public string address { get; set; }
-            public string passNo { get; set; }
+            public string companyName { get; set; }
+            public string aaliNo { get; set; }
+            public string business { get; set; }
             public int nationalityId { get; set; }
-
+            public string guranfullName { get; set; }
+            public string guranMobileNo { get; set; }
+            public long guranCivilIdNo { get; set; }
+            public string guranAddress { get; set; }
+            public string guranAaliNo { get; set; }
         }
         public void OnGet()
         {
@@ -93,9 +99,16 @@ namespace PMS.Areas.PMS
                                   email = cust.email,
                                   CivilId = cust.CivilIdNo,
                                   address = cust.address,
-                                  passNo = cust.passportNo,
+                                  companyName = cust.companyName,
+                                  business = cust.business,
+                                  aaliNo = cust.aaliNo,
                                   nationalityId = cust.nationalityId,
-                              }).ToList();
+                                  guranfullName = cust.guranfullName,
+                                  guranMobileNo = cust.guranMobileNo,
+                                  guranCivilIdNo = cust.guranCivilIdNo,
+                                  guranAddress = cust.guranAddress,
+                                  guranAaliNo = cust.guranAaliNo,
+                                }).ToList();
 
                 if (common != null)
                 {
@@ -106,8 +119,16 @@ namespace PMS.Areas.PMS
                     Common.email = common[0].email;
                     Common.CivilId = common[0].CivilId;
                     Common.address = common[0].address;
-                    Common.passNo = common[0].passNo;
+                    Common.companyName = common[0].companyName;
+                    Common.aaliNo = common[0].aaliNo;
+                    Common.business = common[0].business;
                     Common.nationalityId = common[0].nationalityId;
+
+                    Common.guranfullName = common[0].guranfullName;
+                    Common.guranMobileNo = common[0].guranMobileNo;
+                    Common.guranCivilIdNo = common[0].guranCivilIdNo;
+                    Common.guranAddress = common[0].guranAddress;
+                    Common.guranAaliNo = common[0].guranAaliNo;
                 }
                // Governorate.Find(c => c.Value == Common.govId.ToString()).Selected = true;
                 Country.Find(c => c.Value == Common.nationalityId.ToString()).Selected = true;
@@ -150,8 +171,16 @@ namespace PMS.Areas.PMS
                     string _email = Request.Form["email"];
                     string _fname = Request.Form["fname"];
                     string _mobile = Request.Form["mobile"];
-                    string _passNo = Request.Form["passNo"];
+                    string _companyName = Request.Form["companyName"];
                     string _address = Request.Form["address"];
+                    string _business = Request.Form["business"];
+                    string _aaliNo = Request.Form["aaliNo"];
+
+                    long _guranId = long.Parse(Request.Form["guranId"]);
+                    string _guranName = Request.Form["guranName"];
+                    string _guranMobile = Request.Form["guranMobile"];
+                    string _guranAddress = Request.Form["guranAddress"];
+                    string _guranAaliNo = Request.Form["guranAaliNo"];
 
 
                     //----load photos if exist -----
@@ -193,10 +222,17 @@ namespace PMS.Areas.PMS
                                 customer.email = _email;
                                 customer.fullName = _fname;
                                 customer.mobileNo = _mobile;
-                                customer.passportNo = _passNo;
+                                customer.companyName = _companyName;
+                                customer.business = _business;
                                 customer.address = _address;
+                                customer.aaliNo = _aaliNo;
                                 customer.attachments = files;
                                 customer.userId = userid;
+                                customer.guranfullName = _guranName;
+                                customer.guranMobileNo = _guranMobile;
+                                customer.guranCivilIdNo = _guranId;
+                                customer.guranAddress = _guranAddress;
+                                customer.guranAaliNo = _guranAaliNo;
 
                             };
                             Context.tbl_Customer.Add(customer);
@@ -219,10 +255,17 @@ namespace PMS.Areas.PMS
                             customer.email = _email;
                             customer.fullName = _fname;
                             customer.mobileNo = _mobile;
-                            customer.passportNo = _passNo;
+                            customer.companyName = _companyName;
+                            customer.business = _business;
+                            customer.aaliNo = _aaliNo;
                             customer.address = _address;
                             customer.attachments = files;
                             customer.userId = userid;
+                            customer.guranfullName = _guranName;
+                            customer.guranMobileNo = _guranMobile;
+                            customer.guranCivilIdNo = _guranId;
+                            customer.guranAddress = _guranAddress;
+                            customer.guranAaliNo = _guranAaliNo;
                         }
                         Context.SaveChanges();
                         //------ Committing Database ------
@@ -254,7 +297,7 @@ namespace PMS.Areas.PMS
                                  email = bu.email,
                                  mobile = bu.mobileNo,
                                  civilId = bu.CivilIdNo,
-                                 passportNo = bu.passportNo,
+                                 companyName = bu.companyName,
                                  address = bu.address,
                              });
                 

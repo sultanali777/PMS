@@ -43,7 +43,7 @@
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Select Building</label>
+                                                    <label localize-content>Select Building</label>
                                                     <select class="form-control" onchange="loadProperties();" required name="buildingId" id="buildingId" asp-items="@Model.Building">
                                                         <option value="">--Select Building--</option>
                                                     </select>
@@ -51,40 +51,14 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Select Floor</label>
-                                                    <select class="form-control" onchange="loadProperties();" required name="floor" id="floor">
-                                                        <option value="">--Select Floor--</option>
-                                                        @if (Model.Common.floor != null)
-                                                        {
-                                                            <option selected value="@Model.Common.floor">@Model.Common.floor</option>
-                                                        }
-                                                        <option value="15">15</option>
-                                                        <option value="14">14</option>
-                                                        <option value="13">13</option>
-                                                        <option value="12">12</option>
-                                                        <option value="11">11</option>
-                                                        <option value="10">10</option>
-                                                        <option value="9">9</option>
-                                                        <option value="8">8</option>
-                                                        <option value="7">7</option>
-                                                        <option value="6">6</option>
-                                                        <option value="5">5</option>
-                                                        <option value="4">4</option>
-                                                        <option value="3">3</option>
-                                                        <option value="2">2</option>
-                                                        <option value="1">1</option>
-                                                        <option value="Ground Floor">Ground Floor</option>
-                                                        <option value="Basement">Basement</option>
-                                                        <option value="M1">M1</option>
-                                                        <option value="M2">M2</option>
-                                                        <option value="M3">M3</option>
-                                                    </select>
+                                                    <label localize-content>Enter Floor</label>
+                                                    <input type="text" value="@Model.Common.floor" required class="form-control" id="floor" name="floor" placeholder="Floor No ..">
                                                 </div>
                                             </div>
 
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Property Type</label>
+                                                    <label localize-content>Property Type</label>
                                                     <select class="form-control" onchange="loadProperties();" required name="typeId" id="typeId" asp-items="@Model.ProType">
                                                         <option value="">--Select Type--</option>
                                                     </select>
@@ -93,7 +67,7 @@
 
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Property No<small style="color:red;font-size:12px;margin-left:6px"> * Only Vacant</small></label>
+                                                    <label localize-content>Property No</label><small style="color:red;font-size:12px;margin-left:6px"> * Only Vacant</small>
                                                     <select class="form-control" required name="propertyNo" id="propertyNo">
                                                         <option value="">--Select Property--</option>
                                                     </select>
@@ -105,7 +79,7 @@
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Select Customer</label>
+                                                    <label localize-content>Select Customer</label>
                                                     <select class="form-control" required name="customerId" id="customerId" asp-items="@Model.Customer">
                                                         <option value="">--Select Customer--</option>
                                                     </select>
@@ -113,7 +87,7 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Property Rent</label>
+                                                    <label localize-content>Property Rent</label>
                                                     @if (Model.Common.propertyRent != 0)
                                                     {
                                                         <input type="number" value="@Model.Common.propertyRent" class="form-control" required id="rent" name="rent" placeholder="Enter monthly rent..">
@@ -124,17 +98,38 @@
                                                     }
                                                 </div>
                                             </div>
-
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label localize-content>Advance Amount</label>
+                                                    @if (Model.Common.advanceAmount != 0)
+                                                    {
+                                                        <input type="number" value="@Model.Common.advanceAmount" class="form-control" required id="advanceAmount" name="advanceAmount" placeholder="Enter advance amount..">
+                                                    }
+                                                    else
+                                                    {
+                                                        <input type="number" class="form-control" required id="advanceAmount" name="advanceAmount" placeholder="Enter advance amount..">
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <div class="form-group">
+                                                    <label localize-content>Description</label>
+                                                    <textarea class="form-control" name="desc" id="desc" rows="3" placeholder="Enter ..."> @Model.Common.Description</textarea>
+                                                </div>
+                                            </div>
+                                            
+                                        </div>
+                                        <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label>Start/End Dates</label>
+                                                    <label localize-content>Start/End Dates</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text">
                                                                 <i class="far fa-calendar-alt"></i>
                                                             </span>
                                                         </div>
-                                                        @if (Model.Common.dateRange != "")
+                                                        @if (Model.Common.dateRange !=null)
                                                         {
                                                             <input type="text" disabled value="@Model.Common.dateRange" onfocus="this.value=''" autocomplete="off" required class="form-control pull-right formSearch" id="datrange" name="datrange">
                                                         }
@@ -146,20 +141,12 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="row">
                                             <div class="col-sm-6">
                                                 <div class="form-group">
-                                                    <label>Description</label>
-                                                    <textarea class="form-control" name="desc" id="desc" rows="3" placeholder="Enter ..."> @Model.Common.Description</textarea>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group">
-                                                    <label>Upload Contract</label>
+                                                    <label localize-content>Upload Files</label>
                                                     <div class="input-group">
                                                         <div class="custom-file">
-                                                            <input type="file" id="docContract" name="docContract" accept=".doc,.docx,.pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+                                                            <input type="file" id="docContract" name="docContract" accept="image/*" multiple />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -167,7 +154,7 @@
 
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" id="submit" class="btn btn-success formSearch">@(Model.Common.floor != null ? "Update" : "Add")</button>
+                                            <button type="submit" id="submit" class="btn btn-success formSearch" localize-content>@(Model.Common.floor != null ? "Update" : "Add")</button>
                                         </div>
                                     </div>
                                 </form>
@@ -199,6 +186,7 @@
                                             <th>Type</th>
                                             <th>Property</th>
                                             <th>Rent</th>
+                                            <th>Advance</th>
                                             <th>Start</th>
                                             <th>End</th>
                                             <th>Description</th>
@@ -226,10 +214,10 @@
             $("#buildingId ").val(@Model.Common.buildingId);
             updat = 1; loadProperties();
         }
-           function loadProperties() {
+        function loadProperties() {
                var selectedType = $('#typeId :selected').val();
                var selectedBuilding = $('#buildingId :selected').val();
-               var selectedFloor = $('#floor :selected').val();
+               var selectedFloor = $('#floor').val();
             var proSelect = $('#propertyNo');
             proSelect.empty();
             if (selectedType != null && selectedType != 0 && selectedBuilding != null && selectedBuilding != 0 && selectedFloor != null && selectedFloor != 0) {
@@ -297,7 +285,8 @@
         });
 
         $(document).ready(function () {
-
+            
+            $('input[name=floor]').on('change', function() { loadProperties(); });
             loadDataTable();
             // _________  DATE RANGE PICKER _____________
             $('#datrange').daterangepicker();
@@ -388,6 +377,7 @@
                     { "data": "type" },
                     { "data": "propertyNo" },
                     { "data": "rent" },
+                     { "data": "advanceAmount" },
                     {
                         "data": "startDate",
                         'render': function (jsonDate) {

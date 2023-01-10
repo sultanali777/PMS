@@ -16,9 +16,18 @@ namespace PMS.Models
         public int areaId { get; set; }
         public long CivilIdNo { get; set; }
         public string address { get; set; }
-        public string passportNo { get; set; }
+        public string companyName { get; set; }
+        public string business { get; set; }
+        public string aaliNo { get; set; }
         public string attachments { get; set; }
         public int nationalityId { get; set; }
+
+        public string guranfullName { get; set; }
+        public string guranMobileNo { get; set; }
+        public long guranCivilIdNo { get; set; }
+        public string guranAddress { get; set; }
+        public string guranAaliNo { get; set; }
+
         public DateTime date_Created
         {
             get

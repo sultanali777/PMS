@@ -49,6 +49,7 @@ namespace PMS.Areas.PMS
         public int? vendorId { get; set; }
         public List<SelectListItem> Governorate { get; set; }
         public List<SelectListItem> VendorType { get; set; }
+        public List<string> FileNames { get; set; }
         public class commonModel
         {
             public int Id { get; set; }
@@ -143,7 +144,7 @@ namespace PMS.Areas.PMS
 
                     var userid = _userManager.GetUserAsync(User).Result.Id;
                     var userName = _userManager.GetUserAsync(User).Result.FirstName + " " + _userManager.GetUserAsync(User).Result.LastName;
-                   
+                    string files = null;
                     int _governorateId = int.Parse(Request.Form["governorateId"]);
                     int _areaId = int.Parse(Request.Form["areaId"]);
                     int _vendorTypeId = int.Parse(Request.Form["vendorTypeId"]);
@@ -153,6 +154,23 @@ namespace PMS.Areas.PMS
                     string _fullName = Request.Form["fullName"];
                     string _mobileNo = Request.Form["mobileNo"];
                     string _address = Request.Form["address"];
+
+                    //----load photos if exist -----
+                    if (pasPhoto != null && pasPhoto.Length > 0)
+                    {
+                        FileNames = new List<string>();
+                        foreach (IFormFile photo in pasPhoto)
+                        {
+                            var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploaded_documents", photo.FileName);
+                            var stream = new FileStream(path, FileMode.Create);
+                            photo.CopyToAsync(stream);
+                            FileNames.Add(photo.FileName);
+                        }
+                    }
+                    if (FileNames != null)
+                    {
+                        files = string.Join(",", FileNames.ToArray());
+                    }
 
                     var vendorCheck = (from b in this.Context.tbl_Vendor
                                          where b.CivilIdNo == _CivilIdNo
@@ -178,6 +196,7 @@ namespace PMS.Areas.PMS
                                 vendor.mobileNo = _mobileNo;
                                 vendor.address = _address;
                                 vendor.userId = userid;
+                                vendor.attachments = files;
                             };
                             Context.tbl_Vendor.Add(vendor);
                             Context.SaveChanges();
@@ -202,6 +221,7 @@ namespace PMS.Areas.PMS
                             vendor.mobileNo = _mobileNo;
                             vendor.address = _address;
                             vendor.userId = userid;
+                            vendor.attachments = files;
                         }
                         Context.SaveChanges();
                         //------ Committing Database ------

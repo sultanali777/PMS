@@ -67,7 +67,7 @@ namespace PMS.Areas.PMS
             public string dateRange { get; set; }
             public DateTime endDate { get; set; }
             public string Description { get; set; }
-
+            public int advanceAmount { get; set; }
         }
         public void OnGet()
         {
@@ -91,7 +91,7 @@ namespace PMS.Areas.PMS
                                  new SelectListItem
                                  {
                                      Value = a.Id.ToString(),
-                                     Text = a.fullName + " - " + a.passportNo.ToUpper()
+                                     Text = a.fullName 
                                  }).ToList();
             ProStatus = this.Context.tbl_Status.Select(a =>
                                 new SelectListItem
@@ -118,6 +118,7 @@ namespace PMS.Areas.PMS
                                   startDate = cust.startDate.ToString("MM/dd/yyyy"),
                                   endDate = cust.endDate.ToString("MM/dd/yyyy"),
                                   Description = cust.Description,
+                                  advanceAmount = cust.advanceAmount,
                               }).ToList();
 
                 if (common != null)
@@ -130,7 +131,8 @@ namespace PMS.Areas.PMS
                     Common.customerId = common[0].customerId;
                     Common.propertyRent = common[0].propertyRent;
                     Common.dateRange = common[0].startDate + " - " + common[0].endDate;
-                    Common.Description = common[0].Description;
+                    Common.Description = common[0].Description; 
+                    Common.advanceAmount = common[0].advanceAmount;
                 }
                 Building.Find(c => c.Value == Common.buildingId.ToString()).Selected = true;
                 ProType.Find(c => c.Value == Common.propertyTypeId.ToString()).Selected = true;
@@ -188,6 +190,7 @@ namespace PMS.Areas.PMS
                     int _propertyNo = int.Parse(Request.Form["propertyNo"]);
                     int _customerId = int.Parse(Request.Form["customerId"]);
                     int _rent = int.Parse(Request.Form["rent"]);
+                    int _advanceAmount = int.Parse(Request.Form["advanceAmount"]);
                     string _dateRange = Request.Form["datrange"];
                     string _desc = Request.Form["desc"];
                     if (_dateRange != null)
@@ -234,6 +237,7 @@ namespace PMS.Areas.PMS
                             rental.attachments = files;
                             rental.guid = guid;
                             rental.userId = userid;
+                            rental.advanceAmount = _advanceAmount;
                         };
                         Context.tbl_RentalsDetails.Add(rental);
                         Context.SaveChanges();
@@ -276,6 +280,7 @@ namespace PMS.Areas.PMS
                             rental.Description = _desc;
                             rental.attachments = files;
                             rental.userId = userid;
+                            rental.advanceAmount = _advanceAmount;
                         }
                         Context.SaveChanges();
                         //------ Committing Database ------
@@ -312,7 +317,8 @@ namespace PMS.Areas.PMS
                                  status = st.Description,
                                  propertyNo = pro.propertyNo,
                                  rent=ren.propertyRent,
-                                 startDate=ren.startDate,
+                                 advanceAmount = ren.advanceAmount,
+                                 startDate =ren.startDate,
                                  endDate=ren.endDate,
                                  customer=cust.fullName,
                                  desc=ren.Description,

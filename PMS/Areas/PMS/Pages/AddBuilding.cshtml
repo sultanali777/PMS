@@ -45,7 +45,7 @@
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Select Governorate</label>
+                                                    <label localize-content>Select Governorate</label>
                                                     <select class="form-control" onchange="loadAreas();" required name="governorateId" id="governorateId" asp-items="@Model.Governorate">
                                                         <option value="">--Select Governorate--</option>
                                                     </select>
@@ -53,7 +53,7 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Select Area</label>
+                                                    <label localize-content>Select Area</label>
                                                     <select class="form-control" required name="areaId" id="areaId">
                                                         <option value="">--Select Area--</option>
                                                     </select>
@@ -61,13 +61,13 @@
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Building No</label>
+                                                    <label localize-content>Building No</label>
                                                     <input type="text" required class="form-control" value="@Model.Common.buildingNo" id="buildingNo" name="buildingNo" placeholder="Enter Building No">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Building Address</label>
+                                                    <label localize-content>Building Address</label>
                                                     <input type="text" class="form-control" required name="address" value="@Model.Common.address" id="address" placeholder="Enter Address...">
                                                 </div>
                                             </div>
@@ -75,31 +75,31 @@
                                         <div class="row">
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Building Name</label>
+                                                    <label localize-content>Building Name</label>
                                                     <input type="text" class="form-control" value="@Model.Common.buildingName" required name="buildingName" id="buildingName" placeholder="Enter Building Name...">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Owner Name</label>
+                                                    <label localize-content>Owner Name</label>
                                                     <input type="text" class="form-control" value="@Model.Common.ownerName" required name="ownerName" id="ownerName" placeholder="Enter Owner Name...">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Mobile No</label>
+                                                    <label localize-content>Mobile No</label>
                                                     <input type="number" value="@Model.Common.ownerMobile" class="form-control" required id="ownerMobile" name="ownerMobile" placeholder="Mobile Number">
                                                 </div>
                                             </div>
                                             <div class="col-sm-3">
                                                 <div class="form-group">
-                                                    <label>Owner Address</label>
+                                                    <label localize-content>Owner Address</label>
                                                     <input type="text" class="form-control" value="@Model.Common.ownerAddress" required name="ownerAddress" id="ownerAddress" placeholder="Enter Owner Address...">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="card-footer">
-                                            <button type="submit" id="submit" class="btn btn-success formSearch">@(Model.Common.address != null ? "Update" : "Add")</button>
+                                            <button type="submit" id="submit" class="btn btn-success formSearch" localize-content>@(Model.Common.address != null ? "Update" : "Add")</button>
                                         </div>
                                     </div>
                                 </form>

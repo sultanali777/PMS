@@ -53,7 +53,7 @@
                     <div class="card-header bg-gradient-gray border-transparent p-0 pt-1">
                         <ul class="nav nav-tabs" id="compTabs" role="tablist">
                             <li class="nav-item">
-                                <a class="nav-link active" id="rentalDetails-tab" data-toggle="pill" href="#rentalDetails" role="tab" aria-controls="rentalDetails" aria-selected="true">RENTAL DETAILS</a>
+                                <a class="nav-link active" id="rentalDetails-tab" data-toggle="pill" href="#rentalDetails" role="tab" aria-controls="rentalDetails" aria-selected="true" localize-content>RENTAL DETAILS</a>
                             </li>
                         </ul>
                     </div>
@@ -66,22 +66,22 @@
                                         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
                                             <div class="card bg-light d-flex flex-fill">
                                                 <div class="card-header text-muted border-bottom-0">
-                                                    <span class="embossed">PROPERTY DETAILS</span>
+                                                    <span class="embossed" localize-content>Property Details</span>
                                                 </div>
                                                 <div class="card-body">
                                                     <dl class="row" style="margin-left: 7.5px; margin-right: 7.5px">
-                                                        <dt class="col-sm-5">Governorate: </dt>
+                                                        <dt class="col-sm-5" localize-content>Governorate: </dt>
                                                         <dd class="col-sm-7">@Model.Common.Govern</dd>
-                                                        <dt class="col-sm-5">Area:</dt>
+                                                        <dt class="col-sm-5" localize-content>Area:</dt>
                                                         <dd class="col-sm-7">@Model.Common.area </dd>
-                                                        <dt class="col-sm-5">Property No:</dt>
+                                                        <dt class="col-sm-5" localize-content>Property No:</dt>
                                                         <dd class="col-sm-7">@Model.Common.propertyNo</dd>
                                                         <dd class="col-sm-12">
                                                             <ul class="ml-4 mb-0 fa-ul text-muted">
-                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> Floor: @Model.Common.floor</li>
-                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-home"></i></span> Type: @Model.Common.type</li>
-                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-arrow-circle-right"></i></span> Rent: @Model.Common.rent</li>
-                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar"></i></span> Contract Period: @Model.Common.dateRange </li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-building"></i></span> <localize>Floor: </localize>@Model.Common.floor</li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-home"></i></span> <localize>Type:</localize> @Model.Common.type</li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-arrow-circle-right"></i></span> <localize>Rent:</localize> @Model.Common.rent</li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-calendar"></i></span><localize> Contract Period:</localize> @Model.Common.dateRange </li>
                                                             </ul>
                                                         </dd>
                                                     </dl>
@@ -91,22 +91,22 @@
                                         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
                                             <div class="card bg-light d-flex flex-fill">
                                                 <div class="card-header text-muted border-bottom-0">
-                                                    <span class="embossed">CUSTOMER DETAILS</span>
+                                                    <span class="embossed" localize-content>CUSTOMER DETAILS</span>
                                                 </div>
 
                                                 <div class="card-body">
                                                     <dl class="row" style="margin-left: 7.5px; margin-right: 7.5px">
-                                                        <dt class="col-sm-5">Full Name: </dt>
+                                                        <dt class="col-sm-5" localize-content>Full Name: </dt>
                                                         <dd class="col-sm-7">@Model.Common.fullName</dd>
-                                                        <dt class="col-sm-5">Civil ID:</dt>
+                                                        <dt class="col-sm-5" localize-content>Civil ID:</dt>
                                                         <dd class="col-sm-7"> @Model.Common.civilId</dd>
-                                                        <dt class="col-sm-5">Passport No:</dt>
-                                                        <dd class="col-sm-7"> @Model.Common.passportNo</dd>
+                                                        <dt class="col-sm-5" localize-content>Company Name:</dt>
+                                                        <dd class="col-sm-7"> @Model.Common.companyName</dd>
                                                         <dd class="col-sm-12">
                                                             <ul class="ml-4 mb-0 fa-ul text-muted">
-                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> Mobile: @Model.Common.mobile </li>
-                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> Email: @Model.Common.email </li>
-                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-flag"></i></span> Nationality: @Model.Common.nationality </li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-phone"></i></span> <localize>Mobile:</localize> @Model.Common.mobile </li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-envelope"></i></span> <localize>Email:</localize> @Model.Common.email </li>
+                                                                <li class="small"><span class="fa-li"><i class="fas fa-lg fa-flag"></i></span> <localize>Nationality:</localize> @Model.Common.nationality </li>
                                                             </ul>
                                                         </dd>
                                                     </dl>
@@ -118,7 +118,7 @@
                                         <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
                                             <div class="card bg-light d-flex flex-fill">
                                                 <div class="card-header text-muted border-bottom-0">
-                                                    <span class="embossed">ATTACHMENTS</span>
+                                                    <span class="embossed" localize-content>ATTACHMENTS</span>
                                                 </div>
                                                 <div class="card-body pt-0">
                                                     <div class="col-12">

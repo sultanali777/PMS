@@ -197,9 +197,9 @@
                         "data": "checkReceived",
                         "mRender": function (data, type, full) {
                             if (data.split("&")[0] == 'True') 
-                                 return '<button disabled class="btn btn-info btn-sm">' + 'Received' + '</button>';
+                                 return '<button disabled class="btn btn-secondary btn-sm">' + 'Received' + '</button>';
                             else
-                            return '<button class="btn btn-info btn-sm" onclick="loadModal(' + data.split("&")[1] + ')">' + 'Collect' + '</button>';
+                            return '<button class="btn btn-success btn-sm" onclick="loadModal(' + data.split("&")[1] + ')">' + 'Collect' + '</button>';
                         }
                     },
                     { "data": "monthlyRent" },
