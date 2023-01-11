@@ -864,4 +864,52 @@
   <data name="Vendor Type:" xml:space="preserve">
     <value>نوع البائع:</value>
   </data>
+  <data name="This field is required." xml:space="preserve">
+    <value>هذه الخانة مطلوبه.</value>
+  </data>
+  <data name="2022-2023 Property Management System" xml:space="preserve">
+    <value>٢٠٢٢-٢٠٢٣ نظام إدارة الممتلكات</value>
+  </data>
+  <data name="ACTION" xml:space="preserve">
+    <value>عمل</value>
+  </data>
+  <data name="ADMIN" xml:space="preserve">
+    <value>مشرف</value>
+  </data>
+  <data name="All rights reserved." xml:space="preserve">
+    <value>كل الحقوق محفوظة.</value>
+  </data>
+  <data name="Area" xml:space="preserve">
+    <value>مساحة</value>
+  </data>
+  <data name="BASIC" xml:space="preserve">
+    <value>أساسي</value>
+  </data>
+  <data name="Copyright" xml:space="preserve">
+    <value>حقوق النشر</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>تعديل</value>
+  </data>
+  <data name="Governorate" xml:space="preserve">
+    <value>محافظة</value>
+  </data>
+  <data name="MANAGER" xml:space="preserve">
+    <value>مدير</value>
+  </data>
+  <data name="Mobile" xml:space="preserve">
+    <value>رقم المحمول</value>
+  </data>
+  <data name="No" xml:space="preserve">
+    <value>رقم</value>
+  </data>
+  <data name="Serial No" xml:space="preserve">
+    <value>الرقم التسلسلي</value>
+  </data>
+  <data name="Version" xml:space="preserve">
+    <value>الإصدار</value>
+  </data>
+  <data name="View" xml:space="preserve">
+    <value>معاينة</value>
+  </data>
 </root>

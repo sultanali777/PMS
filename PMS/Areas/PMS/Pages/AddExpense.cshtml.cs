@@ -21,6 +21,7 @@ using System.Xml;
 using NToastNotify;
 using System.Collections;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
+using System.Globalization;
 
 namespace PMS.Areas.PMS
 {
@@ -84,11 +85,12 @@ namespace PMS.Areas.PMS
                        };
             SelectList list = new SelectList(data, "Value", "Text");
             Building = list.ToList();
+            var culture = CultureInfo.CurrentCulture.Name;
             ProType = this.Context.tbl_PropertyType.Select(a =>
                                  new SelectListItem
                                  {
                                      Value = a.Id.ToString(),
-                                     Text = a.Description
+                                     Text = culture == "en" ? a.EnglishName : a.ArabicName
                                  }).ToList();
             Vendor = this.Context.tbl_Vendor.Select(a =>
                                  new SelectListItem
@@ -243,6 +245,7 @@ namespace PMS.Areas.PMS
         }
         public PartialViewResult OnGetGetDetails(int expenseId)
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             if (expenseId != 0)
             {
 
@@ -260,10 +263,10 @@ namespace PMS.Areas.PMS
                               select new
                               {
                                   expenseId = exp.Id,
-                                  Govern = gov.Description,
+                                  Govern = culture == "en" ? gov.EnglishName : gov.ArabicName,
                                   area = ar.EnglishName,
                                   floor = pro.floor,
-                                  proType = ty.Description,
+                                  proType = culture == "en" ? ty.EnglishName : ty.ArabicName,
                                   propertyNo = pro.propertyNo,
                                   expenseAmount = exp.expenseAmount,
                                   vendorName = ven.fullName,
@@ -271,7 +274,7 @@ namespace PMS.Areas.PMS
                                   expDesc = exp.Description,
                                   expAttach = exp.attachments,
                                   invoiceNo = exp.invoiceNo,
-                                  venType = venTy.Description,
+                                  venType =  culture == "en" ? venTy.EnglishName : venTy.ArabicName,
                                   email = ven.email,
                                   mobile = ven.mobileNo,
                                   civilId = ven.CivilIdNo,
@@ -313,6 +316,7 @@ namespace PMS.Areas.PMS
         public JsonResult OnGetLoadData()
         {
             object data = "";
+            var culture = CultureInfo.CurrentCulture.Name;
             try
             {
                 var query = (from ren in Context.tbl_ExpenseDetails
@@ -327,8 +331,8 @@ namespace PMS.Areas.PMS
                                  expenseId = ren.Id,
                                  building = ar.EnglishName + " - " + bu.buildingno,
                                  floor = pro.floor,
-                                 type = vty.Description,
-                                 status = st.Description,
+                                 type = culture == "en" ? vty.EnglishName : vty.ArabicName,
+                                 status = culture == "en" ? st.EnglishName : st.ArabicName,
                                  propertyNo = pro.propertyNo,
                                  expenseAmount=ren.expenseAmount,
                                  invoiceNo=ren.invoiceNo,

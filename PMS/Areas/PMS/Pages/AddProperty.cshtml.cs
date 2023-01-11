@@ -20,6 +20,7 @@ using System.Text;
 using System.Xml;
 using NToastNotify;
 using System.Collections;
+using System.Globalization;
 
 namespace PMS.Areas.PMS
 {
@@ -67,6 +68,7 @@ namespace PMS.Areas.PMS
         public List<SelectListItem> ProStatus { get; set; }
         public void OnGet()
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             var data = from c in this.Context.tbl_Building
                        join d in this.Context.tbl_Areas
                        on c.areaId equals d.Id
@@ -81,15 +83,15 @@ namespace PMS.Areas.PMS
                                  new SelectListItem
                                  {
                                      Value = a.Id.ToString(),
-                                     Text = a.Description
+                                     Text = culture == "en" ? a.EnglishName : a.ArabicName
                                  }).ToList();
             ProStatus = this.Context.tbl_Status.Select(a =>
                                 new SelectListItem
                                 {
                                     Value = a.Id.ToString(),
-                                    Text = a.Description
+                                    Text = culture == "en" ? a.EnglishName : a.ArabicName
                                 }).ToList();
-           
+            ProStatus.Find(c => c.Value == "2").Selected = true;
             if (propertyId != null)
             {
 
@@ -200,6 +202,7 @@ namespace PMS.Areas.PMS
         public JsonResult OnGetLoadData()
         {
             object data = "";
+            var culture = CultureInfo.CurrentCulture.Name;
             try
             {
                 var query = (from pro in Context.tbl_Property
@@ -213,8 +216,8 @@ namespace PMS.Areas.PMS
                                  propertyId = pro.Id,
                                  building = ar.EnglishName + " - " + bu.buildingno,
                                  floor = pro.floor,
-                                 type = ty.Description,
-                                 status = st.Description,
+                                 type = culture == "en" ? ty.EnglishName : ty.ArabicName,
+                                 status = culture == "en" ? st.EnglishName : st.ArabicName,
                                  propertyNo = pro.propertyNo,
                                  aaliNo = pro.aaliNo,
                                  legalCost = pro.legalCost,

@@ -64,7 +64,7 @@ namespace PMS.Areas.PMS
 
         public async Task<IActionResult> OnGetAsync()
         {
-
+            var culture = CultureInfo.CurrentCulture.Name;
             try
             {
                 if (rentalId != null)
@@ -84,10 +84,10 @@ namespace PMS.Areas.PMS
                                   select new
                                   {
                                       rentalId = ren.Id,
-                                      Govern = gov.Description,
-                                      area = ar.EnglishName,
+                                      Govern = culture == "en" ? gov.EnglishName : gov.ArabicName,
+                                      area = culture == "en" ? ar.EnglishName : ar.ArabicName,
                                       floor = pro.floor,
-                                      type = ty.Description,
+                                      type = culture == "en" ? ty.EnglishName : ty.ArabicName,
                                       propertyNo = pro.propertyNo,
                                       rent = ren.propertyRent,
                                       startDate = ren.startDate.ToString("dd/MM/yyyy"),
@@ -96,7 +96,7 @@ namespace PMS.Areas.PMS
                                       rentDesc = ren.Description,
                                       rentAttach = ren.attachments,
                                       custAttach = cust.attachments,
-                                      nationality = con.Description,
+                                      nationality = culture == "en" ? con.EnglishName : con.ArabicName,
                                       fullName = cust.fullName,
                                       email = cust.email,
                                       mobile = cust.mobileNo,

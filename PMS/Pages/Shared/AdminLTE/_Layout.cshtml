@@ -28,6 +28,7 @@
     </style>
     <partial name="AdminLTE/_Styles" />
     <link rel="stylesheet" href="@($"/css/{dirCss}.css")" />
+  
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 
@@ -62,6 +63,7 @@
                 </div>  <!-- End of Content Wrapper -->
             </div>
             <partial name="AdminLTE/_Scripts" />
+            <script src="@($"/js/{dirCss}.js")"></script>
             @RenderSection("Scripts", required: false)
 </body>
 </html>

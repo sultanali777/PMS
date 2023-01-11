@@ -20,6 +20,7 @@ using System.Text;
 using System.Xml;
 using NToastNotify;
 using System.Numerics;
+using System.Globalization;
 
 namespace PMS.Areas.PMS
 {
@@ -66,18 +67,18 @@ namespace PMS.Areas.PMS
         }
         public void OnGet()
         {
-
+            var culture = CultureInfo.CurrentCulture.Name;
             Governorate = this.Context.tbl_Governorates.Select(a =>
                                  new SelectListItem
                                  {
                                      Value = a.Id.ToString(),
-                                     Text = a.Description
+                                     Text = culture == "en" ? a.EnglishName : a.ArabicName
                                  }).ToList();
             VendorType = this.Context.tbl_VendorType.Select(a =>
                                   new SelectListItem
                                   {
                                       Value = a.Id.ToString(),
-                                      Text = a.Description
+                                      Text = culture == "en" ? a.EnglishName : a.ArabicName
                                   }).ToList();
             if (vendorId != null)
             {
@@ -119,6 +120,7 @@ namespace PMS.Areas.PMS
         }
         public IActionResult OnGetAddressAreas(int governorateId)
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             if (governorateId != 0)
             {
                 IEnumerable<SelectListItem> addressAreas = Context.tbl_Areas.AsNoTracking()
@@ -128,7 +130,7 @@ namespace PMS.Areas.PMS
                         new SelectListItem
                         {
                             Value = n.Id.ToString(),
-                            Text = n.EnglishName
+                            Text = culture == "en" ? n.EnglishName : n.ArabicName
                         }).ToList();
                 return new JsonResult(addressAreas);
             }
@@ -237,6 +239,7 @@ namespace PMS.Areas.PMS
         public JsonResult OnGetLoadData()
         {
             object data = "";
+            var culture = CultureInfo.CurrentCulture.Name;
             try
             {
                 var query = (from bu in Context.tbl_Vendor
@@ -246,14 +249,14 @@ namespace PMS.Areas.PMS
                              select new
                              {
                                  vendorId = bu.Id,
-                                 governorate = gov.Description,
+                                 governorate = culture == "en" ? gov.EnglishName : gov.ArabicName,
                                  area = ar.EnglishName,
                                  fullName = bu.fullName,
                                  email = bu.email,
                                  mobile = bu.mobileNo,
                                  civilId = bu.CivilIdNo,
                                  companyName = bu.companyName,
-                                 type=typ.Description,
+                                 type= culture == "en" ? typ.EnglishName : typ.ArabicName,
                                  address = bu.address,
                              });
                 

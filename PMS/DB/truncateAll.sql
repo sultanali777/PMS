@@ -1,0 +1,7 @@
+truncate table [Identity].[tbl_Building]
+truncate table [Identity].[tbl_Customer]
+truncate table [Identity].[tbl_ExpenseDetails]
+truncate table [Identity].[tbl_Property]
+truncate table [Identity].[tbl_RentalsDetails]
+truncate table [Identity].[tbl_rentCollection]
+truncate table [Identity].[tbl_Vendor]

@@ -30,19 +30,19 @@
                         @UserManager.GetUserAsync(User).Result.FirstName @UserManager.GetUserAsync(User).Result.LastName @{
                             if (User.IsInRole("SuperAdmin"))
                             {
-                                <span class="badge badge-danger">SA</span>
+                                <span class="badge badge-danger" localize-content>SA</span>
                             }
                             else if (User.IsInRole("Basic"))
                             {
-                                <span class="badge badge-success">BASIC</span>
+                                <span class="badge badge-success" localize-content>BASIC</span>
                             }
                             else if (User.IsInRole("Admin"))
                             {
-                                <span class="badge badge-info">Admin</span>
+                                <span class="badge badge-info" localize-content>ADMIN</span>
                             }
                             else if (User.IsInRole("Manager"))
                             {
-                                <span class="badge badge-primary">MANAGER</span>
+                                <span class="badge badge-primary" localize-content>MANAGER</span>
                             }
                         }
                     </a>

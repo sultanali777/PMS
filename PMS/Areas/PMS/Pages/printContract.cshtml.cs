@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -51,7 +52,7 @@ namespace PMS.Areas.PMS.Pages
         }
         public async Task<IActionResult> OnGetAsync()
         {
-
+            var culture = CultureInfo.CurrentCulture.Name;
             try
             {
                 if (rentalId != null)
@@ -71,12 +72,12 @@ namespace PMS.Areas.PMS.Pages
                                   select new
                                   {
                                       rentalId = ren.Id,
-                                      Govern = gov.Description,
-                                      area = ar.EnglishName,
+                                      Govern = culture == "en" ? gov.EnglishName : gov.ArabicName,
+                                      area = culture == "en" ? ar.EnglishName : ar.ArabicName,
                                       buildName=bul.buildingName,
                                       ownName=bul.ownerName,
                                       floor = pro.floor,
-                                      type = ty.Description,
+                                      type = culture == "en" ? ty.EnglishName : ty.ArabicName,
                                       propertyNo = pro.propertyNo,
                                       rent = ren.propertyRent,
                                       startDate = ren.startDate.ToString("dd/MM/yyyy"),
@@ -84,7 +85,7 @@ namespace PMS.Areas.PMS.Pages
                                       customerName = cust.fullName,
                                       rentDesc = ren.Description,
                                       dated = ren.date_Created.ToString("dd/MM/yyyy"),
-                                      nationality = con.Description,
+                                      nationality = culture == "en" ? con.EnglishName : con.ArabicName,
                                       fullName = cust.fullName,
                                       email = cust.email,
                                       mobile = cust.mobileNo,

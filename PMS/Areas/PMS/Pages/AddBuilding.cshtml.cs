@@ -19,6 +19,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Xml;
 using NToastNotify;
+using System.Globalization;
 
 namespace PMS.Areas.PMS
 {
@@ -28,7 +29,7 @@ namespace PMS.Areas.PMS
         private readonly IToastNotification _toastNotification;
         private readonly UserManager<ApplicationUser> _userManager;
         private ApplicationDbContext Context { get; }
-
+       
         private IWebHostEnvironment _hostingEnvironment;
         public AddBuildingModel(ILogger<AddBuildingModel> logger, 
             UserManager<ApplicationUser> userManager, ApplicationDbContext _context,
@@ -41,11 +42,13 @@ namespace PMS.Areas.PMS
             _hostingEnvironment = hostingEnvironment;
             _toastNotification = toastNotification;
             this.Common = new commonModel();
+           
         }
         [BindProperty]
         public commonModel Common { get; set; }
         [BindProperty(SupportsGet = true)]
         public int? buildingId { get; set; }
+       
         public class commonModel
         {
             public int Id { get; set; }
@@ -61,12 +64,14 @@ namespace PMS.Areas.PMS
         public List<SelectListItem> Governorate { get; set; }
         public void OnGet()
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             Governorate = this.Context.tbl_Governorates.Select(a =>
                                   new SelectListItem
                                   {
                                       Value = a.Id.ToString(),
-                                      Text = a.Description
+                                      Text = culture == "en" ? a.EnglishName : a.ArabicName
                                   }).ToList();
+
             if (buildingId != null)
             {
 
@@ -102,6 +107,7 @@ namespace PMS.Areas.PMS
         }
         public IActionResult OnGetAddressAreas(int governorateId)
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             if (governorateId != 0)
             {
                 IEnumerable<SelectListItem> addressAreas = Context.tbl_Areas.AsNoTracking()
@@ -111,7 +117,7 @@ namespace PMS.Areas.PMS
                         new SelectListItem
                         {
                             Value = n.Id.ToString(),
-                            Text = n.EnglishName
+                            Text = culture == "en" ? n.EnglishName : n.ArabicName
                         }).ToList();
                 return new JsonResult(addressAreas);
             }
@@ -194,6 +200,7 @@ namespace PMS.Areas.PMS
         public JsonResult OnGetLoadData()
         {
             object data = "";
+            var culture = CultureInfo.CurrentCulture.Name;
             try
             {
                 var query = (from bu in Context.tbl_Building
@@ -202,8 +209,8 @@ namespace PMS.Areas.PMS
                              select new
                              {
                                  buildingId = bu.Id,
-                                 governorate = gov.Description,
-                                 area = ar.EnglishName,
+                                 governorate = culture == "en" ? gov.EnglishName : gov.ArabicName,
+                                 area = culture == "en" ? ar.EnglishName : ar.ArabicName,
                                  buildingno = bu.buildingno,
                                  address = bu.address,
                                  buildingName = bu.buildingName,
