@@ -123,9 +123,16 @@
                                                 <div class="card-body pt-0">
                                                     <div class="col-12">
                                                         <div class="row" style="margin-top:20px">
-                                                            <div class="col-md-3">
-                                                                <p><a href="/Uploaded_Documents/@Model.Common.rentAttach"><i class="fas fa-file-word fa-3x"></i></a></p>
-                                                            </div>
+                                                            @foreach (var img in Model.Common.rentAttachments)
+                                                            {
+
+                                                                <div class="col-md-3">
+                                                                    <a href="/Uploaded_Documents/@img" data-toggle="lightbox" data-gallery="gallery">
+                                                                        <img src="/Uploaded_Documents/@img" class="img-fluid mb-2" />
+                                                                    </a>
+                                                                </div>
+
+                                                            }
                                                             @foreach (var img in Model.Common.custAttachments)
                                                             {
 

@@ -58,6 +58,7 @@ namespace PMS.Areas.PMS
             public string custAddress { get; set; }
             public string bulAddress { get; set; }
             public string[] custAttachments { get; set; }
+            public string[] rentAttachments { get; set; }
 
         }
 
@@ -90,8 +91,8 @@ namespace PMS.Areas.PMS
                                       type = culture == "en" ? ty.EnglishName : ty.ArabicName,
                                       propertyNo = pro.propertyNo,
                                       rent = ren.propertyRent,
-                                      startDate = ren.startDate.ToString("dd/MM/yyyy"),
-                                      endDate = ren.endDate.ToString("dd/MM/yyyy"),
+                                      startDate = ren.startDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                                      endDate = ren.endDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                       customerName = cust.fullName,
                                       rentDesc = ren.Description,
                                       rentAttach = ren.attachments,
@@ -133,6 +134,10 @@ namespace PMS.Areas.PMS
                             Common.custAttachments = Common.custAttach.Split(spearator);
                         else
                             Common.custAttachments = null;
+                        if (!(string.IsNullOrEmpty(Common.rentAttach)))
+                            Common.rentAttachments = Common.rentAttach.Split(spearator);
+                        else
+                            Common.rentAttachments = null;
                     }
                 }
             }

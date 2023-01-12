@@ -52,13 +52,13 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label localize-content>Enter Floor</label>
-                                                    <input type="text" value="@Model.Common.floor"  class="form-control" id="floor" name="floor" placeholder="Floor No ..">
+                                                    <input type="text" value="@Model.Common.floor" required class="form-control" id="floor" name="floor" placeholder="Floor No ..">
                                                 </div>
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label localize-content>Property Type</label>
-                                                    <select class="form-control" onchange="loadProperties();"  name="typeId" id="typeId" asp-items="@Model.ProType">
+                                                    <select class="form-control" onchange="loadProperties();" required name="typeId" id="typeId" asp-items="@Model.ProType">
                                                         <option value="">--Select Type--</option>
                                                     </select>
                                                 </div>
@@ -69,7 +69,7 @@
                                             <div class="col-sm-4">
                                                 <div class="form-group">
                                                     <label localize-content>Property No</label>
-                                                    <select class="form-control" name="propertyNo" id="propertyNo">
+                                                    <select class="form-control" required name="propertyNo" id="propertyNo">
                                                         <option value="">--Select Property--</option>
                                                     </select>
                                                 </div>
@@ -219,7 +219,7 @@
         if (@Model.Common.propertyTypeId) {
             $("#typeId ").val(@Model.Common.propertyTypeId);
             $("#buildingId ").val(@Model.Common.buildingId);
-            $("#floor ").val(@Model.Common.floor); loadProperties();
+            loadProperties();
         }
            function loadProperties() {
                var selectedType = $('#typeId :selected').val();
@@ -241,7 +241,7 @@
                         if (BuildingNos != null && !jQuery.isEmptyObject(BuildingNos)) {
                             proSelect.append($('<option/>', {
                                 value: '',
-                                text: "--Select Building No--"
+                                text: "--Select Property No--"
                             }));
                             $.each(BuildingNos, function (index, build) {
                                  if (build.value == @Model.Common.propertyNo) {

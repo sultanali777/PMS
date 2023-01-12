@@ -75,17 +75,17 @@ namespace PMS.Areas.PMS
         }
         public void OnGet()
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             var data = from c in this.Context.tbl_Building
                        join d in this.Context.tbl_Areas
                        on c.areaId equals d.Id
                        select new
                        {
                            Value = c.Id.ToString(),
-                           Text = d.EnglishName + " - " + c.buildingno
+                           Text = culture == "en" ? d.EnglishName : d.ArabicName + " - " + c.buildingno
                        };
             SelectList list = new SelectList(data, "Value", "Text");
             Building = list.ToList();
-            var culture = CultureInfo.CurrentCulture.Name;
             ProType = this.Context.tbl_PropertyType.Select(a =>
                                  new SelectListItem
                                  {
@@ -170,7 +170,8 @@ namespace PMS.Areas.PMS
                     string files = null;
                     int _buildingId = int.Parse(Request.Form["buildingId"]);
                     string floor = Request.Form["floor"];
-                    int _typeId = int.Parse(Request.Form["typeId"]);
+                        int _typeId = int.Parse(Request.Form["typeId"]);
+                   
                     int _propertyNo = int.Parse(Request.Form["propertyNo"]);
                     int _vendorId = int.Parse(Request.Form["vendorId"]);
                     int _expenseAmount = int.Parse(Request.Form["expenseAmount"]);
@@ -264,7 +265,7 @@ namespace PMS.Areas.PMS
                               {
                                   expenseId = exp.Id,
                                   Govern = culture == "en" ? gov.EnglishName : gov.ArabicName,
-                                  area = ar.EnglishName,
+                                  area = culture == "en" ? ar.EnglishName : ar.ArabicName,
                                   floor = pro.floor,
                                   proType = culture == "en" ? ty.EnglishName : ty.ArabicName,
                                   propertyNo = pro.propertyNo,
@@ -329,7 +330,7 @@ namespace PMS.Areas.PMS
                              select new
                              {
                                  expenseId = ren.Id,
-                                 building = ar.EnglishName + " - " + bu.buildingno,
+                                 building = culture == "en" ? ar.EnglishName : ar.ArabicName + " - " + bu.buildingno,
                                  floor = pro.floor,
                                  type = culture == "en" ? vty.EnglishName : vty.ArabicName,
                                  status = culture == "en" ? st.EnglishName : st.ArabicName,

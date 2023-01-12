@@ -117,8 +117,8 @@ namespace PMS.Areas.PMS
                                   propertyNo = cust.propertyNo,
                                   customerId = cust.customerId,
                                   propertyRent = cust.propertyRent,
-                                  startDate = cust.startDate.ToString("MM/dd/yyyy"),
-                                  endDate = cust.endDate.ToString("MM/dd/yyyy"),
+                                  startDate = cust.startDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture),
+                                  endDate = cust.endDate.ToString("MM/dd/yyyy", CultureInfo.InvariantCulture),
                                   Description = cust.Description,
                                   advanceAmount = cust.advanceAmount,
                               }).ToList();
@@ -175,6 +175,7 @@ namespace PMS.Areas.PMS
         }
         public IActionResult OnPost(IFormFile[] docContract)
         {
+            var culture = CultureInfo.CurrentCulture.Name;
             using (var dbContextTransaction = Context.Database.BeginTransaction())
             {
                 try
@@ -200,8 +201,14 @@ namespace PMS.Areas.PMS
                         string[] spearator = { " - " };
                         Int32 count = 2;
                         string[] dats = _dateRange.Split(spearator, count, StringSplitOptions.RemoveEmptyEntries);
-                         startDate = DateTime.ParseExact(dats[0], "MM/dd/yyyy", null);
-                         endDate = DateTime.ParseExact(dats[1], "MM/dd/yyyy", null);
+                        //if (culture == "en") {
+                            startDate = DateTime.ParseExact(dats[0], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                            endDate = DateTime.ParseExact(dats[1], "MM/dd/yyyy", CultureInfo.InvariantCulture);
+                        //} else {
+                        //    startDate = DateTime.ParseExact(dats[0], "dd/MM/yyyy", null);
+                        //    endDate = DateTime.ParseExact(dats[1], "dd/MM/yyyy", null);
+                        //} 
+                         
                     }
 
                         
@@ -314,7 +321,7 @@ namespace PMS.Areas.PMS
                              select new
                              {
                                  rentalId = ren.Id,
-                                 building = ar.EnglishName + " - " + bu.buildingno,
+                                 building = culture == "en" ? ar.EnglishName : ar.ArabicName + " - " + bu.buildingno,
                                  floor = pro.floor,
                                  type = culture == "en" ? ty.EnglishName : ty.ArabicName,
                                  status = culture == "en" ? st.EnglishName : st.ArabicName,

@@ -50,32 +50,34 @@
 
     <div style="margin-right: 200px !important;margin-top: 376px;" localize-content>@Model.Common.buildName</div>
     <div style="margin-right: 257px !important;margin-top: 403px;">@Model.Common.ownName</div>
-    <div style="margin-right: 193px !important;margin-top: 453px;">@Model.Common.customerName</div>
+    <div style="margin-right: 193px !important;margin-top: 453px;">@Model.Common.custCompName</div>
     <div style="margin-right: 444px !important;margin-top: 476px;">@Model.Common.customerName</div>
-    <div style="margin-right: 247px !important;margin-top: 500px;">@Model.Common.Govern, @Model.Common.area, @Model.Common.bulAddress</div>
-    <div style="margin-right: 671px !important;margin-top: 500px;">@Model.Common.floor, @Model.Common.type,  @Model.Common.propertyNo </div>
+    <div style="margin-right: 617px !important;margin-top: 476px;">@Model.Common.nationality</div>
+    <div style="margin-right: 242px !important;margin-top: 500px;">@Model.Common.Govern, @Model.Common.area, @Model.Common.bulAddress</div>
+    <div style="margin-right: 671px !important;margin-top: 500px;">@Model.Common.propertyNo, @Model.Common.floor, @Model.Common.type </div>
 
-    <div style="margin-right: 247px !important;margin-top: 550px;">@Model.Common.customerName</div>
-    <div style="margin-right: 617px !important;margin-top: 550px;">@Model.Common.nationality</div>
-    <div style="margin-right: 291px !important;margin-top: 574px;">@Model.Common.civilId</div>
-    <div style="margin-right: 243px !important;margin-top: 599px;">@Model.Common.custAddress</div>
-    <div style="margin-right: 733px !important;margin-top: 599px;">@Model.Common.customerName</div>
-    <div style="margin-right: 220px !important;margin-top: 624px;">@Model.Common.mobile</div>
+    <div style="margin-right: 247px !important;margin-top: 550px;">@Model.Common.guranfullName</div>
+    <div style="margin-right: 291px !important;margin-top: 574px;" id="guranCivilIdNo">@Model.Common.guranCivilIdNo</div>
+    <div style="margin-right: 243px !important;margin-top: 599px;" id="guranAddress">@Model.Common.guranAddress</div>
+    <div style="margin-right: 733px !important;margin-top: 599px;" id="guranAaliNo">@Model.Common.guranAaliNo</div>
+    <div style="margin-right: 220px !important;margin-top: 624px;" id="guranMobileNo">@Model.Common.guranMobileNo</div>
 
     <div style="margin-right: 264px !important;margin-top: 774px;">@Model.Common.buildName</div>
     <div style="margin-right: 176px !important;margin-top: 800px;">@Model.Common.Govern, @Model.Common.area, @Model.Common.bulAddress</div>
     <div style="margin-right: 169px !important;margin-top: 824px;">@Model.Common.floor</div>
-    <div style="margin-right: 337px !important;margin-top: 824px;">(@Model.Common.propertyNo)</div>
-    <div style="margin-right: 603px !important;margin-top: 824px;">@Model.Common.propertyNo</div>
-    <div style="margin-right: 309px !important;margin-top: 848px;">(@Model.Common.rentDesc)</div>
+    <div style="margin-right: 337px !important;margin-top: 824px;" id="propertyNo">(@Model.Common.propertyNo)</div>
+    <div style="margin-right: 603px !important;margin-top: 824px;" id="propertyAaliNo">@Model.Common.propertyAaliNo</div>
+    <div style="margin-right: 309px !important;margin-top: 848px;">(@Model.Common.custBusiness)</div>
 
-    <div style="margin-right: 355px !important;margin-top: 925px;" id="startDate"></div>
-    <div style="margin-right: 588px !important;margin-top: 925px;" id="endDate"></div>
+    <div style="margin-right: 355px !important;margin-top: 925px;" id="startDate">@Model.Common.startDate</div>
+    <div style="margin-right: 588px !important;margin-top: 925px;" id="endDate">@Model.Common.endDate</div>
 
-    <div style="margin-right: 351px !important;margin-top: 1003px;"  id="wordsYD"></div>
+    <div style="margin-right: 351px !important;margin-top: 1003px;" id="wordsYD"></div>
     <div style="margin-right: 480px !important;margin-top: 1003px;" id="wordsY"></div>
     <div style="margin-right: 472px !important;margin-top: 1028px;" id="wordsMD"></div>
-    <div style="margin-right: 583px !important;margin-top: 1028px;"  id="wordsM"></div>
+    <div style="margin-right: 583px !important;margin-top: 1028px;" id="wordsM"></div>
+
+    <div style="margin-right: 583px !important;margin-top: 3634px;" id="contractDate">@Model.Common.contractDate</div>
 
     <img class="page" src="~/img/Contract/4_5852548936924924942-1.jpg" />
     <img class="page" src="~/img/Contract/4_5852548936924924942-2.jpg" />
@@ -110,6 +112,16 @@
 
                  document.getElementById("startDate").innerHTML = '@Model.Common.startDate'.EntoAr();
                 document.getElementById("endDate").innerHTML= '@Model.Common.endDate'.EntoAr();
+
+                document.getElementById("contractDate").innerHTML = '@Model.Common.contractDate'.EntoAr();
+
+                document.getElementById("guranCivilIdNo").innerHTML = '@Model.Common.guranCivilIdNo'.EntoAr();
+                document.getElementById("guranAaliNo").innerHTML = '@Model.Common.guranAaliNo'.EntoAr();
+                //document.getElementById("guranAddress").innerHTML = '@Model.Common.guranAddress'.EntoAr();
+                document.getElementById("guranMobileNo").innerHTML = '@Model.Common.guranMobileNo'.EntoAr();
+
+                document.getElementById("propertyNo").innerHTML = '@Model.Common.propertyNo'.EntoAr();
+                 document.getElementById("propertyAaliNo").innerHTML= '@Model.Common.propertyAaliNo'.EntoAr();
 
               // alert('@Model.Common.startDate'.EntoAr());
 

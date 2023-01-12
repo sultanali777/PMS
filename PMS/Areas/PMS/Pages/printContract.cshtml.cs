@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -32,6 +32,7 @@ namespace PMS.Areas.PMS.Pages
             public string floor { get; set; }
             public string type { get; set; }
             public string propertyNo { get; set; }
+            public string propertyAaliNo { get; set; }
             public string buildName { get; set; }
             public string ownName { get; set; }
             public int rent { get; set; }
@@ -46,9 +47,17 @@ namespace PMS.Areas.PMS.Pages
             public long civilId { get; set; }
             public string companyName { get; set; }
             public string custAddress { get; set; }
+            public string custAaliNo { get; set; }
             public string bulAddress { get; set; }
             public string dated { get; set; }
-
+            public string guranfullName { get; set; }
+            public string guranMobileNo { get; set; }
+            public long guranCivilIdNo { get; set; }
+            public string guranAddress { get; set; }
+            public string guranAaliNo { get; set; }
+            public string custCompName { get; set; }
+            public string custBusiness { get; set; }
+            public string contractDate { get; set; }
         }
         public async Task<IActionResult> OnGetAsync()
         {
@@ -80,11 +89,12 @@ namespace PMS.Areas.PMS.Pages
                                       type = culture == "en" ? ty.EnglishName : ty.ArabicName,
                                       propertyNo = pro.propertyNo,
                                       rent = ren.propertyRent,
-                                      startDate = ren.startDate.ToString("dd/MM/yyyy"),
-                                      endDate = ren.endDate.ToString("dd/MM/yyyy"),
+                                      startDate = ren.startDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                                      endDate = ren.endDate.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
+                                      contractDate= ren.date_Created.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                       customerName = cust.fullName,
                                       rentDesc = ren.Description,
-                                      dated = ren.date_Created.ToString("dd/MM/yyyy"),
+                                      dated = ren.date_Created.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture),
                                       nationality = culture == "en" ? con.EnglishName : con.ArabicName,
                                       fullName = cust.fullName,
                                       email = cust.email,
@@ -93,6 +103,15 @@ namespace PMS.Areas.PMS.Pages
                                       companyName = cust.companyName.ToUpper(),
                                       custAddress = cust.address,
                                       bulAddress = bul.address,
+                                      propertyAaliNo=pro.aaliNo,
+                                      custAaliNo=cust.aaliNo,
+                                      custCompName=cust.companyName,
+                                      guranfullName =cust.guranfullName,
+                                      guranMobileNo=cust.guranMobileNo,
+                                      guranCivilIdNo=cust.guranCivilIdNo,
+                                      guranAddress=cust.guranAddress,
+                                      guranAaliNo=cust.guranAaliNo,
+                                      custBusiness=cust.business,
                                   }).ToList();
 
                     if (common != null)
@@ -100,10 +119,10 @@ namespace PMS.Areas.PMS.Pages
                         Common.rentalId = common[0].rentalId;
                         Common.Govern = common[0].Govern;
                         Common.area = common[0].area;
-                        Common.floor = "FLoor: "+common[0].floor;
-                        Common.type = "Type: " + common[0].type;
+                        Common.floor = culture == "en" ? "FLoor: " + common[0].floor : "أرضية: " + common[0].floor ;  
+                        Common.type = culture == "en" ? "Type: " + common[0].type : "يكتب: " + common[0].type ;
                         Common.ownName = common[0].ownName;
-                        Common.propertyNo = "No: " + common[0].propertyNo;
+                        Common.propertyNo =  common[0].propertyNo;
                         Common.buildName = common[0].buildName;
                         Common.rent = common[0].rent;
                         Common.startDate = common[0].startDate;
@@ -111,7 +130,7 @@ namespace PMS.Areas.PMS.Pages
                         Common.customerName = common[0].customerName;
                         Common.rentDesc = common[0].rentDesc;
                         Common.dated = common[0].dated;
-                        Common.nationality = "Nationality: " + common[0].nationality;
+                        Common.nationality = culture == "en" ? "Nationality: " + common[0].nationality : "جنسية: " + common[0].nationality ; 
                         Common.fullName = common[0].fullName;
                         Common.email = common[0].email;
                         Common.mobile = common[0].mobile;
@@ -119,6 +138,16 @@ namespace PMS.Areas.PMS.Pages
                         Common.companyName = common[0].companyName;
                         Common.custAddress = common[0].custAddress;
                         Common.bulAddress = common[0].bulAddress;
+                        Common.propertyAaliNo = common[0].propertyAaliNo;
+                        Common.custAaliNo = common[0].custAaliNo;
+                        Common.guranfullName = common[0].guranfullName;
+                        Common.guranMobileNo = common[0].guranMobileNo;
+                        Common.guranCivilIdNo = common[0].guranCivilIdNo;
+                        Common.guranAddress = common[0].guranAddress;
+                        Common.guranAaliNo = common[0].guranAaliNo;
+                        Common.custCompName = common[0].custCompName;
+                        Common.custBusiness = common[0].custBusiness;
+                        Common.contractDate = common[0].contractDate;
                     }
                 }
             }
